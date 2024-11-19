@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             PostsTableSeeder::class,
+            LanguagesTableSeeder::class, 
             ImagesTableSeeder::class,
         ]);
     }
