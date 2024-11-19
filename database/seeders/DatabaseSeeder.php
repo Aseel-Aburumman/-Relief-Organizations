@@ -15,6 +15,11 @@ class DatabaseSeeder extends Seeder
             PostsTableSeeder::class,
             LanguagesTableSeeder::class, 
             ImagesTableSeeder::class,
+            UsersTableSeeder::class,
+            OrganizationTableSeeder::class,
+            UserDetailTableSeeder::class,
+
+
         ]);
     }
 }

@@ -32,8 +32,8 @@ class Need extends Model
 
     public function category(){
         return $this->belongsTo(Category::class);
-            }
-            
+    }
+    
     public function organization()
     {
         return $this->belongsTo(Organization::class);
