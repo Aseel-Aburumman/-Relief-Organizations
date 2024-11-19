@@ -28,12 +28,12 @@ class Need extends Model
 
     ];
 
-    protected $dates = ['deleted_at']; 
+    protected $dates = ['deleted_at'];
 
     public function category(){
         return $this->belongsTo(Category::class);
             }
-            
+
     public function organization()
     {
         return $this->belongsTo(Organization::class);
@@ -45,6 +45,66 @@ class Need extends Model
     public function image()
     {
         return $this->hasMany(Image::class);
+    }
+
+
+      // CRUD Methods
+
+
+    public static function createNeed(array $data)
+    {
+        return self::create($data);
+    }
+
+
+    public static function getAllNeeds()
+    {
+        return self::all();
+    }
+
+
+    public static function getNeedById($id)
+    {
+        return self::find($id);
+    }
+
+
+    public static function updateNeed($id, array $data)
+    {
+        $need = self::find($id);
+        if ($need) {
+            $need->update($data);
+            return $need;
+        }
+        return null;
+    }
+
+
+    public static function deleteNeed($id)
+    {
+        $need = self::find($id);
+        if ($need) {
+            $need->delete();
+            return true;
+        }
+        return false;
+    }
+
+
+    public static function restoreNeed($id)
+    {
+        return self::withTrashed()->where('id', $id)->restore();
+    }
+
+
+    public static function forceDeleteNeed($id)
+    {
+        $need = self::withTrashed()->find($id);
+        if ($need) {
+            $need->forceDelete();
+            return true;
+        }
+        return false;
     }
 
 }
