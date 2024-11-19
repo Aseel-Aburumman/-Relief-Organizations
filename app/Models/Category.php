@@ -16,9 +16,6 @@ class Category extends Model
     protected $fillable = [
         'name',
         'language_id',
-
-        
-
     ];
     protected $dates = ['deleted_at'];
 
