@@ -38,4 +38,29 @@ class UserDetail extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+
+    public static function getAllUserDetails()
+    {
+        return self::all();
+    }
+
+    public static function createUserDetail(array $data)
+    {
+        return self::create($data);
+    }
+
+    public function updateUserDetail(array $data)
+    {
+        return $this->update($data);
+    }
+
+    public function deleteUserDetail()
+    {
+        return $this->delete();
+    }
+
+    public static function findUserDetailById(int $id)
+    {
+        return self::find($id);
+    }
 }

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Traits\HasRoles;
+
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -50,4 +53,51 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public static function getUsersByRole(string $role)
+    {
+        return self::role($role)->get();
+    }
+
+    public static function createUser(array $data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        return self::create($data);
+    }
+
+    public function updateUserDetails(array $data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $this->update($data);
+        return $this;
+    }
+
+
+
+    public static function deleteUserById(int $id)
+    {
+        $user = self::find($id);
+        return $user ? $user->delete() : false;
+    }
+    public static function registerUser($data)
+    {
+        $data['password'] = bcrypt($data['password']);
+        return self::create($data);
+    }
+    public static function loginUser($data)
+    {
+        $user = self::where('email', $data['email'])->first();
+
+        if ($user && Hash::check($data['password'], $user->password)) {
+            return $user;
+        }
+
+        return null;
+    }
 }
