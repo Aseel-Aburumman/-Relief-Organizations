@@ -40,7 +40,11 @@ class Need extends Model
     }
     public function language()
     {
-        return $this->hasMany(Language::class);
+        return $this->belongsTo(Language::class);
+    }
+    public function image()
+    {
+        return $this->hasMany(Image::class);
     }
 
 }

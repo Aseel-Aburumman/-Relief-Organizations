@@ -23,8 +23,12 @@ class Organization extends Model
     {
         return $this->hasMany(Need::class);
     }
-    public function language()
+    public function userDetail()
     {
-        return $this->hasMany(Language::class);
+        return $this->hasMany(UserDetail::class);
+    }
+    public function image()
+    {
+        return $this->hasMany(Image::class);
     }
 }

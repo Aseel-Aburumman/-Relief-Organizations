@@ -18,8 +18,21 @@ class Language extends Model
     ];
 
     protected $dates = ['deleted_at'];
-    public function language()
+    public function need()
     {
-        return $this->hasMany(Language::class);
+        return $this->hasMany(Need::class);
     }
+
+    public function userDetail()
+    {
+        return $this->hasMany(UserDetail::class);
+    }
+
+    public function category()
+    {
+        return $this->hasMany(Category::class);
+    }
+
+
+    
 }

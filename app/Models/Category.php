@@ -29,6 +29,6 @@ class Category extends Model
     }
     public function language()
     {
-        return $this->hasMany(Language::class);
+        return $this->belongsTo(Language::class);
     }
 }

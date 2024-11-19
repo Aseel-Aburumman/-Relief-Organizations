@@ -28,9 +28,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Donation::class);
     }
-    public function language()
+    public function userDetail()
     {
-        return $this->hasMany(Language::class);
+        return $this->hasMany(UserDetail::class);
     }
     /**
      * The attributes that should be hidden for serialization.

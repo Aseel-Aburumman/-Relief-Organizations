@@ -11,6 +11,7 @@ class UserDetail extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'user_detailes';
 
 
     protected $fillable = [
@@ -26,15 +27,15 @@ class UserDetail extends Model
 
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function language()
     {
-        return $this->hasMany(Language::class);
+        return $this->belongsTo(Language::class);
     }
     public function organization()
     {
-        return $this->hasMany(Organization::class);
+        return $this->belongsTo(Organization::class);
     }
 }
