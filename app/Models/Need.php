@@ -16,10 +16,18 @@ class Need extends Model
         'organization_id',
         'category_id',
         'item_name',
+        'item_name_ar',
+
         'quantity_needed',
         'description',
+        'description_ar',
+
         'urgency',
+        'urgency_ar',
+
         'status',
+        'status_ar',
+
 
 
     ];
