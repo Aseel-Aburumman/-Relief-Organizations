@@ -31,4 +31,36 @@ class Organization extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+
+    public static function createOrganization(array $data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+        return self::create($data);
+    }
+
+    public function updateOrganization(array $data)
+    {
+        if (isset($data['password'])) {
+            $data['password'] = bcrypt($data['password']);
+        }
+
+        $this->update($data);
+        return $this;
+    }
+
+
+
+    public static function deleteOrganizationById(int $id)
+    {
+        $user = self::find($id);
+        return $user ? $user->delete() : false;
+    }
+    public static function registerUser($data)
+    {
+        $data['password'] = bcrypt($data['password']);
+        return self::create($data);
+    }
 }
