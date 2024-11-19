@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Language;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -16,17 +17,12 @@ class Need extends Model
         'organization_id',
         'category_id',
         'item_name',
-        'item_name_ar',
-
+        'language_id',
         'quantity_needed',
+        'donated_quantity',
         'description',
-        'description_ar',
-
         'urgency',
-        'urgency_ar',
-
         'status',
-        'status_ar',
 
 
 
@@ -37,9 +33,14 @@ class Need extends Model
     public function category(){
         return $this->belongsTo(Category::class);
             }
+            
     public function organization()
     {
         return $this->belongsTo(Organization::class);
+    }
+    public function language()
+    {
+        return $this->hasMany(Language::class);
     }
 
 }

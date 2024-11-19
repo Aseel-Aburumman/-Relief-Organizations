@@ -6,25 +6,35 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Organization extends Model
+class UserDetail extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
 
-    protected $fillable = [
-        'email',
-        'password',
-    ];
 
+    protected $fillable = [
+        'name',
+        'organization_id',
+        'description',
+        'language_id',
+        'contact_info',
+
+        'user_id',
+    ];
     protected $dates = ['deleted_at'];
 
-    public function need()
+    public function user()
     {
-        return $this->hasMany(Need::class);
+        return $this->hasMany(User::class);
     }
+
     public function language()
     {
         return $this->hasMany(Language::class);
+    }
+    public function organization()
+    {
+        return $this->hasMany(Organization::class);
     }
 }

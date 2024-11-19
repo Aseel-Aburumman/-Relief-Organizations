@@ -15,7 +15,7 @@ class Category extends Model
 
     protected $fillable = [
         'name',
-        'name_ar',
+        'language_id',
 
         
 
@@ -27,5 +27,8 @@ class Category extends Model
     {
         return $this->hasMany(Need::class);
     }
-
+    public function language()
+    {
+        return $this->hasMany(Language::class);
+    }
 }

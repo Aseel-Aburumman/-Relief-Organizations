@@ -19,9 +19,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'name_ar',
-
         'email',
         'password',
     ];
@@ -31,7 +28,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(Donation::class);
     }
-
+    public function language()
+    {
+        return $this->hasMany(Language::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
