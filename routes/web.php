@@ -47,3 +47,11 @@ Route::get('/single-blog', function () {return view('single-blog');})->name('sin
 Route::get('/', function () {return view('index');})->name('index');
 
 
+
+//donation
+use App\Http\Controllers\Donation\DonationController;
+
+Route::get('/donations/{id}', [DonationController::class, 'show'])->name('donation.show');
+
+Route::post('/donate', [DonationController::class, 'store'])->name('donate.store');
+

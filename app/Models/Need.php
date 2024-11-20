@@ -65,11 +65,11 @@ class Need extends Model
         return self::all();
     }
 
-
     public static function getNeedById($id)
     {
-        return self::find($id);
+        return self::findOrFail($id); 
     }
+
 
 
     public static function updateNeed($id, array $data)
