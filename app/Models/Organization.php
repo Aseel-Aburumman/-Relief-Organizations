@@ -78,10 +78,5 @@ class Organization extends Model
     }
 
 
-    public function addOrganizationDetails(array $details): void
-    {
-        foreach ($details as $detail) {
-            $this->details()->create($detail);
-        }
-    }
+
 }

@@ -13,19 +13,19 @@ class ImagesTableSeeder extends Seeder
         Image::create([
             'post_id' => 1,
             'need_id' => 1,
-            'image' => 'images/post1_image1.jpg',
+            'image' => 'post_1.png',
         ]);
 
         Image::create([
             'post_id' => 1,
             'need_id' => 1,
-            'image' => 'images/post1_image2.jpg',
+            'image' => 'post_1.png',
         ]);
 
         Image::create([
             'post_id' => 2,
             'need_id' => null,
-            'image' => 'images/post2_image1.jpg',
+            'image' => 'post_2.png',
         ]);
     }
 }

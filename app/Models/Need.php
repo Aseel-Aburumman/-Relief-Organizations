@@ -46,9 +46,9 @@ class Need extends Model
         return $this->belongsTo(Language::class);
     }
     public function image()
-    {
-        return $this->hasMany(Image::class);
-    }
+{
+    return $this->hasMany(Image::class, 'need_id', 'id');
+}
 
 
     // CRUD Methods
@@ -59,10 +59,27 @@ class Need extends Model
         return self::create($data);
     }
 
-
-    public static function getAllNeeds()
+    public static function getAllNeeds($filters = [])
     {
-        return self::all();
+        $query = self::with('image'); // Eager-load the images relationship
+
+        if (!empty($filters['category_id'])) {
+            $query->where('category_id', $filters['category_id']);
+        }
+
+        if (!empty($filters['urgency'])) {
+            $query->where('urgency', $filters['urgency']);
+        }
+
+        if (!empty($filters['status'])) {
+            $query->where('status', $filters['status']);
+        }
+
+        if (!empty($filters['organization_id'])) {
+            $query->where('organization_id', $filters['organization_id']);
+        }
+
+        return $query->paginate(10); // Use pagination
     }
 
     public static function getNeedById($id)

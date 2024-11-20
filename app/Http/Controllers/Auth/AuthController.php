@@ -22,13 +22,13 @@ class AuthController extends Controller
 
     public function showRegisterFormUser()
     {
-        return view('register');
+        return view('Auth.signup');
     }
 
     public function register(RegisterRequest $request)
     {
 
-        $user = User::create($request->validated());
+        $user = User::createUser($request->validated());
 
 
         $role = Role::where('name', 'doner')->first();
@@ -53,24 +53,23 @@ class AuthController extends Controller
         UserDetail::createMultipleUserDetails($details);
 
         // $user->givePermissionTo('create order');
-        return new UserResource($user);
+        // return new UserResource($user);
 
-        // return redirect()->route('login.view')->with('success', 'User registered successfully');
+        return redirect()->route('register.view')->with('success', 'User registered successfully');
     }
 
-
-    public function showRegisterFormOrgnization()
+    public function showRegisterFormOrganization()
     {
-        return view('register_orgnization');
+        return view('Auth.signup_org');
     }
 
     public function registerOrganization(RegisterOrganizationRequest $request)
     {
-        dd($request->all());
+        // dd($request->all());
         // Step 1: Create the user
-        $userData = $request->only(['name', 'email', 'password', 'role']);
-        $userData['password'] = bcrypt($userData['password']);
-        $user = User::create($userData);
+        $userData = $request->only(['email', 'password']);
+        // $userData['password'] = bcrypt($userData['password']);
+        $user = User::createUser($userData);
 
         // Step 2: Create the organization using the model's static method
         $organizationData = [
@@ -81,6 +80,9 @@ class AuthController extends Controller
         if (!$organization) {
             return response()->json(['error' => 'Failed to create organization'], 500);
         }
+        $role = Role::where('name', 'organization')->first();
+        $user->assignRole($role);
+
         // Step 3: Add organization details using the model's method
         $details = [
             [
@@ -100,21 +102,20 @@ class AuthController extends Controller
 
             ],
         ];
-        $organization->addOrganizationDetails($details);
+        // $organization->addOrganizationDetails($details);
+        UserDetail::createMultipleUserDetails($details);
 
-        // Step 4: Assign role to the user
-        $role = Role::where('name', 'organization')->first();
-        $user->assignRole($role);
 
         // Step 5: Return response
-        return new OrganizationResource($organization);
+        // return new OrganizationResource($organization);
+        return view('Auth.signup_org', ['success' => 'Organization registered successfully']);
     }
 
 
 
     public function showLoginForm()
     {
-        return view('login');
+        return view('Auth.login');
     }
 
 
@@ -145,7 +146,7 @@ class AuthController extends Controller
         }
 
 
-        return redirect()->back()->withErrors(['login_error' => 'Invalid email or password']);
+        return back()->withErrors(['login_error' => 'Invalid email or password']);
     }
 
     public function logout()

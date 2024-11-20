@@ -20,9 +20,9 @@ class UserDetail extends Model
         'description',
         'language_id',
         'location',
-
         'user_id',
     ];
+    
     protected $dates = ['deleted_at'];
 
     public function user()

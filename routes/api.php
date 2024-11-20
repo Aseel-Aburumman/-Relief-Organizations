@@ -19,11 +19,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 // aseeel test
-use App\Http\Controllers\Auth\AuthController;
+// use App\Http\Controllers\Auth\AuthController;
 
-Route::post('/register/user', [AuthController::class, 'register']); // Signup route
-Route::post('/register/orgnization', [AuthController::class, 'registerOrganization']); // Signup route
-Route::post('/login', [AuthController::class, 'loginUser']);       // Login route
+// Route::post('/register/donor', [AuthController::class, 'register'])->name('register.donor'); // Signup route
+// Route::post('/register/orgnization', [AuthController::class, 'registerOrganization'])->name('register.organization'); // Signup route
+// Route::post('/login', [AuthController::class, 'loginUser']);       // Login route
 
 
 
