@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Orgnization\OrgnizationController;
 use App\Http\Controllers\Need\NeedController;
+use App\Http\Controllers\main\MainController;
 
 use Illuminate\Support\Facades\Log;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -112,3 +113,5 @@ Route::group([
 ], function () {
     Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard');
 });
+
+Route::get('/', [MainController::class, 'showOrganizations']);
