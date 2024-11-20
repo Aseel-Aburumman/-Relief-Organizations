@@ -97,6 +97,15 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');      // 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
+
+//donation
+use App\Http\Controllers\Donation\DonationController;
+
+Route::get('/donations/{id}', [DonationController::class, 'show'])->name('donation.show');
+
+Route::post('/donate', [DonationController::class, 'store'])->name('donate.store');
+
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['auth'],
