@@ -140,9 +140,14 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Sign Up</button>
                         </form>
+                        <div class="text-center mt-3">
+                            <p>Already have an account? <a href="{{ route('login.view') }}" style="color: #3CC78F;">Sign
+                                    In</a></p>
+                        </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 

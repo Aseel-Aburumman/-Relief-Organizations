@@ -73,4 +73,5 @@ Route::get('register', [AuthController::class, 'showRegisterFormUser'])->name('r
 Route::post('/register/donor', [AuthController::class, 'register'])->name('register.donor'); // Signup route
 Route::get('register0', [AuthController::class, 'showRegisterFormOrganization'])->name('register.view.Organization');
 Route::post('/register/organization', [AuthController::class, 'registerOrganization'])->name('register.organization');
-Route::post('/login', [AuthController::class, 'loginUser']);       // Login route
+Route::post('/login', [AuthController::class, 'login'])->name('login');      // Login route
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');

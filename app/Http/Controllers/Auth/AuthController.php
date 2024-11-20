@@ -115,7 +115,7 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
-        return view('login');
+        return view('Auth.login');
     }
 
 
@@ -146,7 +146,7 @@ class AuthController extends Controller
         }
 
 
-        return redirect()->back()->withErrors(['login_error' => 'Invalid email or password']);
+        return back()->withErrors(['login_error' => 'Invalid email or password']);
     }
 
     public function logout()
