@@ -1,32 +1,30 @@
 @extends('layouts.admin_master')
 
 @section('content')
-
-
     <div class="pagetitle">
-      <h1>Dashboard</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-          <li class="breadcrumb-item active">Dashboard</li>
-        </ol>
-      </nav>
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('orgnization.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
     </div>
 
     {{--  <!-- End Page Title -->  --}}
 
     <section class="section dashboard">
-      <div class="row">
+        <div class="row">
 
-        <!-- Left side columns -->
-        <div class="col-lg-12">
-          <div class="row">
+            <!-- Left side columns -->
+            <div class="col-lg-12">
+                <div class="row">
 
-            {{--  <!-- Sales Card -->  --}}
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
+                    {{--  <!-- Sales Card -->  --}}
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card sales-card">
 
-                {{--  <div class="filter">
+                            {{--  <div class="filter">
                   <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
                   <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                     <li class="dropdown-header text-start">
@@ -39,280 +37,287 @@
                   </ul>
                 </div>  --}}
 
-                <div class="card-body">
-                    <h5 class="card-title">Sales <span>| Week</span></h5>
+                            <div class="card-body">
+                                <h5 class="card-title">Sales <span>| Week</span></h5>
 
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-cart"></i>
-                        </div>
-                        <div class="ps-3">
-                            <h6>{{ $currentWeekTransactions }}</h6>
-                            @if($percentageChange >= 0)
-                                <span class="text-success small pt-1 fw-bold">{{ $percentageChange }}%</span>
-                                <span class="text-muted small pt-2 ps-1">increase</span>
-                            @else
-                                <span class="text-danger small pt-1 fw-bold">{{ abs($percentageChange) }}%</span>
-                                <span class="text-muted small pt-2 ps-1">decrease</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-
-              </div>
-            </div>
-            {{--  <!-- End Sales Card -->  --}}
-
-            {{--  <!-- Revenue Card -->  --}}
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
-
-
-                <div class="card-body">
-                    <h5 class="card-title">Revenue <span>| This Month</span></h5>
-
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-currency-dollar"></i>
-                        </div>
-                        <div class="ps-3">
-                            <h6>JD{{ number_format($currentMonthRevenue, 2) }}</h6>
-                            @if($percentageChange >= 0)
-                                <span class="text-success small pt-1 fw-bold">{{ $percentageChange }}%</span>
-                                <span class="text-muted small pt-2 ps-1">increase</span>
-                            @else
-                                <span class="text-danger small pt-1 fw-bold">{{ abs($percentageChange) }}%</span>
-                                <span class="text-muted small pt-2 ps-1">decrease</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-
-              </div>
-            </div>
-            {{--  <!-- End Revenue Card -->  --}}
-
-            {{--  <!-- Customers Card -->  --}}
-            <div class="col-xxl-4 col-xl-12">
-
-              <div class="card info-card customers-card">
-
-
-
-                <div class="card-body">
-                    <h5 class="card-title">Customers <span>| This Year</span></h5>
-
-                    <div class="d-flex align-items-center">
-                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                            <i class="bi bi-people"></i>
-                        </div>
-                        <div class="ps-3">
-                            <h6>{{ $currentYearUsers }}</h6>
-                            @if($percentageChange >= 0)
-                                <span class="text-success small pt-1 fw-bold">{{ $percentageChange }}%</span>
-                                <span class="text-muted small pt-2 ps-1">increase</span>
-                            @else
-                                <span class="text-danger small pt-1 fw-bold">{{ abs($percentageChange) }}%</span>
-                                <span class="text-muted small pt-2 ps-1">decrease</span>
-                            @endif
-                        </div>
-                    </div>
-                </div>
-
-              </div>
-
-            </div>
-            {{--  <!-- End Customers Card -->  --}}
-
-            <!-- Reports -->
-            <div class="col-12" >
-              <div class="card">
-
-
-
-                <div class="card-body">
-                    <h5 class="card-title">Reports <span>/Month</span></h5>
-
-                    {{--  <!-- Line Chart -->  --}}
-                    <div id="reportsChart" style="HEIGHT: 615PX;"></div>
-
-
-                    <script>
-                        document.addEventListener("DOMContentLoaded", () => {
-                            new ApexCharts(document.querySelector("#reportsChart"), {
-                                series: [{
-                                    name: 'Gigs',
-                                    data: @json($gigsData),
-                                }, {
-                                    name: 'Sales',
-                                    data: @json($salesData),
-                                }, {
-                                    name: 'New Users',
-                                    data: @json($usersData)
-                                }],
-                                chart: {
-                                    height: 615,
-                                    type: 'area',
-                                    toolbar: {
-                                        show: false
-                                    },
-                                },
-                                markers: {
-                                    size: 4
-                                },
-                                colors: ['#4154f1', '#2eca6a', '#ff771d'],
-                                fill: {
-                                    type: "gradient",
-                                    gradient: {
-                                        shadeIntensity: 1,
-                                        opacityFrom: 0.3,
-                                        opacityTo: 0.4,
-                                        stops: [0, 90, 100]
-                                    }
-                                },
-                                dataLabels: {
-                                    enabled: false
-                                },
-                                stroke: {
-                                    curve: 'smooth',
-                                    width: 2
-                                },
-                                xaxis: {
-                                    type: 'datetime',
-                                    categories: @json($dates)
-                                },
-                                tooltip: {
-                                    x: {
-                                        format: 'dd/MM/yy'
-                                    },
-                                }
-                            }).render();
-                        });
-                    </script>
-                    {{--  <!-- End Line Chart -->  --}}
-                </div>
-
-
-              </div>
-            </div>
-            {{--  <!-- End Reports -->  --}}
-
-            {{--  <!-- Recent Sales -->  --}}
-            <div class="col-6 col-md-12">
-              <div class="card recent-sales overflow-auto">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body">
-                    <h5 class="card-title">Recent Sales <span>| Week</span></h5>
-
-                    <table class="table table-borderless datatable">
-                        <thead>
-                            <tr>
-                                {{--  <th scope="col">#</th>  --}}
-                                <th scope="col">Customer</th>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($recentSales as $sale)
-                                <tr>
-                                    {{--  <th scope="row"><a href="#">#{{ $sale->id }}</a></th>  --}}
-                                    <td>{{ $sale->user->name }}</td>
-                                    <td><a href="#" class="text-primary">{{ $sale->product->name }}</a></td>
-                                    <td>${{ $sale->total_amount }}</td>
-                                    <td>
-                                        @if($sale->status_id == 15)
-                                            <span class="badge bg-warning">Pending</span>
-                                        @elseif($sale->status_id == 16)
-                                            <span class="badge bg-success">Confirmed</span>
-                                        @elseif($sale->status_id == 17)
-                                            <span class="badge bg-success">Delivered</span>
-                                        @elseif($sale->status_id == 18)
-                                            <span class="badge bg-danger">Canceled</span>
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-cart"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ $currentWeekTransactions }}</h6>
+                                        @if ($percentageChange >= 0)
+                                            <span class="text-success small pt-1 fw-bold">{{ $percentageChange }}%</span>
+                                            <span class="text-muted small pt-2 ps-1">increase</span>
+                                        @else
+                                            <span
+                                                class="text-danger small pt-1 fw-bold">{{ abs($percentageChange) }}%</span>
+                                            <span class="text-muted small pt-2 ps-1">decrease</span>
                                         @endif
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {{--  <!-- End Sales Card -->  --}}
+
+                    {{--  <!-- Revenue Card -->  --}}
+                    <div class="col-xxl-4 col-md-6">
+                        <div class="card info-card revenue-card">
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Revenue <span>| This Month</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-currency-dollar"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>JD{{ number_format($currentMonthRevenue, 2) }}</h6>
+                                        @if ($percentageChange >= 0)
+                                            <span class="text-success small pt-1 fw-bold">{{ $percentageChange }}%</span>
+                                            <span class="text-muted small pt-2 ps-1">increase</span>
+                                        @else
+                                            <span
+                                                class="text-danger small pt-1 fw-bold">{{ abs($percentageChange) }}%</span>
+                                            <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {{--  <!-- End Revenue Card -->  --}}
+
+                    {{--  <!-- Customers Card -->  --}}
+                    <div class="col-xxl-4 col-xl-12">
+
+                        <div class="card info-card customers-card">
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Customers <span>| This Year</span></h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-people"></i>
+                                    </div>
+                                    <div class="ps-3">
+                                        <h6>{{ $currentYearUsers }}</h6>
+                                        @if ($percentageChange >= 0)
+                                            <span class="text-success small pt-1 fw-bold">{{ $percentageChange }}%</span>
+                                            <span class="text-muted small pt-2 ps-1">increase</span>
+                                        @else
+                                            <span
+                                                class="text-danger small pt-1 fw-bold">{{ abs($percentageChange) }}%</span>
+                                            <span class="text-muted small pt-2 ps-1">decrease</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    {{--  <!-- End Customers Card -->  --}}
+
+                    <!-- Reports -->
+                    <div class="col-12">
+                        <div class="card">
+
+
+
+                            <div class="card-body">
+                                <h5 class="card-title">Reports <span>/Month</span></h5>
+
+                                {{--  <!-- Line Chart -->  --}}
+                                <div id="reportsChart" style="HEIGHT: 615PX;"></div>
+
+
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", () => {
+                                        new ApexCharts(document.querySelector("#reportsChart"), {
+                                            series: [{
+                                                name: 'Gigs',
+                                                data: @json($gigsData),
+                                            }, {
+                                                name: 'Sales',
+                                                data: @json($salesData),
+                                            }, {
+                                                name: 'New Users',
+                                                data: @json($usersData)
+                                            }],
+                                            chart: {
+                                                height: 615,
+                                                type: 'area',
+                                                toolbar: {
+                                                    show: false
+                                                },
+                                            },
+                                            markers: {
+                                                size: 4
+                                            },
+                                            colors: ['#4154f1', '#2eca6a', '#ff771d'],
+                                            fill: {
+                                                type: "gradient",
+                                                gradient: {
+                                                    shadeIntensity: 1,
+                                                    opacityFrom: 0.3,
+                                                    opacityTo: 0.4,
+                                                    stops: [0, 90, 100]
+                                                }
+                                            },
+                                            dataLabels: {
+                                                enabled: false
+                                            },
+                                            stroke: {
+                                                curve: 'smooth',
+                                                width: 2
+                                            },
+                                            xaxis: {
+                                                type: 'datetime',
+                                                categories: @json($dates)
+                                            },
+                                            tooltip: {
+                                                x: {
+                                                    format: 'dd/MM/yy'
+                                                },
+                                            }
+                                        }).render();
+                                    });
+                                </script>
+                                {{--  <!-- End Line Chart -->  --}}
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {{--  <!-- End Reports -->  --}}
+
+                    {{--  <!-- Recent Sales -->  --}}
+                    <div class="col-6 col-md-12">
+                        <div class="card recent-sales overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body">
+                                <h5 class="card-title">Recent Sales <span>| Week</span></h5>
+
+                                <table class="table table-borderless datatable">
+                                    <thead>
+                                        <tr>
+                                            {{--  <th scope="col">#</th>  --}}
+                                            <th scope="col">Customer</th>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($recentSales as $sale)
+                                            <tr>
+                                                {{--  <th scope="row"><a href="#">#{{ $sale->id }}</a></th>  --}}
+                                                <td>{{ $sale->user->name }}</td>
+                                                <td><a href="#" class="text-primary">{{ $sale->product->name }}</a>
+                                                </td>
+                                                <td>${{ $sale->total_amount }}</td>
+                                                <td>
+                                                    @if ($sale->status_id == 15)
+                                                        <span class="badge bg-warning">Pending</span>
+                                                    @elseif($sale->status_id == 16)
+                                                        <span class="badge bg-success">Confirmed</span>
+                                                    @elseif($sale->status_id == 17)
+                                                        <span class="badge bg-success">Delivered</span>
+                                                    @elseif($sale->status_id == 18)
+                                                        <span class="badge bg-danger">Canceled</span>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {{--  <!-- End Recent Sales -->  --}}
+
+                    {{--  <!-- Top Selling -->  --}}
+                    <div class="col-6 col-md-12">
+                        <div class="card top-selling overflow-auto">
+
+                            <div class="filter">
+                                <a class="icon" href="#" data-bs-toggle="dropdown"><i
+                                        class="bi bi-three-dots"></i></a>
+                                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <li class="dropdown-header text-start">
+                                        <h6>Filter</h6>
+                                    </li>
+
+                                    <li><a class="dropdown-item" href="#">Today</a></li>
+                                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="card-body pb-0">
+                                <h5 class="card-title">Top Selling <span>| This Month</span></h5>
+
+                                <table class="table table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Product</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Sold</th>
+                                            <th scope="col">Revenue</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($topSellingProducts as $sale)
+                                            <tr>
+
+                                                <td>
+                                                    <a href="#"
+                                                        class="text-primary fw-bold">{{ $products[$sale->product_id]->name }}</a>
+                                                </td>
+                                                <td>${{ number_format($products[$sale->product_id]->price, 2) }}</td>
+                                                <td class="fw-bold">{{ $sale->total_sold }}</td>
+                                                <td>${{ number_format($sale->total_revenue, 2) }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    {{--  <!-- End Top Selling -->  --}}
+
                 </div>
+            </div><!-- End Left side columns -->
 
-
-              </div>
-            </div>
-            {{--  <!-- End Recent Sales -->  --}}
-
-            {{--  <!-- Top Selling -->  --}}
-            <div class="col-6 col-md-12">
-              <div class="card top-selling overflow-auto">
-
-                <div class="filter">
-                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
-                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                    <li class="dropdown-header text-start">
-                      <h6>Filter</h6>
-                    </li>
-
-                    <li><a class="dropdown-item" href="#">Today</a></li>
-                    <li><a class="dropdown-item" href="#">This Month</a></li>
-                    <li><a class="dropdown-item" href="#">This Year</a></li>
-                  </ul>
-                </div>
-
-                <div class="card-body pb-0">
-                    <h5 class="card-title">Top Selling <span>| This Month</span></h5>
-
-                    <table class="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th scope="col">Product</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Sold</th>
-                                <th scope="col">Revenue</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($topSellingProducts as $sale)
-                                <tr>
-
-                                    <td>
-                                        <a href="#" class="text-primary fw-bold">{{ $products[$sale->product_id]->name }}</a>
-                                    </td>
-                                    <td>${{ number_format($products[$sale->product_id]->price, 2) }}</td>
-                                    <td class="fw-bold">{{ $sale->total_sold }}</td>
-                                    <td>${{ number_format($sale->total_revenue, 2) }}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-
-              </div>
-            </div>
-            {{--  <!-- End Top Selling -->  --}}
-
-          </div>
-        </div><!-- End Left side columns -->
-
-        <!-- Right side columns -->
-        {{--  <div class="col-lg-4">
+            <!-- Right side columns -->
+            {{--  <div class="col-lg-4">
 
           <!-- Recent Activity -->
           <div class="card">
@@ -595,9 +600,6 @@
 
         </div><!-- End Right side columns -->  --}}
 
-      </div>
+        </div>
     </section>
-
-
-
-  @endsection
+@endsection
