@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Orgnization\OrgnizationController;
+use App\Http\Controllers\Need\NeedController;
 
 use Illuminate\Support\Facades\Log;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -28,10 +29,25 @@ Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
 
-// صفحة Cause
-Route::get('/cause', function () {
-    return view('Cause');
-})->name('cause');
+
+
+Route::get('/needs', [NeedController::class, 'index'])->name('need');
+Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
+
+// Route::get('/needs', function () {
+//     return view('need.needs');
+// })->name('need');
+
+// صفحة needs
+
+
+Route::get('/needs', [NeedController::class, 'index'])->name('need');
+Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
+
+// Route::get('/needs', function () {
+//     return view('need.needs');
+// })->name('need');
+
 
 // صفحة Cause Details
 Route::get('/cause-details', function () {
