@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -9,7 +10,7 @@ class Image extends Model
     use HasFactory;
 
     // الحقول القابلة للتعبئة
-    protected $fillable = ['need_id', 'post_id', 'image'];
+    protected $fillable = ['need_id', 'post_id', 'orgnization_id', 'image'];
 
     /**
      * العلاقة مع جدول `Need`
@@ -28,6 +29,12 @@ class Image extends Model
     {
         return $this->belongsTo(Post::class, 'post_id');
     }
+
+    public function orgnization()
+    {
+        return $this->belongsTo(Organization::class, 'orgnization_id');
+    }
+
 
     /**
      * إرجاع المسار الكامل للصورة

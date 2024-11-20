@@ -2,17 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Orgnization\OrgnizationController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+use Illuminate\Support\Facades\Log;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
+// language routs
+Route::get('lang/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]); // Set locale in session
+        Log::info('Locale stored in session: ' . $locale);
+    } else {
+        Log::info('Invalid locale: ' . $locale);
+    }
+    return redirect()->route('index'); // or another route that you know is safe
+});
 
 // صفحة About
 Route::get('/about', function () {
@@ -75,3 +79,12 @@ Route::get('register0', [AuthController::class, 'showRegisterFormOrganization'])
 Route::post('/register/organization', [AuthController::class, 'registerOrganization'])->name('register.organization');
 Route::post('/login', [AuthController::class, 'login'])->name('login');      // Login route
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => ['auth'],
+
+], function () {
+    Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard')->middleware('role:orgnization');
+});
