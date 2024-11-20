@@ -114,4 +114,4 @@ Route::group([
     Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard');
 });
 
-Route::get('/', [MainController::class, 'showOrganizations']);
+Route::get('/', [MainController::class, 'index']);

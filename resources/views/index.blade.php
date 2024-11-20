@@ -195,110 +195,7 @@
         </div>
     </div>
     <!-- counter_area_end  -->
-
-    <!-- our_volunteer_area_start  -->
-    <div class="our_volunteer_area section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section_title text-center mb-55">
-                        <h3><span>Our Volunteer</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_volenteer">
-                        <div class="volenteer_thumb">
-                            <img src="img/volenteer/1.png" alt="">
-                        </div>
-                        <div class="voolenteer_info d-flex align-items-end">
-                            <div class="social_links">
-                                <ul>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-facebook"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-pinterest"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-linkedin"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-twitter"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info_inner">
-                                <h4>Sakil khan</h4>
-                                <p>Donner</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_volenteer">
-                        <div class="volenteer_thumb">
-                            <img src="img/volenteer/2.png" alt="">
-                        </div>
-                        <div class="voolenteer_info d-flex align-items-end">
-                            <div class="social_links">
-                                <ul>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-facebook"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-pinterest"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-linkedin"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-twitter"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info_inner">
-                                <h4>Emran Ahmed</h4>
-                                <p>Volunteer</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single_volenteer">
-                        <div class="volenteer_thumb">
-                            <img src="img/volenteer/3.png" alt="">
-                        </div>
-                        <div class="voolenteer_info d-flex align-items-end">
-                            <div class="social_links">
-                                <ul>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-facebook"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-pinterest"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-linkedin"></i> </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"> <i class="fa fa-twitter"></i> </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="info_inner">
-                                <h4>Sabbir Ahmed</h4>
-                                <p>Volunteer</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- our_volunteer_area_end  -->
-
+<br><br><br>
     <!-- news__area_start  -->
     <div class="news__area section_padding">
         <div class="container">
@@ -312,48 +209,35 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="news_active owl-carousel">
-                        <div class="single__blog d-flex align-items-center">
-                            <div class="thum">
-                                <img src="img/news/1.png" alt="">
+                        @foreach($posts as $post)
+                            <div class="single__blog d-flex align-items-center">
+                                <div class="thum">
+                                    <!-- عرض الصورة الأولى من الصور المرتبطة -->
+                                    @if($post->images->first())
+                                        <img src="{{ asset('storage/' . $post->images->first()->image) }}" alt="{{ $post->title }}">
+                                    @else
+                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image">
+                                    @endif
+                                </div>
+                                <div class="newsinfo">
+                                    <span>{{ $post->created_at->format('F d, Y') }}</span>
+                                    <a href="#">
+                                        <h3>{{ $post->title }}</h3>
+                                    </a>
+                                    <p>{{ $post->content }}</p>
+                                    <a class="read_more" href="#">Read More</a>
+                                </div>
                             </div>
-                            <div class="newsinfo">
-                                <span>July 18, 2019</span>
-                                <a href="single-blog.html">
-                                    <h3>Pure Water Is More
-                                        Essential</h3>
-                                </a>
-                                <p>The passage experienced a
-                                    surge in popularity during the
-                                    1960s when used it on their
-                                    sheets, and again.</p>
-                                <a class="read_more" href="single-blog.html">Read More</a>
-                            </div>
-                        </div>
-                        <div class="single__blog d-flex align-items-center">
-                            <div class="thum">
-                                <img src="img/news/2.png" alt="">
-                            </div>
-                            <div class="newsinfo">
-                                <span>July 18, 2019</span>
-                                <a href="single-blog.html">
-                                    <h3>Pure Water Is More
-                                        Essential</h3>
-                                </a>
-                                <p>The passage experienced a
-                                    surge in popularity during the
-                                    1960s when used it on their
-                                    sheets, and again.</p>
-                                <a class="read_more" href="single-blog.html">Read More</a>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>
         </div>
     </div>
+<br><br><br>
     <!-- news__area_end  -->
 
-    <div data-scroll-index='1' class="make_donation_area section_padding">
+    {{-- <div data-scroll-index='1' class="make_donation_area section_padding">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-6">
@@ -412,7 +296,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
 
 
