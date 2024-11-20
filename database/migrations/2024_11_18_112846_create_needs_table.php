@@ -23,10 +23,10 @@ return new class extends Migration
 
             $table->text('description')->nullable();
 
-            $table->enum('urgency', ['High Priority', 'Medium Priority']);
+            $table->enum('urgency', ['High Priority', 'Medium Priority', 'Low Priority']);
             $table->enum('status', ['Available', 'Partially Fulfilled', 'Fulfilled'])->default('Available');
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

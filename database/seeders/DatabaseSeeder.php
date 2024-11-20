@@ -20,6 +20,8 @@ class DatabaseSeeder extends Seeder
             PostsTableSeeder::class,
             ImagesTableSeeder::class,
             UserDetailTableSeeder::class,
+            RoleAndPermissionSeeder::class,
+
 
         ]);
     }

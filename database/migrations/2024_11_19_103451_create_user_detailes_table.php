@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->foreignId('organization_id')->nullable()->constrained('organizations')->onDelete('cascade');
             $table->foreignId('language_id')->constrained('languages')->onDelete('cascade');
-            $table->text('contact_info')->nullable();
+            $table->text('location')->nullable();
 
             $table->timestamps();
         });

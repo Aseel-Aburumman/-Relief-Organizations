@@ -23,7 +23,7 @@ class ImagesTableSeeder extends Seeder
         ]);
 
         Image::create([
-            'post_id' => 2, 
+            'post_id' => 2,
             'need_id' => null,
             'image' => 'images/post2_image1.jpg',
         ]);

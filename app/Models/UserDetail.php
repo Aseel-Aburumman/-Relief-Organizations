@@ -19,7 +19,7 @@ class UserDetail extends Model
         'organization_id',
         'description',
         'language_id',
-        'contact_info',
+        'location',
 
         'user_id',
     ];
@@ -62,5 +62,12 @@ class UserDetail extends Model
     public static function findUserDetailById(int $id)
     {
         return self::find($id);
+    }
+
+    public static function createMultipleUserDetails(array $details): void
+    {
+        foreach ($details as $detail) {
+            self::create($detail);
+        }
     }
 }

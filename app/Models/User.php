@@ -15,7 +15,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-    use SoftDeletes; 
+    use SoftDeletes;
+    use HasRoles;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,12 +27,19 @@ class User extends Authenticatable
         'email',
         'password',
     ];
+    // protected $guard_name = 'web';
     protected $dates = ['deleted_at'];
 
     public function donation()
     {
         return $this->hasMany(Donation::class);
     }
+
+    public function organization()
+    {
+        return $this->hasOne(Organization::class);
+    }
+
     public function userDetail()
     {
         return $this->hasMany(UserDetail::class);
@@ -90,6 +99,8 @@ class User extends Authenticatable
         $data['password'] = bcrypt($data['password']);
         return self::create($data);
     }
+
+
     public static function loginUser($data)
     {
         $user = self::where('email', $data['email'])->first();

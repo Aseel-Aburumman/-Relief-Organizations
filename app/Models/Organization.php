@@ -13,8 +13,8 @@ class Organization extends Model
 
 
     protected $fillable = [
-        'email',
-        'password',
+        'user_id',
+        'contact_info',
     ];
 
     protected $dates = ['deleted_at'];
@@ -32,35 +32,56 @@ class Organization extends Model
         return $this->hasMany(Image::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 
     public static function createOrganization(array $data)
     {
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
-        }
         return self::create($data);
     }
 
-    public function updateOrganization(array $data)
+
+    public static function getAllOrganization()
     {
-        if (isset($data['password'])) {
-            $data['password'] = bcrypt($data['password']);
+        return self::all();
+    }
+
+
+    public static function getOrganizationById($id)
+    {
+        return self::find($id);
+    }
+
+
+    public static function updateOrganization($id, array $data)
+    {
+        $Organization = self::find($id);
+        if ($Organization) {
+            $Organization->update($data);
+            return $Organization;
         }
-
-        $this->update($data);
-        return $this;
+        return null;
     }
 
 
-
-    public static function deleteOrganizationById(int $id)
+    public static function deleteNeed($id)
     {
-        $user = self::find($id);
-        return $user ? $user->delete() : false;
+        $Organization = self::find($id);
+        if ($Organization) {
+            $Organization->delete();
+            return true;
+        }
+        return false;
     }
-    public static function registerUser($data)
+
+
+    public function addOrganizationDetails(array $details): void
     {
-        $data['password'] = bcrypt($data['password']);
-        return self::create($data);
+        foreach ($details as $detail) {
+            $this->details()->create($detail);
+        }
     }
 }

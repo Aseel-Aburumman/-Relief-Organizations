@@ -13,13 +13,11 @@ return new class extends Migration
     {
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
-          
-            $table->string('email')->unique();
-            $table->string('password');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
 
-
+            $table->string('contact_info');
             $table->timestamps();
-            $table->softDeletes(); 
+            $table->softDeletes();
         });
     }
 

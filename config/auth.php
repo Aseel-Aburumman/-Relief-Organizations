@@ -15,6 +15,19 @@ return [
 
     'defaults' => [
         'guard' => 'web',
+        // 'guards' => [
+        //     'web' => [
+        //         'driver' => 'session',
+        //         'provider' => 'users',
+        //     ],
+
+        //     'api' => [
+        //         'driver' => 'token',
+        //         'provider' => 'users',
+        //         'hash' => false,
+        //     ],
+        // ],
+
         'passwords' => 'users',
     ],
 

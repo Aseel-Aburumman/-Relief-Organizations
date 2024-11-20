@@ -14,56 +14,36 @@ use Illuminate\Support\Facades\Route;
 */
 
 // صفحة About
-Route::get('/about', function () {
-    return view('About');
-})->name('about');
+Route::get('/about', function () {return view('About');})->name('about');
 
 // صفحة Blog
-Route::get('/blog', function () {
-    return view('blog');
-})->name('blog');
+Route::get('/blog', function () {return view('blog');})->name('blog');
 
 // صفحة Cause
-Route::get('/cause', function () {
-    return view('Cause');
-})->name('cause');
+Route::get('/cause', function () {return view('Cause');})->name('cause');
 
 // صفحة Cause Details
-Route::get('/cause-details', function () {
-    return view('cause_details');
-})->name('cause.details');
+Route::get('/cause-details', function () {return view('cause_details');})->name('cause.details');
 
 // صفحة Contact Process
-Route::get('/contact-process', function () {
-    return view('contact_process');
-})->name('contact.process');
+Route::get('/contact-process', function () {return view('contact_process');})->name('contact.process');
 
 // صفحة Contact
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', function () {return view('contact');})->name('contact');
 
 // صفحة Elements
-Route::get('/elements', function () {
-    return view('elements');
-})->name('elements');
+Route::get('/elements', function () {return view('elements');})->name('elements');
 
 // صفحة Index (الصفحة الرئيسية)
 
 
 // صفحة Main
-Route::get('/main', function () {
-    return view('main');
-})->name('main');
+Route::get('/main', function () {return view('main');})->name('main');
 
 // صفحة Single Blog
-Route::get('/single-blog', function () {
-    return view('single-blog');
-})->name('single.blog');
+Route::get('/single-blog', function () {return view('single-blog');})->name('single.blog');
 
 // صفحة Welcome
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+Route::get('/', function () {return view('index');})->name('index');
 
 

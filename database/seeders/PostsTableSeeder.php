@@ -16,7 +16,10 @@ class PostsTableSeeder extends Seeder
             'lang_id' => 1,
         ]);
 
-      
+        Post::create([
+            'title' => '2nd Post',
+            'content' => 'This is the content of the 2nd post.',
+            'lang_id' => 1,
+        ]);
     }
 }
-

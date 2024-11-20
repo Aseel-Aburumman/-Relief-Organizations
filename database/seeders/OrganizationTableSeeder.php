@@ -10,20 +10,18 @@ class OrganizationTableSeeder extends Seeder
     public function run()
     {
         Organization::create([
-            'email' => 'organization1@example.com',
-            'password' => bcrypt('password'),
+            'user_id' => '4',
+            'contact_info' => '079656585',
         ]);
 
         Organization::create([
-            'email' => 'organization2@example.com',
-            'password' => bcrypt('password'),
+            'user_id' => '5',
+            'contact_info' => '079656585',
         ]);
 
         Organization::create([
-            'email' => 'organization3@example.com',
-            'password' => bcrypt('password'),
+            'user_id' => '6',
+            'contact_info' => '079656585',
         ]);
-      
     }
 }
-
