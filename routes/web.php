@@ -85,7 +85,5 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['auth'],
 ], function () {
-    Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])
-        ->name('orgnization.dashboard')
-        ->middleware('role:orgnization');
+    Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard');
 });
