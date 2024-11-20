@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>Causes</h3>
+                        <h3>Needs</h3>
                     </div>
                 </div>
             </div>
@@ -63,18 +63,17 @@
     <!-- popular_causes_area_start -->
     <div class="popular_causes_area pt-120">
         <div class="container">
-            <div class="row">
+            <div class="row g-4">
                 @forelse ($needs as $need)
                     <div class="col-lg-4 col-md-6">
                         <div class="single_cause">
                             <div class="thumb">
                                 @if ($need->image->isNotEmpty())
-                                    <img src="{{ asset($need->image->first()->image) }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
+                                    <img src="{{ asset('storage/need_images/' . $need->image->first()->image) }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
                                 @else
                                     <img src="{{ asset('img/default-image.png') }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
                                 @endif
                             </div>
-
 
                             <div class="causes_content">
                                 <div class="custom_progress_bar">
@@ -110,4 +109,5 @@
         </div>
     </div>
     <!-- popular_causes_area_end -->
+
 @endsection

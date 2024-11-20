@@ -6682,6 +6682,7 @@ h6 {
   margin-top: 10px;
 }
 
+
 @media (max-width: 576px) {
   /* line 97, ../../Arafath/CL/january 2020/242. charity/HTML/scss/_blog_part.scss */
   .blog_part .single-home-blog .card span {
@@ -6807,3 +6808,64 @@ h6 {
 }
 
 /*# sourceMappingURL=style.css.map */
+.single_cause {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%; /* Ensures cards are the same height */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px; /* Increased space between rows */
+}
+
+.row > .col-lg-4, .row > .col-md-6 {
+    margin-bottom: 20px; /* Additional spacing for row */
+}
+.single_cause .thumb {
+    width: 100%; /* Ensure the container spans the full width of the card */
+    height: 200px; /* Set a fixed height for the image container */
+    overflow: hidden; /* Crop any overflowing part of the image */
+    display: flex; /* Center-align image */
+    justify-content: center;
+    align-items: center;
+}
+
+.single_cause .thumb img {
+    width: 100%; /* Make the image fill the width of the container */
+    height: 100%; /* Make the image fill the height of the container */
+    object-fit: cover; /* Maintain aspect ratio while covering the container */
+}
+
+.causes_content {
+    flex: 1; /* Makes content fill the remaining space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px; /* Add padding for better spacing */
+}
+
+.causes_content a h4 {
+    margin-top: 10px;
+    font-size: 18px;
+    text-align: center;
+}
+
+.causes_content .balance {
+    margin: 10px 0;
+}
+
+.causes_content p {
+    flex-grow: 1; /* Push the read more link to the bottom */
+    margin-bottom: 10px;
+}
+
+.read_more {
+    align-self: center;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.read_more:hover {
+    color: #0056b3;
+}
