@@ -88,16 +88,6 @@ Route::get('/', function () {
 })->name('index');
 
 
-<<<<<<< HEAD
-
-//donation
-use App\Http\Controllers\Donation\DonationController;
-
-Route::get('/donations/{id}', [DonationController::class, 'show'])->name('donation.show');
-
-Route::post('/donate', [DonationController::class, 'store'])->name('donate.store');
-
-=======
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.view');
 Route::get('register', [AuthController::class, 'showRegisterFormUser'])->name('register.view');
 Route::post('/register/donor', [AuthController::class, 'register'])->name('register.donor'); // Signup route
@@ -113,4 +103,3 @@ Route::group([
 ], function () {
     Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard');
 });
->>>>>>> 07f95234fb5ea5de9733b015a35d89e49819cb3f
