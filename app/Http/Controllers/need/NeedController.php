@@ -16,21 +16,47 @@ use App\Models\Organization;
 class NeedController extends Controller
 {
 
+    // public function index(Request $request)
+    // {
+
+    //     $categories = Category::all();
+
+    //     $urgencies = Need::select('urgency')->distinct()->pluck('urgency');
+    //     $statuses = Need::select('status')->distinct()->pluck('status');
+
+    //     $filters = $request->only(['category_id', 'urgency', 'status', 'organization_id']);
+
+    //     $needs = Need::getAllNeeds($filters);
+
+
+    //     return view('need.needs', compact('needs', 'categories', 'urgencies', 'statuses'));
+    // }
+
     public function index(Request $request)
-    {
+{
+    // $categories = Category::all(); // جلب جميع الفئات من جدول الفئات
+    // $urgencies = Need::select('urgency')->distinct()->pluck('urgency');
+    // $statuses = Need::select('status')->distinct()->pluck('status');
 
-        $categories = Category::all();
+    // $filters = $request->only(['category_id', 'urgency', 'status', 'organization_id']);
 
-        // Fetch unique urgency and status values for the filters
-        $urgencies = Need::select('urgency')->distinct()->pluck('urgency');
-        $statuses = Need::select('status')->distinct()->pluck('status');
+    // $needs = Need::with(['image', 'needDetail'])->when($filters, function ($query) use ($filters) {
+    //     if (!empty($filters['category_id'])) {
+    //         $query->where('category_id', $filters['category_id']);
+    //     }
 
-        $filters = $request->only(['category_id', 'urgency', 'status', 'organization_id']);
+    //     if (!empty($filters['urgency'])) {
+    //         $query->where('urgency', $filters['urgency']);
+    //     }
 
-        $needs = Need::getAllNeeds($filters);
+    //     if (!empty($filters['status'])) {
+    //         $query->where('status', $filters['status']);
+    //     }
+    // })->paginate(10);
 
-        return view('need.needs', compact('needs', 'categories', 'urgencies', 'statuses'));
-    }
+    return view('need.needs');
+}
+
 
 
 
