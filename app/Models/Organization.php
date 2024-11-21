@@ -29,7 +29,7 @@ class Organization extends Model
     }
     public function image()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(OrgnizationImage::class);
     }
 
     public function user()

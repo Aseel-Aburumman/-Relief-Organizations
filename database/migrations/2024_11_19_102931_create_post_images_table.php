@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('post_id')->nullable()->constrained('posts')->onDelete('cascade');
             $table->string('image');
+            $table->softDeletes();
+
             $table->timestamps();
 
         });

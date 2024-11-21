@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrgnizationImage extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     // الحقول القابلة للتعبئة
     protected $fillable = ['orgnization_id', 'image'];
     protected $table = 'orgnization_images';
 
+    protected $dates = ['deleted_at'];
 
 
     public function orgnization()

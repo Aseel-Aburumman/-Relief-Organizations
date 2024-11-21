@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->foreignId('lang_id')->constrained('languages')->onDelete('cascade');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

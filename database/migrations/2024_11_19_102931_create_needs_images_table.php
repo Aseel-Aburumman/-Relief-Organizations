@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('need_id')->nullable()->constrained('needs')->onDelete('cascade');
             $table->string('image');
+            $table->softDeletes();
+
             $table->timestamps();
         });
     }

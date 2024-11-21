@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('organization_id')->nullable()->constrained('organizations')->onDelete('cascade');
             $table->string('image');
+            $table->softDeletes();
+
             $table->timestamps();
 
         });

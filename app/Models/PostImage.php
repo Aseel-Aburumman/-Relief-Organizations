@@ -4,14 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PostImage extends Model
 {
     use HasFactory;
+    use SoftDeletes;
+
+
     protected $table = 'posts_images';
 
     // الحقول القابلة للتعبئة
     protected $fillable = ['post_id',  'image'];
+    protected $dates = ['deleted_at'];
 
 
 

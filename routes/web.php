@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Orgnization\OrgnizationController;
+use App\Http\Controllers\Need\NeedController;
+use App\Http\Controllers\main\MainController;
 
 use Illuminate\Support\Facades\Log;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -28,10 +30,25 @@ Route::get('/blog', function () {
     return view('blog');
 })->name('blog');
 
-// صفحة Cause
-Route::get('/cause', function () {
-    return view('Cause');
-})->name('cause');
+
+
+Route::get('/needs', [NeedController::class, 'index'])->name('need');
+Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
+
+// Route::get('/needs', function () {
+//     return view('need.needs');
+// })->name('need');
+
+// صفحة needs
+
+
+Route::get('/needs', [NeedController::class, 'index'])->name('need');
+Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
+
+// Route::get('/needs', function () {
+//     return view('need.needs');
+// })->name('need');
+
 
 // صفحة Cause Details
 Route::get('/cause-details', function () {
@@ -81,6 +98,15 @@ Route::post('/login', [AuthController::class, 'login'])->name('login');      // 
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 
+
+//donation
+use App\Http\Controllers\Donation\DonationController;
+
+Route::get('/donations/{id}', [DonationController::class, 'show'])->name('donation.show');
+
+Route::post('/donate', [DonationController::class, 'store'])->name('donate.store');
+
+
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['auth'],
@@ -100,3 +126,5 @@ Route::group([
 
     Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 });
+
+Route::get('/', [MainController::class, 'index']);
