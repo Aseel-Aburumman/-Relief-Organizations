@@ -15,14 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('organization_id')->constrained('organizations')->onDelete('cascade');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->string('item_name')->nullable();
-            $table->foreignId('language_id')->constrained('languages')->onDelete('cascade');
-
             $table->integer('quantity_needed');
             $table->integer('donated_quantity');
-
-            $table->text('description')->nullable();
-
             $table->enum('urgency', ['High Priority', 'Medium Priority', 'Low Priority']);
             $table->enum('status', ['Available', 'Partially Fulfilled', 'Fulfilled'])->default('Available');
             $table->timestamps();

@@ -31,6 +31,10 @@ class Donation extends Model
         return $this->belongsTo(User::class, 'donor_id');
     }
 
+    public function donations()
+    {
+        return $this->hasMany(Donation::class, 'need_id');
+    }
 
 
     public static function getAllDonations()
@@ -44,7 +48,7 @@ class Donation extends Model
         return self::find($id);
     }
 
-    
+
     public static function createDonation($data)
     {
         return self::create($data);
@@ -72,6 +76,4 @@ class Donation extends Model
         }
         return false;
     }
-
 }
-

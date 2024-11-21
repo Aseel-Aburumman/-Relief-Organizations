@@ -16,11 +16,8 @@ class Need extends Model
     protected $fillable = [
         'organization_id',
         'category_id',
-        'item_name',
-        'language_id',
         'quantity_needed',
         'donated_quantity',
-        'description',
         'urgency',
         'status',
 
@@ -35,7 +32,10 @@ class Need extends Model
         return $this->belongsTo(Category::class);
     }
 
-
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 
     public function organization()
     {
@@ -46,9 +46,13 @@ class Need extends Model
         return $this->belongsTo(Language::class);
     }
     public function image()
-{
-    return $this->hasMany(Image::class, 'need_id', 'id');
-}
+    {
+        return $this->hasMany(NeedImage::class);
+    }
+    public function needDetail()
+    {
+        return $this->hasMany(NeedDetail::class);
+    }
 
 
     // CRUD Methods
@@ -84,7 +88,7 @@ class Need extends Model
 
     public static function getNeedById($id)
     {
-        return self::findOrFail($id); 
+        return self::findOrFail($id);
     }
 
 

@@ -112,6 +112,19 @@ Route::group([
     'middleware' => ['auth'],
 ], function () {
     Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard');
+    Route::get('/orgnization/needs', [NeedController::class, 'getallNeed'])->name('orgnization.manage_Needs');
+    Route::get('/orgnization/needs/create', [NeedController::class, 'create_Need'])->name('orgnization.create_Need');
+    Route::patch('/admin/disable-all-needs/{organization_id}', [NeedController::class, 'disableAllNeeds'])->name('orgnization.disable_need');
+
+    Route::post('/organization/store-need', [NeedController::class, 'storeNeed'])->name('organization.store_need');
+    Route::get('/organization/edit-need/{id}', [NeedController::class, 'editNeed'])->name('organization.edit_need');
+    Route::put('/organization/update-need/{id}', [NeedController::class, 'updateNeed'])->name('organization.update_need');
+    Route::delete('/organization/delete_need/{id}', [NeedController::class, 'deleteNeed'])->name('organization.delete_need');
+
+
+
+
+    Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 });
 
 Route::get('/', [MainController::class, 'index']);

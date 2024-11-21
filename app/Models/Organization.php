@@ -29,14 +29,17 @@ class Organization extends Model
     }
     public function image()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(OrgnizationImage::class);
     }
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 
     public static function createOrganization(array $data)
     {
@@ -76,7 +79,4 @@ class Organization extends Model
         }
         return false;
     }
-
-
-
 }
