@@ -16,19 +16,34 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Rinvex\Country\CountryLoader;
 
 class AuthController extends Controller
 {
 
     public function showRegisterFormUser()
     {
-        return view('Auth.signup');
+        $countries = countries();
+
+        return view('Auth.signup', compact('countries'));
     }
 
     public function register(RegisterRequest $request)
     {
+        $countries = countries();
 
-        $user = User::createUser($request->validated());
+        // dd($request);
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
+
+        $userData = $request->only(['email', 'password']);
+
+        $user = User::createUser($userData);
 
 
         $role = Role::where('name', 'doner')->first();
@@ -36,17 +51,12 @@ class AuthController extends Controller
 
         $details = [
             [
-                'name' => $request->name_en,
-                'location' => $request->location_en,
+                'name' => $request->name,
+                'address' => $request->address,
                 'user_id' => $user->id,
-                'language_id' => 1, // English
-            ],
-            [
-                'name' => $request->name_ar,
-                'user_id' => $user->id,
-                'location' => $request->location_ar,
-                'language_id' => 2, // Arabic
-            ],
+                'language_id' =>  $languageId,
+            ]
+
         ];
 
 
@@ -55,60 +65,138 @@ class AuthController extends Controller
         // $user->givePermissionTo('create order');
         // return new UserResource($user);
 
-        return redirect()->route('register.view')->with('success', 'User registered successfully');
+        // return route('register.view')->with('success', 'User registered successfully');
+        return view('Auth.signup', ['success' => 'User registered successfully'], compact('countries'));
     }
 
     public function showRegisterFormOrganization()
     {
-        return view('Auth.signup_org');
+        $countries = countries();
+
+        return view('Auth.signup_org', compact('countries'));
     }
 
+    // public function registerOrganization(RegisterOrganizationRequest $request)
+    // {
+    //     $countries = countries();
+
+    //     // dd($request->all());
+    //     $locale = session('locale', 'en');
+    //     $languageMap = [
+    //         'en' => 1, // English language_id
+    //         'ar' => 2, // Arabic language_id
+    //     ];
+
+    //     $languageId = $languageMap[$locale] ?? 1;
+    //     // Step 1: Create the user
+
+    //     $userData = $request->only(['email', 'password']);
+    //     // $userData['password'] = bcrypt($userData['password']);
+    //     $user = User::createUser($userData);
+
+    //     // Step 2: Create the organization using the model's static method
+    //     if ($request->hasFile('image')) {
+    //         $imagePath = $request->file('image')->store('certificate_images', 'public');
+
+
+    //         $organizationData = [
+    //             'user_id' => $user->id,
+    //             'contact_info' => $request->contact_info,
+    //             'certificate_image' => $imagePath,
+    //             'status' => 'Approved',
+    //         ];
+    //         $organization = Organization::createOrganization($organizationData);
+    //         if (!$organization) {
+    //             return response()->json(['error' => 'Failed to create organization'], 500);
+    //         }
+    //         $role = Role::where('name', 'organization')->first();
+    //         $user->assignRole($role);
+
+    //         // Step 3: Add organization details using the model's method
+    //         $details = [
+    //             [
+    //                 'name' => $request->name,
+    //                 'description' => $request->description ?? '',
+    //                 'address' => $request->address,
+    //                 'language_id' => $languageId,
+    //                 'organization_id' => $organization->id,
+
+    //             ],
+
+    //         ];
+    //         // $organization->addOrganizationDetails($details);
+    //         UserDetail::createMultipleUserDetails($details);
+    //     }
+
+
+
+
+    //     // Step 5: Return response
+    //     // return new OrganizationResource($organization);
+    //     return view('Auth.signup_org', ['success' => 'Organization registered successfully'], compact('countries'));
+    // }
     public function registerOrganization(RegisterOrganizationRequest $request)
     {
-        // dd($request->all());
-        // Step 1: Create the user
+        // Get countries (you might want to verify that $countries is used properly)
+        $countries = countries();
+
+        // Determine locale and map it to a language ID
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+        $languageId = $languageMap[$locale] ?? 1;
+
+        // Create user data
         $userData = $request->only(['email', 'password']);
-        // $userData['password'] = bcrypt($userData['password']);
-        $user = User::createUser($userData);
+        $userData['password'] = bcrypt($userData['password']); // Hash password
+        $user = User::create($userData);
 
-        // Step 2: Create the organization using the model's static method
-        $organizationData = [
-            'user_id' => $user->id,
-            'contact_info' => $request->contact_info,
-        ];
-        $organization = Organization::createOrganization($organizationData);
-        if (!$organization) {
-            return response()->json(['error' => 'Failed to create organization'], 500);
+        if (!$user) {
+            return response()->json(['error' => 'Failed to create user'], 500);
         }
-        $role = Role::where('name', 'organization')->first();
-        $user->assignRole($role);
 
-        // Step 3: Add organization details using the model's method
-        $details = [
-            [
-                'name' => $request->name_en,
-                'description' => $request->description_en ?? '',
-                'location' => $request->location_en,
-                'language_id' => 1, // English
-                'organization_id' => $organization->id,
+        // Check for file upload and store the certificate image
+        $organizationData = [];
+        if ($request->hasFile('certificate_image')) {
+            $imagePath = $request->file('certificate_image')->store('certificate_images', 'public');
+            // Prepare organization data
+            $organizationData = [
+                'user_id' => $user->id,
+                'contact_info' => $request->contact_info,
+                'certificate_image' => $imagePath,
+                'status' => 'Pending', // Change status to "Pending" for initial submission
+            ];
 
-            ],
-            [
-                'name' => $request->name_ar,
-                'description' => $request->description_ar ?? '',
-                'location' => $request->location_ar,
-                'language_id' => 2, // Arabic
-                'organization_id' => $organization->id,
+            // Create organization
+            $organization = Organization::create($organizationData);
 
-            ],
-        ];
-        // $organization->addOrganizationDetails($details);
-        UserDetail::createMultipleUserDetails($details);
+            if (!$organization) {
+                return response()->json(['error' => 'Failed to create organization'], 500);
+            }
 
+            // Assign organization role to the user
+            $role = Role::where('name', 'organization')->first();
+            if ($role) {
+                $user->assignRole($role);
+            }
 
-        // Step 5: Return response
-        // return new OrganizationResource($organization);
-        return view('Auth.signup_org', ['success' => 'Organization registered successfully']);
+            // Add organization details
+            $details = [
+                [
+                    'name' => $request->name,
+                    'description' => $request->description ?? '',
+                    'address' => $request->address,
+                    'language_id' => $languageId,
+                    'organization_id' => $organization->id,
+                ],
+            ];
+            UserDetail::createMultipleUserDetails($details); // Assuming this method exists
+        }
+
+        // Return a success response with the countries list for the form
+        return view('Auth.signup_org', ['success' => 'Organization registered successfully'], compact('countries'));
     }
 
 

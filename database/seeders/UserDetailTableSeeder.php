@@ -14,7 +14,7 @@ class UserDetailTableSeeder extends Seeder
             'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
             'organization_id' => '1',
             'language_id' => '1',
-            'location' => 'Amman',
+            'address' => 'Amman',
         ]);
 
         UserDetail::create([
@@ -22,7 +22,7 @@ class UserDetailTableSeeder extends Seeder
             'description' => 'منظمة خيرية لعمل الخير في العالم',
             'organization_id' => '1',
             'language_id' => '2',
-            'location' => 'عمان',
+            'address' => 'عمان',
         ]);
 
         UserDetail::create([
@@ -30,7 +30,7 @@ class UserDetailTableSeeder extends Seeder
             'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
             'organization_id' => '2',
             'language_id' => '1',
-            'location' => 'Amman',
+            'address' => 'Amman',
         ]);
 
         UserDetail::create([
@@ -38,7 +38,7 @@ class UserDetailTableSeeder extends Seeder
             'description' => 'منظمة خيرية2 لعمل الخير في العالم',
             'organization_id' => '2',
             'language_id' => '2',
-            'location' => 'عمان',
+            'address' => 'عمان',
         ]);
 
         UserDetail::create([
@@ -46,7 +46,7 @@ class UserDetailTableSeeder extends Seeder
             'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
             'organization_id' => '3',
             'language_id' => '1',
-            'location' => 'Amman',
+            'address' => 'Amman',
         ]);
 
         UserDetail::create([
@@ -54,7 +54,7 @@ class UserDetailTableSeeder extends Seeder
             'description' => 'منظمة خيرية 3 لعمل الخير في العالم',
             'organization_id' => '3',
             'language_id' => '2',
-            'location' => 'عمان',
+            'address' => 'عمان',
         ]);
 
 
@@ -62,14 +62,14 @@ class UserDetailTableSeeder extends Seeder
             'name' => 'user User',
             'user_id' => '2',
             'language_id' => '1',
-            'location' => 'Amman',
+            'address' => 'Amman',
         ]);
 
         UserDetail::create([
             'name' => 'عضو ',
             'user_id' => '2',
             'language_id' => '2',
-            'location' => 'عمان',
+            'address' => 'عمان',
         ]);
 
 
@@ -77,14 +77,14 @@ class UserDetailTableSeeder extends Seeder
             'name' => 'doner User',
             'user_id' => '3',
             'language_id' => '1',
-            'location' => 'Amman',
+            'address' => 'Amman',
         ]);
 
         UserDetail::create([
             'name' => ' عضو متبرع',
             'user_id' => '3',
             'language_id' => '2',
-            'location' => 'عمان',
+            'address' => 'عمان',
         ]);
     }
 }

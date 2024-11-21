@@ -15,6 +15,9 @@ class Organization extends Model
     protected $fillable = [
         'user_id',
         'contact_info',
+        'certificate_image',
+        'status',
+
     ];
 
     protected $dates = ['deleted_at'];

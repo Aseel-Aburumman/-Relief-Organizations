@@ -12,16 +12,24 @@ class OrganizationTableSeeder extends Seeder
         Organization::create([
             'user_id' => '4',
             'contact_info' => '079656585',
+            'certificate_image' => 'post_1.png',
+            'status' => 'Approved',
         ]);
 
         Organization::create([
             'user_id' => '5',
             'contact_info' => '079656585',
+            'certificate_image' => 'post_1.png',
+            'status' => 'Approved',
+
         ]);
 
         Organization::create([
             'user_id' => '6',
             'contact_info' => '079656585',
+            'certificate_image' => 'post_1.png',
+            'status' => 'Approved',
+
         ]);
     }
 }
