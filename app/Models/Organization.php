@@ -36,7 +36,10 @@ class Organization extends Model
     {
         return $this->belongsTo(User::class);
     }
-
+    public function donations()
+    {
+        return $this->hasMany(Donation::class);
+    }
 
     public static function createOrganization(array $data)
     {
@@ -76,7 +79,4 @@ class Organization extends Model
         }
         return false;
     }
-
-
-
 }

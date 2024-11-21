@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('posts_images', function (Blueprint $table) {
             $table->id();
             $table->string('title');
             $table->text('content');
@@ -26,7 +26,4 @@ return new class extends Migration
     {
         Schema::dropIfExists('posts');
     }
-
-
-
 };

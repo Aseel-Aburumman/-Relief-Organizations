@@ -17,8 +17,12 @@ class DatabaseSeeder extends Seeder
             UsersTableSeeder::class,
             OrganizationTableSeeder::class,
             NeedSeeder::class,
+            NeedDetailSeeder::class,
             PostsTableSeeder::class,
-            ImagesTableSeeder::class,
+            PostImageTableSeeder::class,
+            OrgnizationImageTableSeeder::class,
+            NeedImageTableSeeder::class,
+
             UserDetailTableSeeder::class,
             RoleAndPermissionSeeder::class,
 

@@ -1,0 +1,38 @@
+.btn {
+    background-color: #FF6A00; /* Set to orange matching the logo */
+    color: #fff; /* White text for contrast */
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 5px;
+    margin: 10px;
+    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease-in-out;
+
+}
+
+.btn:hover {
+    background-color: #DC5A00; /* Slightly darker orange on hover */
+    color: #fff;
+    transform: scale(1.05); /* Slightly increase size on hover */
+
+}
+
+body {
+    background-color: #F0F4F8; /* Light gray/blue background to contrast with logo */
+}
+
+.section {
+    text-align: center;
+}
+
+/* img {
+    max-width: 250px;
+}
+*/
+/*
+.section img {
+    max-width: 300px;
+    margin-bottom: 20px;
+}
+*/
