@@ -9,12 +9,13 @@
                     <div class="col-lg-9">
                         <div class="slider_text ">
                             <span>Get Started Today.</span>
-                            <h3> Help the children
-                                When They Need</h3>
-                            <p>With so much to consume and such little time, coming up <br>
-                                with relevant title ideas is essential</p>
-                            <a href="About.html" class="boxed-btn3">Learn More
-                            </a>
+                            <h3> Help <br>the Children<br> of Gaza
+                               </h3>
+                            <p>With your support, we can bring hope and relief to the children in Gaza,
+                                <br>
+                                offering them a brighter future.</p>
+                                <a href="{{ route('need') }}" class="boxed-btn3">Learn More</a>
+
                         </div>
                     </div>
                 </div>
@@ -29,28 +30,27 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center mb-55">
-                        <h3><span>Our Organizations</span></h3><br><br><br><br>
+                        <h3><span>Our Organizations</span></h3>
                     </div>
                 </div>
             </div>
             <div class="row justify-content-center">
                 @foreach($organizations as $organization)
                     <div class="col-lg-4 col-md-6">
-                        <div class="single_reson">
-                            <div class="thum">
-                                <div class="thum_1">
-                                    <!-- عرض الصورة الأولى إذا كانت موجودة -->
-                                    @if($organization->image->first())
-                                        <img src="{{ asset($organization->image->first()->image) }}" alt="Organization Image">
-                                    @else
-                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image">
-                                    @endif
-                                </div>
+                        <div class="single_cause" style="border: 1px solid #ddd; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); margin-bottom: 20px;">
+                            <!-- القسم العلوي للصورة -->
+                            <div class="thumb" style="height: 250px; overflow: hidden; position: relative;">
+                                @if($organization->image->isNotEmpty())
+                                    <img src="{{ asset('storage/orgnization_images/' . $organization->image->first()->image) }}" alt="Organization Image" class="organization-img" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                @else
+                                    <img src="{{ asset('img/default.jpg') }}" alt="Default Image" class="organization-img" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                @endif
                             </div>
-                            <div class="help_content">
-                                <h4>{{ $organization->userDetail->first()->name ?? 'No Name Available' }}</h4>
-                                <p>{{ $organization->userDetail->first()->description ?? 'No Description Available' }}</p>
-                                <a href="#" class="read_more">Read More</a>
+                            <!-- القسم السفلي للنصوص -->
+                            <div class="causes_content" style="padding: 20px; text-align: center; background-color: #fff;">
+                                <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">{{ $organization->userDetail->first()->name ?? 'No Name Available' }}</h4>
+                                <p style="font-size: 14px; color: #666; margin-bottom: 15px;">{{ $organization->userDetail->first()->description ?? 'No Description Available' }}</p>
+                                <a href="#" class="read_more">Learn More</a>
                             </div>
                         </div>
                     </div>
@@ -58,6 +58,17 @@
             </div>
         </div>
     </div>
+
+    <style>
+        /* تأثير هوفر على الصور */
+        .organization-img:hover {
+            transform: scale(1.1); /* تكبير الصورة قليلاً */
+        }
+    </style>
+
+
+
+
     <!-- reson_area_end  -->
 
     <!-- latest_activites_area_start  -->
@@ -75,15 +86,13 @@
                             <h3> <span>Watch Our Latest  </span><br>
                                 Activities</h3>
                         </div>
-                        <p class="para_1">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                            eiusmod tempor incididunt  ut labore dolore magna aliqua.
-                            enim minim veniam, quis nostrud exercitation.</p class="para_1">
-                        <p class="para_2">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do
-                            eiusmod tempor incididunt  ut labore dolore magna aliqua.
-                            enim minim veniam, quis nostrud exercitation. tempor
-                            incididunt  ut labore dolore magna aliqua. enim minim
+                        <p class="para_1"> Together, we have made significant strides in supporting the children and families of Gaza.
+                            Your generous donations have enabled us to provide essential food packages, medical supplies, and winter blankets to those in need..</p class="para_1">
+                        <p class="para_2">  Over the past months, we have reached hundreds of families, offering them hope and a brighter future.
+                            Every contribution you make brings us closer to a world where no child in Gaza suffers from hunger or lack of medical care.
+                            Join us in making an even greater impact. Your support makes all the difference.
                             veniam, quis nostrud exercitation.</p>
-                        <a href="#" data-scroll-nav='1' class="boxed-btn4">Donate Now</a>
+                        <a href="{{ route('need') }}" data-scroll-nav='1' class="boxed-btn4">Donate Now</a>
                     </div>
                 </div>
             </div>
@@ -103,22 +112,19 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
-
-                    <div class="causes_active owl-carousel">
-
+                    <div class="causes_active owl-carousel" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
                         @foreach($needs as $need)
-                            <div class="single_cause">
-                                <div class="thumb">
-                                    @if ($need->image->isNotEmpty())
-                                        <img src="{{ asset('storage/need_images/' . $need->image->first()->image) }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
-                                    @else
-                                        <img src="{{ asset('img/default-image.png') }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
-                                    @endif
+                            <div class="single_cause" style="width: 300px; height: 420px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+                                <div class="thumb" style="height: 180px; overflow: hidden;">
+                                    @php
+                                        $imagePath = $need->image->isNotEmpty() ? 'need_images/' . $need->image->first()->image : 'img/default-image.png';
+                                    @endphp
+                                    <img src="{{ asset('storage/' . $imagePath) }}" alt="{{ $need->needDetail->first()->item_name ?? 'No Name' }}" style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
-                                <div class="causes_content">
-                                    <div class="custom_progress_bar">
+
+                                <div class="causes_content" style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                    <div class="custom_progress_bar" style="margin-bottom: 10px;">
                                         <div class="progress">
-                                            <!-- حساب النسبة المئوية -->
                                             @php
                                                 $progress = $need->quantity_needed > 0 ? ($need->donated_quantity / $need->quantity_needed) * 100 : 0;
                                             @endphp
@@ -129,23 +135,31 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="balance d-flex justify-content-between align-items-center">
+                                    <div class="balance d-flex justify-content-between align-items-center" style="margin-bottom: 10px;">
                                         <span>Donated: {{ $need->donated_quantity }}</span>
                                         <span>Needed: {{ $need->quantity_needed }}</span>
                                     </div>
-                                    <h4>{{ $need->item_name }}</h4>
-                                    <p>{{ $need->description }}</p>
-                                    <a class="read_more" href="#">Read More</a>
+                                    <!-- عرض اسم الحاجة -->
+                                    <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+                                        {{ $need->needDetail->first()->item_name ?? 'No Name' }}
+                                    </h4>
+                                    <!-- عرض الوصف -->
+                                    <p style="font-size: 14px; color: #777; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                                        {{ Str::limit($need->needDetail->first()->description ?? 'No description available', 100) }}
+                                    </p>
+                                    <a href="{{ route('need') }}" class="boxed-btn3">Learn More</a>
                                 </div>
                             </div>
                         @endforeach
-
-
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+
+
     <!-- popular_causes_area_end  -->
 
     <!-- counter_area_start  -->
@@ -218,14 +232,15 @@
                     <div class="news_active owl-carousel">
                         @foreach($posts as $post)
                             <div class="single__blog d-flex align-items-center">
-                                <div class="thum">
+                                <div class="thum" style="height: 180px; overflow: hidden;">
                                     <!-- عرض الصورة الأولى من الصور المرتبطة -->
-                                    @if($post->images->first())
-                                        <img src="{{ asset('storage/' . $post->images->first()->image) }}" alt="{{ $post->title }}">
+                                    @if($post->images->isNotEmpty())
+                                        <img src="{{ asset('storage/post_images/' . $post->images->first()->image) }}" alt="{{ $post->title }}" style="width: 100%; height: 100%; object-fit: cover;">
                                     @else
-                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image">
+                                        <img src="{{ asset('img/default.jpg') }}" alt="Default Image" style="width: 100%; height: 100%; object-fit: cover;">
                                     @endif
                                 </div>
+
                                 <div class="newsinfo">
                                     <span>{{ $post->created_at->format('F d, Y') }}</span>
                                     <a href="#">
