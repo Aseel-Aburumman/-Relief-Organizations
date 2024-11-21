@@ -17,7 +17,7 @@ class ImagesTableSeeder extends Seeder
         DB::table('images')->insert([
             [
                 'need_id' => 1,
-                'organization_id' => 1,
+                'organization_id' => null,
                 'post_id' => null,
                 'image' => 'blanket.jpg',
                 'created_at' => now(),
@@ -25,7 +25,7 @@ class ImagesTableSeeder extends Seeder
             ],
             [
                 'need_id' => 2,
-                'organization_id' => 1,
+                'organization_id' => null,
                 'post_id' => null,
                 'image' => 'food.jpg',
                 'created_at' => now(),
@@ -33,7 +33,7 @@ class ImagesTableSeeder extends Seeder
             ],
             [
                 'need_id' => 3,
-                'organization_id' => 1,
+                'organization_id' => null,
                 'post_id' => null,
                 'image' => 'medical_supplies.jpg',
                 'created_at' => now(),
@@ -41,7 +41,7 @@ class ImagesTableSeeder extends Seeder
             ],
             [
                 'need_id' => 4,
-                'organization_id' => 1,
+                'organization_id' => null,
                 'post_id' => null,
                 'image' => 'winter_jackets.jpg',
                 'created_at' => now(),
@@ -49,7 +49,7 @@ class ImagesTableSeeder extends Seeder
             ],
             [
                 'need_id' => 5,
-                'organization_id' => 1,
+                'organization_id' => null,
                 'post_id' => null,
                 'image' => 'first_aid_kits.jpg',
                 'created_at' => now(),
@@ -57,7 +57,7 @@ class ImagesTableSeeder extends Seeder
             ],
             [
                 'need_id' => 6,
-                'organization_id' => 1,
+                'organization_id' => null,
                 'post_id' => null,
                 'image' => 'tents.jpg',
                 'created_at' => now(),

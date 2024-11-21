@@ -103,12 +103,17 @@
             </div>
             <div class="row">
                 <div class="col-lg-12">
+
                     <div class="causes_active owl-carousel">
+
                         @foreach($needs as $need)
                             <div class="single_cause">
                                 <div class="thumb">
-                                    <!-- عرض صورة العنصر -->
-                                    <img src="{{ asset('img/causes/' . ($need->image ?? 'default.png')) }}" alt="{{ $need->item_name }}">
+                                    @if ($need->image->isNotEmpty())
+                                        <img src="{{ asset('storage/need_images/' . $need->image->first()->image) }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
+                                    @else
+                                        <img src="{{ asset('img/default-image.png') }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
+                                    @endif
                                 </div>
                                 <div class="causes_content">
                                     <div class="custom_progress_bar">
@@ -134,6 +139,8 @@
                                 </div>
                             </div>
                         @endforeach
+
+
                     </div>
                 </div>
             </div>

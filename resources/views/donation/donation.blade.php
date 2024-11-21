@@ -28,7 +28,11 @@
                 <div class="col-lg-12 col-md-12">
                     <div class="single_cause">
                         <div class="thumb">
-                            <img src="img/causes/large_img.png" alt="Need Image">
+                            @if ($need->image->isNotEmpty())
+                                <img src="{{ asset('storage/need_images/' . $need->image->first()->image) }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
+                            @else
+                                <img src="{{ asset('img/default-image.png') }}" alt="{{ $need->item_name }}" style="width: 100%; height: auto;">
+                            @endif
                         </div>
                         <div class="causes_content">
                             <div class="custom_progress_bar">
