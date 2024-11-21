@@ -214,7 +214,7 @@ class NeedController extends Controller
                 ]);
             }
         }
-        
+
         // Handle the Image Upload
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('need_images', 'public');

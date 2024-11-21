@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-
             $table->string('contact_info');
+            $table->string('certificate_image');
+            $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->timestamps();
             $table->softDeletes();
         });

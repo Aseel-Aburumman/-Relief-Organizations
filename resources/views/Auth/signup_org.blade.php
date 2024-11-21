@@ -113,7 +113,7 @@
 
 
 
-                <form action="{{ route('register.organization') }}" method="POST">
+                <form action="{{ route('register.organization') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
                         <label for="name" class="form-label">Organization Name</label>
@@ -144,7 +144,10 @@
                             @endforeach
                         </select>
                     </div>
-
+                    <div class="form-group">
+                        <label for="certificate_image">Upload Proof Image:</label>
+                        <input type="file" name="certificate_image" class="form-control" required>
+                    </div>
                     <button type="submit" class="btn btn-primary w-100 mb-2">Sign Up</button>
                     <p class="text-center">Already have an account? <a href="{{ route('login.view') }}"
                             style="color: #3CC78F;">Sign
