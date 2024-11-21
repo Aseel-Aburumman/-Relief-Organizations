@@ -16,19 +16,34 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Rinvex\Country\CountryLoader;
 
 class AuthController extends Controller
 {
 
     public function showRegisterFormUser()
     {
-        return view('Auth.signup');
+        $countries = countries();
+
+        return view('Auth.signup', compact('countries'));
     }
 
     public function register(RegisterRequest $request)
     {
+        $countries = countries();
 
-        $user = User::createUser($request->validated());
+        // dd($request);
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
+
+        $userData = $request->only(['email', 'password']);
+
+        $user = User::createUser($userData);
 
 
         $role = Role::where('name', 'doner')->first();
@@ -36,17 +51,12 @@ class AuthController extends Controller
 
         $details = [
             [
-                'name' => $request->name_en,
-                'location' => $request->location_en,
+                'name' => $request->name,
+                'address' => $request->address,
                 'user_id' => $user->id,
-                'language_id' => 1, // English
-            ],
-            [
-                'name' => $request->name_ar,
-                'user_id' => $user->id,
-                'location' => $request->location_ar,
-                'language_id' => 2, // Arabic
-            ],
+                'language_id' =>  $languageId,
+            ]
+
         ];
 
 
@@ -55,18 +65,31 @@ class AuthController extends Controller
         // $user->givePermissionTo('create order');
         // return new UserResource($user);
 
-        return redirect()->route('register.view')->with('success', 'User registered successfully');
+        // return route('register.view')->with('success', 'User registered successfully');
+        return view('Auth.signup', ['success' => 'User registered successfully'], compact('countries'));
     }
 
     public function showRegisterFormOrganization()
     {
-        return view('Auth.signup_org');
+        $countries = countries();
+
+        return view('Auth.signup_org', compact('countries'));
     }
 
     public function registerOrganization(RegisterOrganizationRequest $request)
     {
+        $countries = countries();
+
         // dd($request->all());
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
         // Step 1: Create the user
+
         $userData = $request->only(['email', 'password']);
         // $userData['password'] = bcrypt($userData['password']);
         $user = User::createUser($userData);
@@ -86,21 +109,14 @@ class AuthController extends Controller
         // Step 3: Add organization details using the model's method
         $details = [
             [
-                'name' => $request->name_en,
-                'description' => $request->description_en ?? '',
-                'location' => $request->location_en,
-                'language_id' => 1, // English
+                'name' => $request->name,
+                'description' => $request->description ?? '',
+                'address' => $request->address,
+                'language_id' => $languageId,
                 'organization_id' => $organization->id,
 
             ],
-            [
-                'name' => $request->name_ar,
-                'description' => $request->description_ar ?? '',
-                'location' => $request->location_ar,
-                'language_id' => 2, // Arabic
-                'organization_id' => $organization->id,
 
-            ],
         ];
         // $organization->addOrganizationDetails($details);
         UserDetail::createMultipleUserDetails($details);
@@ -108,7 +124,7 @@ class AuthController extends Controller
 
         // Step 5: Return response
         // return new OrganizationResource($organization);
-        return view('Auth.signup_org', ['success' => 'Organization registered successfully']);
+        return view('Auth.signup_org', ['success' => 'Organization registered successfully'], compact('countries'));
     }
 
 

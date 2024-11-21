@@ -14,12 +14,24 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:8|confirmed',
-            'name_en' => 'required|string|max:255', // English name
-            'name_ar' => 'required|string|max:255', // Arabic name
-            'location_en' => 'required|string|max:255', // English name
-            'location_ar' => 'required|string|max:255', // Arabic name
+            // 'email' => 'required|email|unique:users,email',
+            // 'password' => 'required|min:8|confirmed',
+            // 'name' => 'required|string|max:255',
+            // 'address' => 'required|in:' . implode(',', $this->getCountryList()),
         ];
+    }
+
+    private function getCountryList()
+    {
+        $countries = countries();
+
+        // Fetch only the 'name' value for each country
+        $countryNames = array_map(function ($country) {
+            return $country['name'];
+        }, $countries);
+
+        // dd($countryNames); // Debug the country names
+
+        return $countryNames;
     }
 }

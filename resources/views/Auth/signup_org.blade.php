@@ -1,155 +1,158 @@
 @extends('layout.master')
+
 @section('content')
     <style>
         body {
-            background-color: #eafaf1;
+            background-color: #f7f7f7;
         }
 
-        .header_signup {
-            background-color: #3CC78F;
+        .signup-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin-top: 135px;
+            margin-bottom: 135px;
 
+        }
+
+        .signup-card {
+            width: 800px;
+            height: auto;
+            display: flex;
+            background-color: #ffffff;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .signup-card .form-section {
+            flex: 2;
+            padding: 2rem;
+        }
+
+        .signup-card .image-section {
+            flex: 1;
+            background: url('/img/auth/signup.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .signup-title {
+            font-size: 1.8rem;
+            color: #3CC78F;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-select {
+            padding: 5px 20px;
+            border-radius: 50px;
+            border-color: #dedede;
+        }
+
+        .signInBtn {
+            border-radius: 50px;
+
+        }
+
+        .social-icons a:hover {
+            background-color: #ff4d4f;
+            color: #ffffff;
+        }
+
+        .form-label {
+            font-weight: 500;
+        }
+
+        .form-control {
+            border-radius: 50px;
+            padding: 10px 20px;
         }
 
         .btn-primary {
             background-color: #3CC78F;
-            /* Theme green */
             border-color: #3CC78F;
+            border-radius: 50px;
+            padding: 10px 20px;
+            font-size: 1rem;
+            font-weight: bold;
         }
 
         .btn-primary:hover {
-            background-color: #3CC78F;
-            border-color: #3CC78F;
+            background-color: #ff6666;
+            border-color: #ff6666;
         }
 
-        .nav-tabs .nav-link.active {
-            background-color: #3CC78F;
-            color: #fff;
+        .terms {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .terms a {
+            color: #3CC78F;
         }
     </style>
 
-    <div class="container " style="margin-top:135px">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-        <div class="card mt-5">
-            <div class="header_signup card-header text-center text-white ">
-                <h2>Sign Up</h2>
-            </div>
-            <div class="card-body">
-                <ul class="nav nav-tabs mb-3" id="signupTabs" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <a href="{{ route('register.view') }}" class="nav-link btn">
-                            Sign Up as Doner
-                        </a>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="organization-tab" data-bs-toggle="tab"
-                            data-bs-target="#organization" type="button" role="tab" aria-controls="organization"
-                            aria-selected="false">
-                            Sign Up as Organization
-                        </button>
-                    </li>
-                </ul>
-
-                <div class="tab-content" id="signupTabsContent">
-                    <!-- Donor Signup Form -->
-                    {{--  <div class="tab-pane fade show active" id="donor" role="tabpanel" aria-labelledby="donor-tab">
-                        <form action="{{ route('register.donor') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="password_confirmation"
-                                    name="password_confirmation" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name_en" class="form-label">Name (English)</label>
-                                <input type="text" class="form-control" id="name_en" name="name_en" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name_ar" class="form-label">Name (Arabic)</label>
-                                <input type="text" class="form-control" id="name_ar" name="name_ar" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="location_en" class="form-label">Location (English)</label>
-                                <input type="text" class="form-control" id="location_en" name="location_en" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="location_ar" class="form-label">Location (Arabic)</label>
-                                <input type="text" class="form-control" id="location_ar" name="location_ar" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-                        </form>
-                    </div>  --}}
-
-                    <!-- Organization Signup Form -->
-                    <div class="tab-pane fade show active" id="organization" role="tabpanel"
-                        aria-labelledby="organization-tab">
-                        <form action="{{ route('register.organization') }}" method="POST">
-                            @csrf
-
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="password_confirmation"
-                                    name="password_confirmation" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name_en" class="form-label">Organization Name (English)</label>
-                                <input type="text" class="form-control" id="name_en" name="name_en" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="name_ar" class="form-label">Organization Name (Arabic)</label>
-                                <input type="text" class="form-control" id="name_ar" name="name_ar" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="location_en" class="form-label">Location (English)</label>
-                                <input type="text" class="form-control" id="location_en" name="location_en" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="location_ar" class="form-label">Location (Arabic)</label>
-                                <input type="text" class="form-control" id="location_ar" name="location_ar" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="contact_info" class="form-label">Contact Information</label>
-                                <input type="text" class="form-control" id="contact_info" name="contact_info" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description_en" class="form-label">Description (English)</label>
-                                <textarea class="form-control" id="description_en" name="description_en" rows="3"></textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label for="description_ar" class="form-label">Description (Arabic)</label>
-                                <textarea class="form-control" id="description_ar" name="description_ar" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>Already have an account? <a href="{{ route('login.view') }}" style="color: #3CC78F;">Sign
-                                    In</a></p>
-                        </div>
-                    </div>
+    <div class="signup-container">
+        <div class="signup-card">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
                 </div>
-            </div>
+            @endif
+            <div class="form-section">
+                <h2 class="signup-title">Create Account</h2>
 
+
+                <p class="text-center mb-3"> <a href="{{ route('register.view') }}" style="color: #3CC78F;">Sign
+                        Up as
+                        Doner?</a></p>
+
+                <!-- Sign-Up Form -->
+
+
+
+                <form action="{{ route('register.organization') }}" method="POST">
+                    @csrf
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Organization Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <input type="text" class="form-control" id="description" name="description" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="contact_info" class="form-label">Contact Information</label>
+                        <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Address</label>
+                        <select class="form-select" id="address" name="address" required>
+                            <option value="" disabled selected>Select your country</option>
+                            @foreach ($countries as $code => $country)
+                                <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-2">Sign Up</button>
+                    <p class="text-center">Already have an account? <a href="{{ route('login.view') }}"
+                            style="color: #3CC78F;">Sign
+                            In</a></p>
+                </form>
+
+            </div>
+            <div class="image-section"></div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 @endsection

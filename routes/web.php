@@ -83,10 +83,7 @@ Route::get('/single-blog', function () {
     return view('single-blog');
 })->name('single.blog');
 
-// صفحة Welcome
-Route::get('/', function () {
-    return view('index');
-})->name('index');
+
 
 
 Route::get('login', [AuthController::class, 'showLoginForm'])->name('login.view');
@@ -127,4 +124,4 @@ Route::group([
     Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 });
 
-Route::get('/', [MainController::class, 'index']);
+Route::get('/', [MainController::class, 'index'])->name('index');
