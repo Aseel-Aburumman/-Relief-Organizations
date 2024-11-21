@@ -11,13 +11,13 @@ class OrgnizationImageTableSeeder extends Seeder
     {
         // إضافة صور تجريبية
         OrgnizationImage::create([
-            'orgnization_id' => 1,
+            'organization_id' => 1,
             'image' => 'post_1.png',
         ]);
 
 
         OrgnizationImage::create([
-            'orgnization_id' => 2,
+            'organization_id' => 2,
             'image' => 'post_2.png',
         ]);
     }
