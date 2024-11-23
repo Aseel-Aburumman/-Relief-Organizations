@@ -27,7 +27,15 @@ class NeedImage extends Model
     }
 
 
-
+    public static function deleteNeedImage($id)
+    {
+        $NeedImage = self::where('need_id', $id);
+        if ($NeedImage) {
+            $NeedImage->delete();
+            return true;
+        }
+        return false;
+    }
 
     /**
      * إرجاع المسار الكامل للصورة

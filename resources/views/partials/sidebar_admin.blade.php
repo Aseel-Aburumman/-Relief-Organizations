@@ -3,13 +3,15 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        <li class="nav-item">
-            <a class="nav-link " href="{{ route('orgnization.dashboard') }}">
-                <i class="bi bi-grid"></i>
-                <span>Dashboard</span>
-            </a>
-        </li>
-        {{--  <!-- End Dashboard Nav -->  --}}
+        @role('organization')
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('orgnization.dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            {{--  <!-- End Dashboard Nav -->  --}}
+        @endrole
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('orgnization.manage_Needs') }}">
@@ -47,15 +49,6 @@
 
     </ul>  --}}
         {{--  </li>  --}}
-        <!-- End Components Nav -->
-
-        <li class="nav-item">
-            {{--  <a class="nav-link collapsed" href="{{ route('admin.manage_tickets') }}">
-            <i class="bi bi-card-list"></i>
-            <span>Tickets Control Center</span>
-        </a>  --}}
-        </li>
-        <!-- End Register Page Nav -->
 
 
 

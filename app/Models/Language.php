@@ -18,9 +18,9 @@ class Language extends Model
     ];
 
     protected $dates = ['deleted_at'];
-    public function need()
+    public function needDetails()
     {
-        return $this->hasMany(Need::class);
+        return $this->hasMany(NeedDetail::class, 'language_id');
     }
 
     public function userDetail()
@@ -38,7 +38,7 @@ class Language extends Model
         return self::create($data);
     }
 
-  
+
     public static function getRecordById($id)
     {
         return self::find($id);
@@ -77,7 +77,4 @@ class Language extends Model
         }
         return false;
     }
-
-
-
 }
