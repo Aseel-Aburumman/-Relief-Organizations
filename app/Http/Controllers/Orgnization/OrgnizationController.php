@@ -9,6 +9,8 @@ use App\Models\OrgnizationImage;
 use App\Models\Language;
 
 use App\Models\NeedDetail;
+use App\Models\Post;
+
 use Illuminate\Support\Facades\App;
 
 use App\Models\NeedImage;
@@ -66,7 +68,12 @@ class OrgnizationController extends Controller
             ->paginate(10);
 
 
-        return view('organization.organization_profile', compact('organization', 'OrgnizationImages', 'needs'));
+        $posts = Post::with('PostImage')
+            ->where('lang_id', $languageId)
+            ->where('organization_id', $id)
+            ->paginate(10);
+
+        return view('organization.organization_profile', compact('organization', 'OrgnizationImages', 'needs', 'posts'));
     }
 
 

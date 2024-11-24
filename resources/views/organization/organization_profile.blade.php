@@ -113,7 +113,7 @@
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
 
-                        <aside class="single_sidebar_widget post_category_widget">
+                        {{--  <aside class="single_sidebar_widget post_category_widget">
                             <h4 class="widget_title">Category</h4>
                             <ul class="list cat-list">
                                 <li>
@@ -153,18 +153,22 @@
                                     </a>
                                 </li>
                             </ul>
-                        </aside>
+                        </aside>  --}}
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title">Recent Post</h3>
-                            <div class="media post_item">
-                                <img src="img/post/post_1.png" alt="post">
-                                <div class="media-body">
-                                    <a href="single-blog.html">
-                                        <h3>From life was you fish...</h3>
-                                    </a>
-                                    <p>January 12, 2019</p>
+                            @foreach ($posts as $post)
+                                <div class="media post_item">
+                                    <img src="{{ asset('storage/posts_images/' . $OrgnizationImages->image->first()) }}"
+                                        alt="post">
+                                    <div class="media-body">
+                                        <a href="single-blog.html">
+                                            <h3>From life was you fish...</h3>
+                                        </a>
+                                        <p>January 12, 2019</p>
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
+
                             <div class="media post_item">
                                 <img src="img/post/post_2.png" alt="post">
                                 <div class="media-body">

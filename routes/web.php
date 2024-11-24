@@ -124,7 +124,7 @@ Route::group([
 });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
-Route::get('/organization/{id}', [OrgnizationController::class, 'getOne'])->name('orgnization.profile.one');
+Route::get('/organization_profile/{id}', [OrgnizationController::class, 'getOne'])->name('orgnization.profile.one');
 
 
 Route::prefix('organization')->group(function () {

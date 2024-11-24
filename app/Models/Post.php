@@ -11,7 +11,7 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['title', 'content', 'lang_id'];
+    protected $fillable = ['title', 'content', 'lang_id', 'organization_id'];
 
     protected $dates = ['deleted_at'];
 
@@ -24,6 +24,11 @@ class Post extends Model
     public function images()
     {
         return $this->hasMany(PostImage::class, 'post_id');
+    }
+
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class, 'organization_id');
     }
 
 
