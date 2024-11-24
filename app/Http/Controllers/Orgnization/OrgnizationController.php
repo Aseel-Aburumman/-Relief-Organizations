@@ -40,4 +40,25 @@ class OrgnizationController extends Controller
 
         return view('dashboard.organization_dashboard', compact('organization', 'needs', 'totalDonatedQuantity', 'totalDonations'));
     }
+
+    public function getOne($id)
+    {
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
+
+        $organization = Organization::getOrganizationById($id)
+            ->with(['userDetail' => function ($query) use ($languageId) {
+                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+            }])
+            ->get();
+
+        dd($organization);
+
+        return view('organization.organization_profile', compact('organization'));
+    }
 }

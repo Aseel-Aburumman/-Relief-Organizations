@@ -119,10 +119,8 @@ Route::group([
     Route::delete('/organization/delete_need/{id}', [NeedController::class, 'destroy'])->name('organization.delete_need')->middleware('role:organization|admin');
     Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:organization|admin');
 
-
-
-
-    Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
+    // Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/organization/{id}', [OrgnizationController::class, 'getOne'])->name('orgnization.profile');
