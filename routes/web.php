@@ -61,10 +61,7 @@ Route::get('/contact-process', function () {
     return view('contact_process');
 })->name('contact.process');
 
-// صفحة Contact
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+
 
 // صفحة Elements
 Route::get('/elements', function () {
@@ -124,7 +121,11 @@ Route::group([
 });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
+Route::get('/contact', [MainController::class, 'contact'])->name('contact');
+Route::post('/contact', [MainController::class, 'storeContact'])->name('contact.store');
+
 Route::get('/organization_profile/{id}', [OrgnizationController::class, 'getOne'])->name('orgnization.profile.one');
+Route::get('/all_organization', [OrgnizationController::class, 'getAll'])->name('orgnization.all');
 
 
 Route::prefix('organization')->group(function () {

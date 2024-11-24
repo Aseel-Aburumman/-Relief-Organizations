@@ -11,7 +11,7 @@ class UserDetailTableSeeder extends Seeder
     {
         UserDetail::create([
             'name' => 'organization1 User',
-            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+            'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo repudiandae pariatur beatae velit id magni, saepe ducimus atque exercitationem maiores rem alias, totam explicabo natus!',
             'organization_id' => '1',
             'language_id' => '1',
             'address' => 'Amman',
@@ -27,7 +27,7 @@ class UserDetailTableSeeder extends Seeder
 
         UserDetail::create([
             'name' => 'organization2 User',
-            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+            'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo repudiandae pariatur beatae velit id magni, saepe ducimus atque exercitationem maiores rem alias, totam explicabo natus!',
             'organization_id' => '2',
             'language_id' => '1',
             'address' => 'Amman',
@@ -43,7 +43,7 @@ class UserDetailTableSeeder extends Seeder
 
         UserDetail::create([
             'name' => 'organization3 User',
-            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit.',
+            'description' => 'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nemo repudiandae pariatur beatae velit id magni, saepe ducimus atque exercitationem maiores rem alias, totam explicabo natus!',
             'organization_id' => '3',
             'language_id' => '1',
             'address' => 'Amman',

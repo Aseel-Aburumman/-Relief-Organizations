@@ -58,7 +58,6 @@ class OrgnizationController extends Controller
         }])
             ->find($id);
         $OrgnizationImages = OrgnizationImage::where('organization_id', $id)->first();
-        // dd($OrgnizationImages);
 
         $needs = Need::with(['needDetail' => function ($query) use ($languageId) {
             $query->where('language_id', $languageId)
@@ -68,14 +67,32 @@ class OrgnizationController extends Controller
             ->paginate(10);
 
 
-        $posts = Post::with('PostImage')
+        $posts = Post::with('images')
             ->where('lang_id', $languageId)
             ->where('organization_id', $id)
             ->paginate(10);
-
         return view('organization.organization_profile', compact('organization', 'OrgnizationImages', 'needs', 'posts'));
     }
 
+    public function getAll()
+    {
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
+
+        $organizations = Organization::with(['userDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+        }])
+            ->paginate(12);
+        $OrgnizationImages = OrgnizationImage::get();
+
+
+        return view('organization.all_orgnization', compact('organizations', 'OrgnizationImages'));
+    }
 
     public function create()
     {
