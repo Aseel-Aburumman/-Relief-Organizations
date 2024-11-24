@@ -18,7 +18,12 @@
                             @guest
                                 <a href="{{ route('register.view') }}">Register Now</a>
                             @else
-                                <a href="{{ route('logout') }}">logout</a>
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </button>
+                            </form>
 
                             @endguest
 

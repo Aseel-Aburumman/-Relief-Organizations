@@ -13,7 +13,7 @@ class DonationResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'donation_amount' => $this->quantity, 
+            'donation_amount' => $this->quantity,
             'need_id' => $this->need_id,
             'donated_at' => $this->created_at->format('Y-m-d H:i:s'),
         ];
