@@ -55,6 +55,7 @@
                                     <li><a href="{{ route('contact') }}">Contact</a></li>
                                     @role('orgnization')
                                         <li><a href="{{ route('need') }}">Make a Donatition</a></li>
+                                        <li><a href="{{ route('orgnization.dashboard') }}">Dashboard</a></li>
                                     @endrole
                                 </ul>
 
