@@ -15,7 +15,12 @@
                         <div class="social_media_links d-none d-lg-block">
                             <a href="{{ url('lang/en') }}">English</a>
                             <a href="{{ url('lang/ar') }}">العربية</a>
+                            @guest
+                                <a href="{{ route('register.view') }}">Register Now</a>
+                            @else
+                                <a href="{{ route('logout') }}">logout</a>
 
+                            @endguest
 
                         </div>
                     </div>
@@ -48,13 +53,29 @@
                                         </ul>
                                     </li>  --}}
                                     <li><a href="{{ route('contact') }}">Contact</a></li>
+                                    @role('orgnization')
+                                        <li><a href="{{ route('need') }}">Make a Donatition</a></li>
+                                    @endrole
                                 </ul>
+
+
                             </nav>
-                            <div class="Appointment">
-                                <div class="book_btn d-none d-lg-block">
-                                    <a data-scroll-nav='1' href="{{ route('need') }}">Make a Donatition</a>
+                            @guest
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a data-scroll-nav='1' href="{{ route('need') }}">Make a Donatition</a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endguest
+                            @role('orgnization')
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a data-scroll-nav='1' href="{{ route('orgnization.dashboard') }}">Dashboard</a>
+                                    </div>
+                                </div>
+                            @endrole
+
+
                         </div>
                     </div>
                     <div class="col-12">
