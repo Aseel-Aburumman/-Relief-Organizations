@@ -1,7 +1,6 @@
 @extends('layout.master')
 @section('content')
 <style>
-    /* إخفاء الصفحة أثناء التحميل */
     body.loading {
         visibility: hidden;
         opacity: 0;
@@ -13,7 +12,6 @@
         transition: opacity 0.3s ease;
     }
 
-    /* تحسين عرض الصور */
     .thumb img {
         width: 100%;
         height: auto;
@@ -22,7 +20,6 @@
         display: block;
     }
 
-    /* شاشة تحميل (اختياري) */
     #loading-screen {
         position: fixed;
         top: 0;
@@ -45,7 +42,6 @@
     }
 </style>
 
-<!-- شاشة تحميل -->
 <div id="loading-screen">
     <p>Loading...</p>
 </div>

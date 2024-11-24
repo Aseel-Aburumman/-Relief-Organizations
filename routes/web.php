@@ -99,7 +99,7 @@ Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 //donation
 use App\Http\Controllers\Donation\DonationController;
 
-Route::get('/donations/{id}', [DonationController::class, 'show'])->name('donation.show');
+Route::get('/donation/{id}', [DonationController::class, 'show'])->name('donation.show');
 
 Route::post('/donate', [DonationController::class, 'store'])->name('donate.store');
 
@@ -125,8 +125,10 @@ Route::group([
     Route::get('/donations/{id}/edit', [DonationController::class, 'showEditForm'])->name('donations.edit');
     Route::put('/donations/{id}', [DonationController::class, 'updateDonation'])->name('donations.update');
     Route::delete('/donations/{id}', [DonationController::class, 'deleteDonation'])->name('donations.destroy');
+    Route::get('/donations/{id}', [DonationController::class, 'showDonation'])->name('donations.show');
 
-    Route::get('/user/donations', [DonationController::class, 'listUserDonations'])->name('donations.user_donations'); 
+
+    Route::get('/user/donations', [DonationController::class, 'listUserDonations'])->name('donations.user_donations');
 
 
 
