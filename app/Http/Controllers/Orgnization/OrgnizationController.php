@@ -12,7 +12,7 @@ use App\Models\NeedDetail;
 use Illuminate\Support\Facades\App;
 
 use App\Models\NeedImage;
-use App\Http\Requests\NeedRequest;
+use App\Http\Requests\OrganizationRequest;
 
 use Illuminate\Http\Request;
 
@@ -40,4 +40,68 @@ class OrgnizationController extends Controller
 
         return view('dashboard.organization_dashboard', compact('organization', 'needs', 'totalDonatedQuantity', 'totalDonations'));
     }
+    public function create()
+{
+    return view('organization.create');
 }
+
+public function store(OrganizationRequest $request)
+{
+    Organization::create($request->validated());
+    return redirect()->route('organization.index')->with('success', 'Organization created successfully!');
+}
+public function index()
+{
+    $organizations = Organization::all();
+    return view('organization.index', compact('organizations'));
+}
+public function edit($id)
+    {
+        $organization = Organization::with('userDetail', 'image')->findOrFail($id);
+
+        return view('organization.edit_organization', compact('organization'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        // تحقق من البيانات المدخلة
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'contact_info' => 'nullable|string|max:255',
+            'location' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // تحديث البيانات في جدول Organization
+        $organization = Organization::findOrFail($id);
+        $organization->contact_info = $request->contact_info;
+        $organization->save();
+
+        // تحديث البيانات في جدول UserDetail
+        $userDetail = $organization->userDetail->first();
+        if ($userDetail) {
+            $userDetail->name = $request->name;
+            $userDetail->location = $request->location;
+            $userDetail->description = $request->description;
+            $userDetail->save();
+        }
+
+        // تحديث الصورة إذا تم رفعها
+        if ($request->hasFile('image')) {
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('storage/orgnization_images'), $imageName);
+
+            if ($organization->image->isNotEmpty()) {
+                $organization->image->first()->update(['image' => $imageName]);
+            } else {
+                $organization->image()->create(['image' => $imageName]);
+            }
+        }
+
+        return redirect()->route('orgnization.edit_organization', $id)
+                         ->with('success', 'Organization updated successfully.');
+    }
+}
+
+

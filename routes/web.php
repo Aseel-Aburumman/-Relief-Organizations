@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Orgnization\OrgnizationController;
 use App\Http\Controllers\Need\NeedController;
 use App\Http\Controllers\main\MainController;
+use App\Http\Controllers\OrganizationController;
 
 use Illuminate\Support\Facades\Log;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -125,4 +126,10 @@ Route::group([
     Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 });
 
-Route::get('/', [MainController::class, 'index'])->name('index');
+Route::prefix('organization')->group(function () {
+    Route::get('/edit/{id}', [OrgnizationController::class, 'edit'])->name('orgnization.edit_organization');
+    Route::put('/update/{id}', [OrgnizationController::class, 'update'])->name('orgnization.update_organization');
+    Route::get('/manage', [OrgnizationController::class, 'index'])->name('orgnization.manage_organization');
+    Route::get('/create', [OrgnizationController::class, 'create'])->name('orgnization.create_organization');
+    Route::post('/store', [OrgnizationController::class, 'store'])->name('orgnization.store_organization');
+});

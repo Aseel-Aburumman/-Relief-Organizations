@@ -19,7 +19,12 @@
                 <span>Needs Control Center</span>
             </a>
         </li>
-
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('orgnization.manage_Needs') }}">
+                <i class="bi bi-card-list"></i>
+                <span>Organaization Control Center</span>
+            </a>
+        </li>
         {{--
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
