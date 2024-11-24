@@ -6,6 +6,7 @@ use App\Http\Controllers\Orgnization\OrgnizationController;
 use App\Http\Controllers\Need\NeedController;
 use App\Http\Controllers\main\MainController;
 use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\Post\PostController;
 
 use Illuminate\Support\Facades\Log;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
@@ -121,6 +122,8 @@ Route::group([
     Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:orgnization|admin');
 
     Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
+
+
 });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
@@ -134,3 +137,15 @@ Route::prefix('organization')->group(function () {
     Route::get('/create', [OrgnizationController::class, 'create'])->name('orgnization.create_organization');
     Route::post('/store', [OrgnizationController::class, 'store'])->name('orgnization.store_organization');
 });
+
+// Posts routes
+Route::prefix('posts')->group(function () {
+    Route::get('/manage', [PostController::class, 'index'])->name('posts.manage');
+    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/view/{id}', [PostController::class, 'show'])->name('posts.show');
+    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
+    Route::post('/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+});
+
