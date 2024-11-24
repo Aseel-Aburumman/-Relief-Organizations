@@ -25,6 +25,14 @@
                 <span>Organaization Control Center</span>
             </a>
         </li>
+
+         <!-- Add Manage Posts option -->
+         <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('posts.manage') }}">
+                <i class="bi bi-pencil-square"></i>
+                <span>Posts Control Center</span>
+            </a>
+        </li>
         {{--
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
