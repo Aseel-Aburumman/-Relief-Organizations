@@ -118,7 +118,19 @@ Route::group([
     Route::delete('/organization/delete_need/{id}', [NeedController::class, 'destroy'])->name('organization.delete_need')->middleware('role:orgnization|admin');
     Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:orgnization|admin');
 
-    Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
+
+  Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
+
+// Posts routes
+Route::prefix('posts')->group(function () {
+    Route::get('/manage', [PostController::class, 'index'])->name('posts.manage');
+    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/view/{id}', [PostController::class, 'show'])->name('posts.show');
+    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
+    Route::post('/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+});
 
 
 });
@@ -139,14 +151,4 @@ Route::prefix('organization')->group(function () {
     Route::post('/store', [OrgnizationController::class, 'store'])->name('orgnization.store_organization');
 });
 
-// Posts routes
-Route::prefix('posts')->group(function () {
-    Route::get('/manage', [PostController::class, 'index'])->name('posts.manage');
-    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/store', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/view/{id}', [PostController::class, 'show'])->name('posts.show');
-    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
-    Route::post('/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
-});
 
