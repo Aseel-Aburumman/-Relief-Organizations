@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\UserController;
+
 use App\Http\Controllers\Orgnization\OrgnizationController;
 use App\Http\Controllers\Need\NeedController;
 use App\Http\Controllers\main\MainController;
@@ -37,9 +39,7 @@ Route::get('/blog', function () {
 Route::get('/needs', [NeedController::class, 'index'])->name('need');
 Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
 
-// Route::get('/needs', function () {
-//     return view('need.needs');
-// })->name('need');
+
 
 // صفحة needs
 
@@ -47,20 +47,10 @@ Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
 Route::get('/needs', [NeedController::class, 'index'])->name('need');
 Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
 
-// Route::get('/needs', function () {
-//     return view('need.needs');
-// })->name('need');
 
 
-// صفحة Cause Details
-Route::get('/cause-details', function () {
-    return view('cause_details');
-})->name('cause.details');
 
-// صفحة Contact Process
-Route::get('/contact-process', function () {
-    return view('contact_process');
-})->name('contact.process');
+
 
 
 
@@ -77,10 +67,7 @@ Route::get('/main', function () {
     return view('main');
 })->name('main');
 
-// صفحة Single Blog
-Route::get('/single-blog', function () {
-    return view('single-blog');
-})->name('single.blog');
+
 
 
 
@@ -107,6 +94,13 @@ Route::group([
     'prefix' => LaravelLocalization::setLocale(),
     'middleware' => ['auth'],
 ], function () {
+    Route::get('/profile', [UserController::class, 'Profile'])->name('profile');
+    Route::put('/profile/update', [UserController::class, 'updateProfile'])->name('profile.update');
+
+    Route::get('/doner/dashboard', [UserController::class, 'doner_dashboard'])->name('doner.dashboard')->middleware('role:doner');
+
+
+
     Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard')->middleware('role:orgnization');
     Route::get('/orgnization/needs', [NeedController::class, 'getallNeed'])->name('orgnization.manage_Needs');
     Route::get('/orgnization/needs/create', [NeedController::class, 'create_Need'])->name('orgnization.create_Need')->middleware('role:orgnization|admin');
@@ -133,20 +127,17 @@ Route::group([
 
 
 
-  Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 
-// Posts routes
-Route::prefix('posts')->group(function () {
-    Route::get('/manage', [PostController::class, 'index'])->name('posts.manage');
-    Route::get('/create', [PostController::class, 'create'])->name('posts.create');
-    Route::post('/store', [PostController::class, 'store'])->name('posts.store');
-    Route::get('/view/{id}', [PostController::class, 'show'])->name('posts.show');
-    Route::get('/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
-    Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
-    Route::post('/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
-});
-
-
+    // Posts routes
+    Route::prefix('posts')->group(function () {
+        Route::get('/manage', [PostController::class, 'index'])->name('posts.manage');
+        Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+        Route::post('/store', [PostController::class, 'store'])->name('posts.store');
+        Route::get('/view/{id}', [PostController::class, 'show'])->name('posts.show');
+        Route::get('/edit/{id}', [PostController::class, 'edit'])->name('posts.edit');
+        Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
+        Route::post('/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
+    });
 });
 
 Route::get('/', [MainController::class, 'index'])->name('index');
@@ -155,6 +146,9 @@ Route::post('/contact', [MainController::class, 'storeContact'])->name('contact.
 
 Route::get('/organization_profile/{id}', [OrgnizationController::class, 'getOne'])->name('orgnization.profile.one');
 Route::get('/all_organization', [OrgnizationController::class, 'getAll'])->name('orgnization.all');
+Route::get('/organization_post/{id}', [PostController::class, 'getOne'])->name('orgnization.post.one');
+Route::get('/organization_posts/{organization_id}', [PostController::class, 'getAll'])->name('orgnization.post.all');
+
 
 
 Route::prefix('organization')->group(function () {
@@ -164,5 +158,3 @@ Route::prefix('organization')->group(function () {
     Route::get('/create', [OrgnizationController::class, 'create'])->name('orgnization.create_organization');
     Route::post('/store', [OrgnizationController::class, 'store'])->name('orgnization.store_organization');
 });
-
-

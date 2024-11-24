@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
+use App\Models\Organization;
+
 
 class PostController extends Controller
 {
@@ -50,5 +52,54 @@ class PostController extends Controller
     {
         Post::deletePost($id);
         return redirect()->route('posts.manage')->with('success', 'Post deleted successfully');
+    }
+
+
+    public function getOne($id)
+    {
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
+
+        $post = Post::with('images')
+            ->where('id', $id)
+            ->first();
+
+        $posts = Post::with('images')
+            ->where('lang_id', $languageId)
+
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
+
+        return view('organization.single-blog', compact('post', 'posts'));
+    }
+
+    public function getAll($organization_id)
+    {
+        $locale = session('locale', 'en');
+        $languageMap = [
+            'en' => 1, // English language_id
+            'ar' => 2, // Arabic language_id
+        ];
+
+        $languageId = $languageMap[$locale] ?? 1;
+        $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+        }])
+            ->find($organization_id);
+
+        $posts = Post::with('images')
+            ->where('lang_id', $languageId)
+            ->where('organization_id', $organization_id)
+
+            ->orderBy('created_at', 'desc')
+            ->paginate(6);
+
+
+        return view('organization.blog', compact('posts', 'organization'));
     }
 }

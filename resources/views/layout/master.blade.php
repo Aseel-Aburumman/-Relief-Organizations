@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
-    @livewireStyles
+    {{--  @livewireStyles  --}}
 </head>
 
 <body>
@@ -37,7 +37,7 @@
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
         <![endif]-->
 
-        @yield('content')
+    @yield('content')
 
 
 

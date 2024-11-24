@@ -190,7 +190,7 @@ class NeedController extends Controller
                     $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
                 }])
                 ->get();
-        } else {
+        } elseif ($user->hasRole('orgnization')) {
             $organization = Organization::with(['need.donations'])->where('user_id', auth()->id())->first();
 
             $needs = Need::where('organization_id', $organization->id)
@@ -201,6 +201,8 @@ class NeedController extends Controller
                     $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
                 }])
                 ->get();
+        } else {
+            return redirect()->route('index')->with('error', 'dont have the right roles');
         }
 
         return view('dashboard.needs.manage_needs', compact('needs'));
