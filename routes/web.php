@@ -111,14 +111,14 @@ Route::group([
 ], function () {
     Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard')->middleware('role:orgnization');
     Route::get('/orgnization/needs', [NeedController::class, 'getallNeed'])->name('orgnization.manage_Needs');
-    Route::get('/orgnization/needs/create', [NeedController::class, 'create_Need'])->name('orgnization.create_Need')->middleware('role:organization|admin');
+    Route::get('/orgnization/needs/create', [NeedController::class, 'create_Need'])->name('orgnization.create_Need')->middleware('role:orgnization|admin');
     Route::patch('/admin/disable-all-needs/{organization_id}', [NeedController::class, 'disableAllNeeds'])->name('orgnization.disable_need');
 
     Route::post('/organization/store-need', [NeedController::class, 'storeNeed'])->name('organization.store_need');
-    Route::get('/organization/edit-need/{id}', [NeedController::class, 'editNeed'])->name('organization.edit_need')->middleware('role:organization|admin');
+    Route::get('/organization/edit-need/{id}', [NeedController::class, 'editNeed'])->name('organization.edit_need')->middleware('role:orgnization|admin');
     Route::put('/organization/update-need/{id}', [NeedController::class, 'updateNeed'])->name('organization.update_need');
-    Route::delete('/organization/delete_need/{id}', [NeedController::class, 'destroy'])->name('organization.delete_need')->middleware('role:organization|admin');
-    Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:organization|admin');
+    Route::delete('/organization/delete_need/{id}', [NeedController::class, 'destroy'])->name('organization.delete_need')->middleware('role:orgnization|admin');
+    Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:orgnization|admin');
 
     Route::get('/orgnization/profile', [OrgnizationController::class, 'Profile'])->name('orgnization.profile');
 });
