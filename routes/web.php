@@ -118,6 +118,18 @@ Route::group([
     Route::put('/organization/update-need/{id}', [NeedController::class, 'updateNeed'])->name('organization.update_need')->middleware('role:orgnization');
     Route::delete('/organization/delete_need/{id}', [NeedController::class, 'deleteNeed'])->name('organization.delete_need')->middleware('role:orgnization');
 
+    // Donations Routes
+    Route::get('/donations', [DonationController::class, 'listDonations'])->name('donations.index');
+    Route::get('/donations/create', [DonationController::class, 'showCreateForm'])->name('donations.create');
+    Route::post('/donations', [DonationController::class, 'saveDonation'])->name('donations.store');
+    Route::get('/donations/{id}/edit', [DonationController::class, 'showEditForm'])->name('donations.edit');
+    Route::put('/donations/{id}', [DonationController::class, 'updateDonation'])->name('donations.update');
+    Route::delete('/donations/{id}', [DonationController::class, 'deleteDonation'])->name('donations.destroy');
+
+    Route::get('/user/donations', [DonationController::class, 'listUserDonations'])->name('donations.user_donations'); 
+
+
+
 
 
 
