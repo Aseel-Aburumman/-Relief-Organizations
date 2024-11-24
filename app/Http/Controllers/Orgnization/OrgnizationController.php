@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Orgnization;
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\Need;
-use App\Models\Category;
+use App\Models\OrgnizationImage;
 use App\Models\Language;
 
 use App\Models\NeedDetail;
@@ -51,32 +51,41 @@ class OrgnizationController extends Controller
 
         $languageId = $languageMap[$locale] ?? 1;
 
-        $organization = Organization::getOrganizationById($id)
-            ->with(['userDetail' => function ($query) use ($languageId) {
-                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-            }])
-            ->get();
+        $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+        }])
+            ->find($id);
+        $OrgnizationImages = OrgnizationImage::where('organization_id', $id)->first();
+        // dd($OrgnizationImages);
 
-        dd($organization);
+        $needs = Need::with(['needDetail' => function ($query) use ($languageId) {
+            $query->where('language_id', $languageId)
+                ->select('id', 'need_id', 'item_name', 'description');
+        }])
+            ->where('organization_id', $id)
+            ->paginate(10);
 
-        return view('organization.organization_profile', compact('organization'));
+
+        return view('organization.organization_profile', compact('organization', 'OrgnizationImages', 'needs'));
     }
-    public function create()
-{
-    return view('organization.create');
-}
 
-public function store(OrganizationRequest $request)
-{
-    Organization::create($request->validated());
-    return redirect()->route('organization.index')->with('success', 'Organization created successfully!');
-}
-public function index()
-{
-    $organizations = Organization::all();
-    return view('organization.index', compact('organizations'));
-}
-public function edit($id)
+
+    public function create()
+    {
+        return view('organization.create');
+    }
+
+    public function store(OrganizationRequest $request)
+    {
+        Organization::create($request->validated());
+        return redirect()->route('organization.index')->with('success', 'Organization created successfully!');
+    }
+    public function index()
+    {
+        $organizations = Organization::all();
+        return view('organization.index', compact('organizations'));
+    }
+    public function edit($id)
     {
         $organization = Organization::with('userDetail', 'image')->findOrFail($id);
 
@@ -121,8 +130,6 @@ public function edit($id)
         }
 
         return redirect()->route('orgnization.edit_organization', $id)
-                         ->with('success', 'Organization updated successfully.');
+            ->with('success', 'Organization updated successfully.');
     }
 }
-
-

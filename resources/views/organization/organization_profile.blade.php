@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>{{ $organization->userDetail->name }} Blog</h3>
+                        <h3>{{ $organization->userDetail->first()->name ?? 'Default Name' }} </h3>
                     </div>
                 </div>
             </div>
@@ -21,265 +21,98 @@
                 <div class="col-lg-8 posts-list">
                     <div class="single-post">
                         <div class="feature-img">
-                            <img class="img-fluid" src="img/blog/single_blog_1.png" alt="">
+                            <img class="img-fluid"
+                                src="{{ asset('storage/orgnization_images/' . $OrgnizationImages->image) }}" alt="">
                         </div>
                         <div class="blog_details">
-                            <h2>Second divided from form fish beast made every of seas
-                                all gathered us saying he our
-                            </h2>
+                            <h1>{{ $organization->userDetail->first()->name }}
+                            </h1>
                             <ul class="blog-info-link mt-3 mb-4">
                                 <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                <li><a href="#"><i class="fa fa-money"></i> {{ $organization->need->count() }}
+                                        Needs</a></li>
                             </ul>
                             <p class="excert">
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why
-                                you
-                                should have to spend money on boot camp when you can get the MCSE study materials yourself
-                                at a
-                                fraction of the camp price. However, who has the willpower
+                                {{ $organization->userDetail->first()->description }}
                             </p>
-                            <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why
-                                you
-                                should have to spend money on boot camp when you can get the MCSE study materials yourself
-                                at a
-                                fraction of the camp price. However, who has the willpower to actually sit through a
-                                self-imposed MCSE training. who has the willpower to actually
-                            </p>
-                            <div class="quote-wrapper">
-                                <div class="quotes">
-                                    MCSE boot camps have its supporters and its detractors. Some people do not understand
-                                    why you
-                                    should have to spend money on boot camp when you can get the MCSE study materials
-                                    yourself at
-                                    a fraction of the camp price. However, who has the willpower to actually sit through a
-                                    self-imposed MCSE training.
-                                </div>
-                            </div>
-                            <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why
-                                you
-                                should have to spend money on boot camp when you can get the MCSE study materials yourself
-                                at a
-                                fraction of the camp price. However, who has the willpower
-                            </p>
-                            <p>
-                                MCSE boot camps have its supporters and its detractors. Some people do not understand why
-                                you
-                                should have to spend money on boot camp when you can get the MCSE study materials yourself
-                                at a
-                                fraction of the camp price. However, who has the willpower to actually sit through a
-                                self-imposed MCSE training. who has the willpower to actually
-                            </p>
+
                         </div>
                     </div>
-                    <div class="navigation-top">
-                        <div class="d-sm-flex justify-content-between text-center">
-                            <p class="like-info"><span class="align-middle"><i class="fa fa-heart"></i></span> Lily and 4
-                                people like this</p>
-                            <div class="col-sm-4 text-center my-2 my-sm-0">
-                                <!-- <p class="comment-count"><span class="align-middle"><i class="fa fa-comment"></i></span> 06 Comments</p> -->
-                            </div>
-                            <ul class="social-icons">
-                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                                <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                            </ul>
-                        </div>
-                        <div class="navigation-area">
-                            <div class="row">
-                                <div
-                                    class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/post/preview.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="arrow">
-                                        <a href="#">
-                                            <span class="lnr text-white ti-arrow-left"></span>
-                                        </a>
-                                    </div>
-                                    <div class="detials">
-                                        <p>Prev Post</p>
-                                        <a href="#">
-                                            <h4>Space The Final Frontier</h4>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div
-                                    class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
-                                    <div class="detials">
-                                        <p>Next Post</p>
-                                        <a href="#">
-                                            <h4>Telescopes 101</h4>
-                                        </a>
-                                    </div>
-                                    <div class="arrow">
-                                        <a href="#">
-                                            <span class="lnr text-white ti-arrow-right"></span>
-                                        </a>
-                                    </div>
-                                    <div class="thumb">
-                                        <a href="#">
-                                            <img class="img-fluid" src="img/post/next.png" alt="">
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-author">
-                        <div class="media align-items-center">
-                            <img src="img/blog/author.png" alt="">
-                            <div class="media-body">
-                                <a href="#">
-                                    <h4>Harvard milan</h4>
-                                </a>
-                                <p>Second divided from form fish beast made. Every of seas all gathered use saying you're,
-                                    he
-                                    our dominion twon Second divided from</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comments-area">
-                        <h4>05 Comments</h4>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="img/comment/comment_1.png" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment">
-                                            Multiply sea night grass fourth day sea lesser rule open subdue female fill
-                                            which them
-                                            Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                                        </p>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">Emilly Blunt</a>
-                                                </h5>
-                                                <p class="date">December 4, 2017 at 3:12 pm </p>
+                    <div class="navigation-top mt-5">
+                        <div class="row">
+                            <h3>Donate to Gaza needs through the {{ $organization->userDetail->first()->name }} organization
+                            </h3>
+                            <br>
+                            <div class="mt-5 col-lg-12">
+                                <div class="causes_active owl-carousel"
+                                    style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
+                                    @foreach ($needs as $need)
+                                        <div class="single_cause"
+                                            style="width: 300px; height: 420px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
+                                            <div class="thumb" style="height: 180px; overflow: hidden;">
+                                                @php
+                                                    $imagePath = $need->image->isNotEmpty()
+                                                        ? 'need_images/' . $need->image->first()->image
+                                                        : 'img/default-image.png';
+                                                @endphp
+                                                <img src="{{ asset('storage/' . $imagePath) }}"
+                                                    alt="{{ $need->needDetail->first()->item_name ?? 'No Name' }}"
+                                                    style="width: 100%; height: 100%; object-fit: cover;">
                                             </div>
-                                            <div class="reply-btn">
-                                                <a href="#" class="btn-reply text-uppercase">reply</a>
+
+                                            <div class="causes_content"
+                                                style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                                                <div class="custom_progress_bar" style="margin-bottom: 10px;">
+                                                    <div class="progress">
+                                                        @php
+                                                            $progress =
+                                                                $need->quantity_needed > 0
+                                                                    ? ($need->donated_quantity /
+                                                                            $need->quantity_needed) *
+                                                                        100
+                                                                    : 0;
+                                                        @endphp
+                                                        <div class="progress-bar" role="progressbar"
+                                                            style="width: {{ $progress }}%;"
+                                                            aria-valuenow="{{ $progress }}" aria-valuemin="0"
+                                                            aria-valuemax="100">
+                                                            <span class="progres_count">
+                                                                {{ round($progress) }}%
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="balance d-flex justify-content-between align-items-center"
+                                                    style="margin-bottom: 10px;">
+                                                    <span>Donated: {{ $need->donated_quantity }}</span>
+                                                    <span>Needed: {{ $need->quantity_needed }}</span>
+                                                </div>
+                                                <!-- عرض اسم الحاجة -->
+                                                <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
+                                                    {{ $need->needDetail->first()->item_name ?? 'No Name' }}
+                                                </h4>
+                                                <!-- عرض الوصف -->
+                                                <p
+                                                    style="font-size: 14px; color: #777; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
+                                                    {{ Str::limit($need->needDetail->first()->description ?? 'No description available', 100) }}
+                                                </p>
+                                                <a href="{{ route('need') }}" class="boxed-btn3">Learn More</a>
                                             </div>
                                         </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                            </div>
-                        </div>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="img/comment/comment_2.png" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment">
-                                            Multiply sea night grass fourth day sea lesser rule open subdue female fill
-                                            which them
-                                            Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                                        </p>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">Emilly Blunt</a>
-                                                </h5>
-                                                <p class="date">December 4, 2017 at 3:12 pm </p>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="#" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment-list">
-                            <div class="single-comment justify-content-between d-flex">
-                                <div class="user justify-content-between d-flex">
-                                    <div class="thumb">
-                                        <img src="img/comment/comment_3.png" alt="">
-                                    </div>
-                                    <div class="desc">
-                                        <p class="comment">
-                                            Multiply sea night grass fourth day sea lesser rule open subdue female fill
-                                            which them
-                                            Blessed, give fill lesser bearing multiply sea night grass fourth day sea lesser
-                                        </p>
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex align-items-center">
-                                                <h5>
-                                                    <a href="#">Emilly Blunt</a>
-                                                </h5>
-                                                <p class="date">December 4, 2017 at 3:12 pm </p>
-                                            </div>
-                                            <div class="reply-btn">
-                                                <a href="#" class="btn-reply text-uppercase">reply</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                <!-- Pagination Links -->
+                                <div class="mt-3">
+                                    {{ $needs->links() }}
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="comment-form">
-                        <h4>Leave a Reply</h4>
-                        <form class="form-contact comment_form" action="#" id="commentForm">
-                            <div class="row">
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <textarea class="form-control w-100" name="comment" id="comment" cols="30" rows="9"
-                                            placeholder="Write Comment"></textarea>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="name" id="name" type="text"
-                                            placeholder="Name">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <input class="form-control" name="email" id="email" type="email"
-                                            placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-group">
-                                        <input class="form-control" name="website" id="website" type="text"
-                                            placeholder="Website">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button type="submit" class="button button-contactForm btn_1 boxed-btn">Send
-                                    Message</button>
-                            </div>
-                        </form>
-                    </div>
+
                 </div>
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget search_widget">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='Search Keyword'
-                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search Keyword'">
-                                        <div class="input-group-append">
-                                            <button class="btn" type="button"><i class="ti-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                    type="submit">Search</button>
-                            </form>
-                        </aside>
+
                         <aside class="single_sidebar_widget post_category_widget">
                             <h4 class="widget_title">Category</h4>
                             <ul class="list cat-list">
