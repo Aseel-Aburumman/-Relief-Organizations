@@ -37,6 +37,33 @@ class NeedDetailSeeder extends Seeder
                 'updated_at' => now(),
                 'deleted_at' => null,
             ],
+            [
+                'need_id' => 4,
+                'language_id' => 1,
+                'item_name' => 'Clothing',
+                'description' => 'Warm clothes for children and adults.',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'deleted_at' => null,
+            ],
+            [
+                'need_id' => 5,
+                'language_id' => 1,
+                'item_name' => 'First Aid Kits',
+                'description' => 'Basic first aid kits for emergencies.',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'deleted_at' => null,
+            ],
+            [
+                'need_id' => 6,
+                'language_id' => 1,
+                'item_name' => 'Tents',
+                'description' => 'Temporary shelters for displaced families.',
+                'created_at' => now(),
+                'updated_at' => now(),
+                'deleted_at' => null,
+            ],
         ]);
     }
 }

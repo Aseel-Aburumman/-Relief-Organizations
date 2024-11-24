@@ -28,6 +28,10 @@ class NeedDetail extends Model
         return $this->belongsTo(Need::class);
     }
 
+    public function language()
+    {
+        return $this->belongsTo(\App\Models\Language::class, 'language_id');
+    }
 
 
 
@@ -70,7 +74,7 @@ class NeedDetail extends Model
 
     public static function deleteNeedDetail($id)
     {
-        $NeedDetail = self::find($id);
+        $NeedDetail = self::where('need_id', $id);
         if ($NeedDetail) {
             $NeedDetail->delete();
             return true;

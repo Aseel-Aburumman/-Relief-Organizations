@@ -61,20 +61,23 @@
                                     <td>{{ $need->status }}</td>
                                     <td class="tableHide">{{ $need->created_at->format('Y-m-d') }}</td>
                                     <td class="actions">
-                                        {{--  <a href="{{ route('donation.show', ['id' => $need->id]) }}"
-                                            class="fa-solid fa-eye"></a>  --}}
-                                        {{--  <a href="{{ route('orgnization.edit_need', ['id' => $need->id]) }}"
-                                            class="fa-solid fa-pencil"></a>  --}}
-                                        {{--  <form action="{{ route('orgnization.delete_need', ['id' => $need->id]) }}"
-                                            method="POST" style="display:inline;"
-                                            onsubmit="return confirm('Are you sure you want to delete this customer?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit"
-                                                style="background:none; border:none; color:#007bff; cursor:pointer;">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>  --}}
+                                        <a href="{{ route('donation.show', ['id' => $need->id]) }}"
+                                            class="fa-solid fa-eye"></a>
+                                        @role('orgnization')
+                                            <a href="{{ route('organization.edit_need', ['id' => $need->id]) }}"
+                                                class="fa-solid fa-pencil"></a>
+                                            <form action="{{ route('organization.delete_need', ['id' => $need->id]) }}"
+                                                method="POST" style="display:inline;"
+                                                onsubmit="return confirm('Are you sure you want to delete this need?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit"
+                                                    style="background:none; border:none; color:#007bff; cursor:pointer;">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </button>
+                                            </form>
+                                        @endrole
+
                                     </td>
                                 </tr>
                             @endforeach

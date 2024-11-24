@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
+    @livewireStyles
 </head>
 
 <body>
@@ -37,7 +38,7 @@
         <![endif]-->
 
         @yield('content')
-    
+
 
 
     <!-- footer_end  -->
@@ -72,6 +73,8 @@
     <script src="js/mail-script.js"></script>
 
     <script src="js/main.js"></script>
+    @livewireScripts
+
 </body>
 
 </html>

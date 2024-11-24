@@ -6,25 +6,27 @@
                     <div class="col-xl-6 col-md-12 col-lg-8">
                         <div class="short_contact_list">
                             <ul>
-                                <li><a href="#"> <i class="fa fa-phone"></i> +1 (454) 556-5656</a></li>
-                                <li><a href="#"> <i class="fa fa-envelope"></i>Yourmail@gmail.com</a></li>
+                                <li><a href="#"> <i class="fa fa-phone"></i> +962 (79) 661-5656</a></li>
+                                <li><a href="#"> <i class="fa fa-envelope"></i>contact@charifit.com</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-6 col-md-6 col-lg-4">
                         <div class="social_media_links d-none d-lg-block">
-                            <a href="#">
-                                <i class="fa fa-facebook"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-pinterest-p"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-linkedin"></i>
-                            </a>
-                            <a href="#">
-                                <i class="fa fa-twitter"></i>
-                            </a>
+                            <a href="{{ url('lang/en') }}">English</a>
+                            <a href="{{ url('lang/ar') }}">العربية</a>
+                            @guest
+                                <a href="{{ route('register.view') }}">Register Now</a>
+                            @else
+                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                @csrf
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </button>
+                            </form>
+
+                            @endguest
+
                         </div>
                     </div>
                 </div>
@@ -35,7 +37,7 @@
                 <div class="row align-items-center">
                     <div class="col-xl-3 col-lg-3">
                         <div class="logo">
-                            <a href="index.html">
+                            <a href="{{ route('index') }}">
                                 <img src="img/logo.png" alt="">
                             </a>
                         </div>
@@ -44,28 +46,41 @@
                         <div class="main-menu">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="index.html">home</a></li>
+                                    <li><a href="{{ route('index') }}">home</a></li>
                                     <li><a href="About.html">About</a></li>
-                                    <li><a href="#">blog <i class="ti-angle-down"></i></a>
-                                        <ul class="submenu">
-                                            <li><a href="blog.html">blog</a></li>
-                                            <li><a href="single-blog.html">single-blog</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">pages <i class="ti-angle-down"></i></a>
+                                    <li><a href="{{ route('orgnization.all') }}">Our Orgnaization</a></li>
+
+
+                                    {{--  <li><a href="#">pages <i class="ti-angle-down"></i></a>
                                         <ul class="submenu">
                                             <li><a href="elements.html">elements</a></li>
                                             <li><a href="Cause.html">Cause</a></li>
                                         </ul>
-                                    </li>
-                                    <li><a href="contact.html">Contact</a></li>
+                                    </li>  --}}
+                                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                                    @role('orgnization')
+                                        <li><a href="{{ route('need') }}">Make a Donatition</a></li>
+                                    @endrole
                                 </ul>
+
+
                             </nav>
-                            <div class="Appointment">
-                                <div class="book_btn d-none d-lg-block">
-                                    <a data-scroll-nav='1' href="#">Make a Donate</a>
+                            @guest
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a data-scroll-nav='1' href="{{ route('need') }}">Make a Donatition</a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endguest
+                            @role('orgnization')
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a data-scroll-nav='1' href="{{ route('orgnization.dashboard') }}">Dashboard</a>
+                                    </div>
+                                </div>
+                            @endrole
+
+
                         </div>
                     </div>
                     <div class="col-12">

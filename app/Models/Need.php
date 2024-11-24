@@ -47,7 +47,7 @@ class Need extends Model
     }
     public function image()
     {
-        return $this->hasMany(NeedImage::class);
+        return $this->hasMany(NeedImage::class );
     }
     public function needDetail()
     {

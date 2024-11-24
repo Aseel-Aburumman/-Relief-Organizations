@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Need;
 
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
+
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category; // Import the Category model
@@ -16,21 +21,47 @@ use App\Models\Organization;
 class NeedController extends Controller
 {
 
+    // public function index(Request $request)
+    // {
+
+    //     $categories = Category::all();
+
+    //     $urgencies = Need::select('urgency')->distinct()->pluck('urgency');
+    //     $statuses = Need::select('status')->distinct()->pluck('status');
+
+    //     $filters = $request->only(['category_id', 'urgency', 'status', 'organization_id']);
+
+    //     $needs = Need::getAllNeeds($filters);
+
+
+    //     return view('need.needs', compact('needs', 'categories', 'urgencies', 'statuses'));
+    // }
+
     public function index(Request $request)
     {
+        // $categories = Category::all(); // جلب جميع الفئات من جدول الفئات
+        // $urgencies = Need::select('urgency')->distinct()->pluck('urgency');
+        // $statuses = Need::select('status')->distinct()->pluck('status');
 
-        $categories = Category::all();
+        // $filters = $request->only(['category_id', 'urgency', 'status', 'organization_id']);
 
-        // Fetch unique urgency and status values for the filters
-        $urgencies = Need::select('urgency')->distinct()->pluck('urgency');
-        $statuses = Need::select('status')->distinct()->pluck('status');
+        // $needs = Need::with(['image', 'needDetail'])->when($filters, function ($query) use ($filters) {
+        //     if (!empty($filters['category_id'])) {
+        //         $query->where('category_id', $filters['category_id']);
+        //     }
 
-        $filters = $request->only(['category_id', 'urgency', 'status', 'organization_id']);
+        //     if (!empty($filters['urgency'])) {
+        //         $query->where('urgency', $filters['urgency']);
+        //     }
 
-        $needs = Need::getAllNeeds($filters);
+        //     if (!empty($filters['status'])) {
+        //         $query->where('status', $filters['status']);
+        //     }
+        // })->paginate(10);
 
-        return view('need.needs', compact('needs', 'categories', 'urgencies', 'statuses'));
+        return view('need.needs');
     }
+
 
 
 
@@ -108,17 +139,7 @@ class NeedController extends Controller
         return redirect()->route('need')->with('success', 'Need updated successfully');
     }
 
-    // Soft delete a need
-    public function destroy($id)
-    {
-        $deleted = Need::deleteNeed($id);
 
-        if (!$deleted) {
-            return redirect()->route('need')->with('error', 'Need not found');
-        }
-
-        return redirect()->route('need')->with('success', 'Need deleted successfully');
-    }
 
     // Restore a soft-deleted need
     public function restore($id)
@@ -158,28 +179,47 @@ class NeedController extends Controller
 
 
         $search = $request->input('search');
+        $user = Auth::user();
+        $user = User::find(Auth::user()->id);
 
-        $organization = Organization::with(['need.donations'])->where('user_id', auth()->id())->first();
-
-        $needs = Need::where('organization_id', $organization->id)
-            ->when($search, function ($query, $search) {
+        if ($user->hasRole('admin')) {
+            $needs = Need::when($search, function ($query, $search) {
                 return $query->where('item_name', 'like', '%' . $search . '%');
             })
-            ->with(['needDetail' => function ($query) use ($languageId) {
-                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-            }])
-            ->get();
+                ->with(['needDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                }])
+                ->get();
+        } else {
+            $organization = Organization::with(['need.donations'])->where('user_id', auth()->id())->first();
 
-
+            $needs = Need::where('organization_id', $organization->id)
+                ->when($search, function ($query, $search) {
+                    return $query->where('item_name', 'like', '%' . $search . '%');
+                })
+                ->with(['needDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                }])
+                ->get();
+        }
 
         return view('dashboard.needs.manage_needs', compact('needs'));
     }
 
-    public function disable_need($organizationId)
+    // Soft delete a need
+    public function destroy($id)
     {
-        $needs = Need::where('organization_id', $organizationId)->update(['status' => 'disabled']);
+        $deleted = Need::deleteNeed($id);
+        $deletedNeedDetail = NeedDetail::deleteNeedDetail($id);
+        $deletedNeedDetail = NeedImage::deleteNeedImage($id);
 
-        return redirect()->back()->with('success', 'All needs for this organization have been disabled.');
+
+
+        if (!$deleted) {
+            return redirect()->route('need')->with('error', 'Need not found');
+        }
+
+        return redirect()->route('orgnization.manage_Needs')->with('success', 'Need deleted successfully');
     }
 
     public function create_Need()
@@ -217,24 +257,85 @@ class NeedController extends Controller
 
         // Handle the Image Upload
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('need_images', 'public');
-
-            // Create an Image record
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('need_images', $fileName, 'public');
+            $imagePath = $fileName;
             NeedImage::create([
                 'need_id' => $need->id,
-                // 'organization_id' => $need->organization_id,
-                'image' => $imagePath,
+                'image' => $imagePath
             ]);
         }
 
         return redirect()->route('orgnization.manage_Needs')->with('success', 'Need created successfully.');
     }
 
-    public function edit_Need()
+
+    public function editNeed($id)
     {
-        $organization = Organization::where('user_id', auth()->id())->first();
-        $languages = Language::all();
+        $need = Need::findOrFail($id);
+        $needDetails = NeedDetail::where('need_id', $id)->get();
         $categories = Category::all();
-        return view('dashboard.needs.create_need', compact('categories', 'organization', 'languages'));
+        $languages = Language::all();
+        $currentImageS = NeedImage::where('need_id', $id)->get();
+
+        return view('dashboard.needs.edit_need', compact('need', 'needDetails', 'categories', 'languages', 'currentImageS'));
+    }
+
+    public function updateNeed(NeedRequest $request, $id)
+    {
+        $need = Need::findOrFail($id);
+
+        $need->update([
+            'quantity_needed' => $request->quantity_needed,
+            'urgency' => $request->urgency,
+            'status' => $request->status,
+            'category_id' => $request->category_id,
+        ]);
+
+        // Update Need Details
+        foreach ($request->item_name as $languageCode => $itemName) {
+            $languageId = Language::where('key', $languageCode)->first()->id;
+
+            $detail = NeedDetail::where('need_id', $id)->where('language_id', $languageId)->first();
+            if ($detail) {
+                $detail->update([
+                    'item_name' => $itemName,
+                    'description' => $request->description[$languageCode] ?? '',
+                ]);
+            } else {
+                NeedDetail::create([
+                    'need_id' => $id,
+                    'item_name' => $itemName,
+                    'description' => $request->description[$languageCode] ?? '',
+                    'language_id' => $languageId,
+                ]);
+            }
+        }
+
+        // Update Image
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('need_images', $fileName, 'public');
+            $imagePath = $fileName;
+            NeedImage::create([
+                'need_id' => $id,
+                'image' => $imagePath
+            ]);
+        }
+
+        return redirect()->route('orgnization.manage_Needs')->with('success', 'Need updated successfully.');
+    }
+
+    public function deleteNeedImage($imageId)
+    {
+        $image = NeedImage::findOrFail($imageId);
+
+        Storage::disk('public')->delete('need_images/' . $image->image);
+
+        $image->delete();
+
+        return back()->with('success', 'Image deleted successfully.');
     }
 }

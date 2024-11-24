@@ -25,11 +25,13 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::firstOrCreate(['name' => 'create neeed']);
         Permission::firstOrCreate(['name' => 'add to need']);
         Permission::firstOrCreate(['name' => 'view need']);
+        Permission::firstOrCreate(['name' => 'manage needs']);
         Permission::firstOrCreate(['name' => 'CRUD need']);
 
 
         // Assign order permissions to roles
         $orgnizationRole->givePermissionTo(['CRUD need', 'view need']);
+        $adminRole->givePermissionTo(['CRUD need', 'view need']);
         $donerRole->givePermissionTo(['view need']);
 
         $user = User::find(1);

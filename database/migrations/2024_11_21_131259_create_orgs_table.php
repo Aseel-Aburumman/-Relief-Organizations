@@ -11,22 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orgnization_images', function (Blueprint $table) {
+        Schema::create('orgs', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('organization_id')->nullable()->constrained('organizations')->onDelete('cascade');
-            $table->string('image');
-            $table->softDeletes();
-
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('images');
+        Schema::dropIfExists('orgs');
     }
 };

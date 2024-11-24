@@ -35,6 +35,12 @@ class Organization extends Model
         return $this->hasMany(OrgnizationImage::class);
     }
 
+    public function post()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
