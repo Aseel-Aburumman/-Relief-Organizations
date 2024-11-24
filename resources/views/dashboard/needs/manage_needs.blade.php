@@ -63,7 +63,7 @@
                                     <td class="actions">
                                         <a href="{{ route('donation.show', ['id' => $need->id]) }}"
                                             class="fa-solid fa-eye"></a>
-                                        @role('organization')
+                                        @role('orgnization')
                                             <a href="{{ route('organization.edit_need', ['id' => $need->id]) }}"
                                                 class="fa-solid fa-pencil"></a>
                                             <form action="{{ route('organization.delete_need', ['id' => $need->id]) }}"

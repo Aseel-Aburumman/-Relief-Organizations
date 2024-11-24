@@ -3,7 +3,7 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        @role('organization')
+        @role('orgnization')
             <li class="nav-item">
                 <a class="nav-link " href="{{ route('orgnization.dashboard') }}">
                     <i class="bi bi-grid"></i>
