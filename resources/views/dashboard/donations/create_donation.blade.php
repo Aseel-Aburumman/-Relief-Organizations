@@ -5,7 +5,7 @@
         <h1>Create New Donation</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('orgnization.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item">Donation Control Center</li>
                 <li class="breadcrumb-item active">Create Donation</li>
             </ol>
@@ -49,7 +49,7 @@
                                 value="{{ old('quantity') }}">
                         </div>
 
-                       
+
 
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">Create Donation</button>

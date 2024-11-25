@@ -5,7 +5,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('orgnization.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item">Organization Control Center</li>
                 <li class="breadcrumb-item active">List of Organizations</li>
             </ol>
@@ -19,16 +19,16 @@
                 <div class="card-body w-100">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title">List Of Organizations</h5>
-                        <a href="{{ route('orgnization.create_organization') }}" class="btn btn-success mb-3">
+                        <a href="{{ route('organization.create_organization') }}" class="btn btn-success mb-3">
                             <i class="fa-solid fa-user-plus"></i> Add New Organization
                         </a>
                     </div>
 
-                    <form action="{{ route('orgnization.manage_organizations') }}" method="GET" class="d-flex mb-3">
+                    <form action="{{ route('organization.manage_organizations') }}" method="GET" class="d-flex mb-3">
                         <input type="text" name="search" class="form-control" placeholder="Search by name..."
                             value="{{ request('search') }}">
                         <button type="submit" class="btn btn-primary ms-2">Search</button>
-                        <a href="{{ route('orgnization.manage_organizations') }}" class="btn btn-secondary ms-2">Reset</a>
+                        <a href="{{ route('organization.manage_organizations') }}" class="btn btn-secondary ms-2">Reset</a>
                     </form>
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
@@ -53,11 +53,11 @@
                                     <td>{{ $organization->userDetail->first()->location ?? 'N/A' }}</td>
                                     <td class="tableHide">{{ $organization->created_at->format('Y-m-d') }}</td>
                                     <td class="actions">
-                                        <a href="{{ route('orgnization.view_organization', ['id' => $organization->id]) }}"
+                                        <a href="{{ route('organization.view_organization', ['id' => $organization->id]) }}"
                                             class="fa-solid fa-eye"></a>
-                                        <a href="{{ route('orgnization.edit_organization', ['id' => $organization->id]) }}"
+                                        <a href="{{ route('organization.edit_organization', ['id' => $organization->id]) }}"
                                             class="fa-solid fa-pencil"></a>
-                                        <form action="{{ route('orgnization.delete_organization', ['id' => $organization->id]) }}"
+                                        <form action="{{ route('organization.delete_organization', ['id' => $organization->id]) }}"
                                             method="POST" style="display:inline;"
                                             onsubmit="return confirm('Are you sure you want to delete this organization?');">
                                             @csrf

@@ -91,7 +91,7 @@
         }
     </style>
 
-    <div class="signup-container">
+    <div class="mt-5 signup-container">
         <div class="signup-card">
             @if (session('success'))
                 <div class="alert alert-success">

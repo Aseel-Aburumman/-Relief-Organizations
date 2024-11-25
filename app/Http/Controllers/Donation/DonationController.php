@@ -79,14 +79,13 @@ class DonationController extends Controller
     public function updateDonation(DonationRequest $request, $id)
     {
         $validatedData = $request->validated();
-
         $donation = Donation::findOrFail($id);
         $previousQuantity = $donation->quantity;
 
         $donation->update([
-            'need_id' => $validatedData['need_id'],
-            'donor_id' => $validatedData['donor_id'],
-            'quantity' => $validatedData['quantity'],
+        'need_id' => $validatedData['need_id'],
+
+        'quantity' => $validatedData['quantity'],
         ]);
 
         $need = $donation->need;

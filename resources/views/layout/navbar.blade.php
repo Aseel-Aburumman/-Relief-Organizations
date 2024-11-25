@@ -1,4 +1,24 @@
 <header>
+    <style>
+        .loginBtn {
+            background-color: #3CC78F;
+            color: white;
+        }
+
+        .loginBtn>a {
+            color: white !important;
+        }
+
+        .loginBtn:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #3CC78F;
+        }
+
+        .loginBtn>a:hover {
+            color: black !important;
+        }
+    </style>
     <div class="header-area ">
         <div class="header-top_area">
             <div class="container-fluid">
@@ -13,17 +33,23 @@
                     </div>
                     <div class="col-xl-6 col-md-6 col-lg-4">
                         <div class="social_media_links d-none d-lg-block">
-                            <a href="{{ url('lang/en') }}">English</a>
-                            <a href="{{ url('lang/ar') }}">العربية</a>
+                            <a href="{{ url('lang/en') }}">English &nbsp | </a>
+
+                            <a href="{{ url('lang/ar') }}"> العربية</a>
                             @guest
-                                <a href="{{ route('register.view') }}">Register Now</a>
-                            @else
-                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                                @csrf
-                                <button type="submit" class="btn btn-success">
-                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                <button type="submit" class="btn loginBtn">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    <a href="{{ route('register.view') }}">Register
+                                        Now</a>
+
                                 </button>
-                            </form>
+                            @else
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="btn loginBtn">
+                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                    </button>
+                                </form>
 
                             @endguest
 
@@ -47,8 +73,13 @@
                             <nav>
                                 <ul id="navigation">
                                     <li><a href="{{ route('index') }}">home</a></li>
+<<<<<<< HEAD
                                     <li><a href="{{route('about')}}">About</a></li>
                                     <li><a href="{{ route('orgnization.all') }}">Our Orgnaization</a></li>
+=======
+                                    <li><a href="About.html">About</a></li>
+                                    <li><a href="{{ route('organization.all') }}">Our organization</a></li>
+>>>>>>> d6ea46d608f49976f035866b612ce02eb5f5b101
 
 
                                     {{--  <li><a href="#">pages <i class="ti-angle-down"></i></a>
@@ -58,7 +89,10 @@
                                         </ul>
                                     </li>  --}}
                                     <li><a href="{{ route('contact') }}">Contact</a></li>
-                                    @role('orgnization')
+                                    @role('organization')
+                                        <li><a href="{{ route('need') }}">Make a Donatition</a></li>
+                                    @endrole
+                                    @role('doner')
                                         <li><a href="{{ route('need') }}">Make a Donatition</a></li>
                                     @endrole
                                 </ul>
@@ -68,18 +102,24 @@
                             @guest
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a data-scroll-nav='1' href="{{ route('need') }}">Make a Donatition</a>
+                                        <a href="{{ route('need') }}">Make a Donatition</a>
                                     </div>
                                 </div>
                             @endguest
-                            @role('orgnization')
+                            @role('organization')
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a data-scroll-nav='1' href="{{ route('orgnization.dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('organization.dashboard') }}">Dashboard</a>
                                     </div>
                                 </div>
                             @endrole
-
+                            @role('doner')
+                                <div class="Appointment">
+                                    <div class="book_btn  d-lg-block">
+                                        <a href="{{ route('doner.dashboard') }}">Dashboard</a>
+                                    </div>
+                                </div>
+                            @endrole
 
                         </div>
                     </div>

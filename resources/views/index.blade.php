@@ -45,7 +45,7 @@
                             <!-- القسم العلوي للصورة -->
                             <div class="thumb" style="height: 250px; overflow: hidden; position: relative;">
                                 @if ($organization->image->isNotEmpty())
-                                    <img src="{{ asset('storage/orgnization_images/' . $organization->image->first()->image) }}"
+                                    <img src="{{ asset('storage/organization_images/' . $organization->image->first()->image) }}"
                                         alt="Organization Image" class="organization-img"
                                         style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
                                 @else
@@ -59,7 +59,7 @@
                                     {{ $organization->userDetail->first()->name ?? 'No Name Available' }}</h4>
                                 <p style="font-size: 14px; color: #666; margin-bottom: 15px;">
                                     {{ $organization->userDetail->first()->description ?? 'No Description Available' }}</p>
-                                <a href="{{ route('orgnization.profile.one', ['id' => $organization->id]) }}"
+                                <a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}"
                                     class="read_more">Learn More</a>
                             </div>
                         </div>

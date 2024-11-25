@@ -26,7 +26,7 @@
         <h5 class="card-title">Update Organization Information</h5>
 
         <!-- Update Organization Information Form -->
-        <form class="row g-3" method="POST" action="{{ route('orgnization.update_organization', $organization->id) }}" enctype="multipart/form-data">
+        <form class="row g-3" method="POST" action="{{ route('organization.update_organization', $organization->id) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -43,7 +43,7 @@
                 <label for="inputImage" class="form-label">Organization Image</label>
                 <input type="file" class="form-control" id="inputImage" name="image">
                 @if($organization->image->isNotEmpty())
-                    <img src="{{ url('/storage/orgnization_images/' . $organization->image->first()->image) }}" alt="Organization Image" class="img-thumbnail mt-2" width="150">
+                    <img src="{{ url('/storage/organization_images/' . $organization->image->first()->image) }}" alt="Organization Image" class="img-thumbnail mt-2" width="150">
                 @endif
             </div>
             <div class="col-12">

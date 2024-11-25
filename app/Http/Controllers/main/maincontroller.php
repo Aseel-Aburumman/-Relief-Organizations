@@ -10,18 +10,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Language;
 
 class MainController extends Controller
 {
     public function index()
     {
-        // تحديد اللغة النشطة بناءً على الجلسة (session)
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
-        $languageId = $languageMap[$locale] ?? 1;
+        $languageId = Language::getLanguageIdByLocale();
+
 
         // جلب المنظمات مع userDetail والصور
         $organizations = Organization::with(['userDetail', 'image'])->take(3)->get();

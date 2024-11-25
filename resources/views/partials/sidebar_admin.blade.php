@@ -3,9 +3,19 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        @role('orgnization')
+        @role('organization')
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('orgnization.dashboard') }}">
+                <a class="nav-link " href="{{ route('organization.dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            {{--  <!-- End Dashboard Nav -->  --}}
+        @endrole
+
+        @role('doner')
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('doner.dashboard') }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -14,20 +24,20 @@
         @endrole
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('orgnization.manage_Needs') }}">
+            <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Needs Control Center</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('orgnization.manage_Needs') }}">
+            <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Organaization Control Center</span>
             </a>
         </li>
 
-         <!-- Add Manage Posts option -->
-         <li class="nav-item">
+        <!-- Add Manage Posts option -->
+        <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('posts.manage') }}">
                 <i class="bi bi-pencil-square"></i>
                 <span>Posts Control Center</span>
@@ -70,7 +80,7 @@
         <li class="nav-heading">Pages</li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('orgnization.profile') }}">
+            <a class="nav-link collapsed" href="{{ route('profile') }}">
                 <i class="bi bi-person"></i>
                 <span>Profile</span>
             </a>

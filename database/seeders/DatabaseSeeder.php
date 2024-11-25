@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
             NeedDetailSeeder::class,
             PostsTableSeeder::class,
             PostImageTableSeeder::class,
-            OrgnizationImageTableSeeder::class,
+            OrganizationImageTableSeeder::class,
             NeedImageTableSeeder::class,
 
             UserDetailTableSeeder::class,

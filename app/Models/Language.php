@@ -33,6 +33,24 @@ class Language extends Model
         return $this->hasMany(Category::class);
     }
 
+
+    public static function getLanguageIdByLocale()
+    {
+        $locale = session('locale', 'en');
+
+        $languageMap = [
+            'en' => 1,
+            'ar' => 2,
+        ];
+
+        return $languageMap[$locale] ?? 1; 
+    }
+
+
+
+
+
+
     public static function createRecord(array $data)
     {
         return self::create($data);

@@ -5,7 +5,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('orgnization.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item">Needs Control Center</li>
                 <li class="breadcrumb-item active">List of Needs</li>
             </ol>
@@ -19,16 +19,16 @@
                 <div class="card-body w-100">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <h5 class="card-title">List Of Needs</h5>
-                        <a href="{{ route('orgnization.create_Need') }}" class="btn btn-success mb-3">
+                        <a href="{{ route('organization.create_Need') }}" class="btn btn-success mb-3">
                             <i class="fa-solid fa-user-plus"></i> Add New Need
                         </a>
                     </div>
 
-                    <form action="{{ route('orgnization.manage_Needs') }}" method="GET" class="d-flex mb-3">
+                    <form action="{{ route('organization.manage_Needs') }}" method="GET" class="d-flex mb-3">
                         <input type="text" name="search" class="form-control" placeholder="Search by name..."
                             value="{{ request('search') }}">
                         <button type="submit" class="btn btn-primary ms-2">Search</button>
-                        <a href="{{ route('orgnization.manage_Needs') }}" class="btn btn-secondary ms-2">Reset</a>
+                        <a href="{{ route('organization.manage_Needs') }}" class="btn btn-secondary ms-2">Reset</a>
                     </form>
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
@@ -63,7 +63,7 @@
                                     <td class="actions">
                                         <a href="{{ route('donation.show', ['id' => $need->id]) }}"
                                             class="fa-solid fa-eye"></a>
-                                        @role('orgnization')
+                                        @role('organization')
                                             <a href="{{ route('organization.edit_need', ['id' => $need->id]) }}"
                                                 class="fa-solid fa-pencil"></a>
                                             <form action="{{ route('organization.delete_need', ['id' => $need->id]) }}"

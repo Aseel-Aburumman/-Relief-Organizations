@@ -1,53 +1,110 @@
-@extends('layout.master')
-@section('content')
-    <!-- bradcam_area_start  -->
-    <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="bradcam_text text-center">
-                        <h3>{{ $organization->userDetail->first()->name ?? 'Default Name' }} </h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- bradcam_area_end  -->
+@extends('layout.admin_master')
 
-    <!--================Blog Area =================-->
+@section('content')
+    <style>
+        .single_sidebar_widget {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .single_sidebar_widget h3.widget_title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #333;
+            text-transform: capitalize;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 10px;
+        }
+
+        .media.post_item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .media.post_item img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+
+        .media-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .media-body a {
+            text-decoration: none;
+            color: #333;
+        }
+
+        .media-body a h3 {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0 0 5px;
+        }
+
+        .media-body p {
+            font-size: 12px;
+            color: #999;
+            margin: 0;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #eee;
+            margin: 20px 0;
+        }
+
+        .view-all-link {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .view-all-link a {
+            text-decoration: none;
+            font-size: 14px;
+            color: #007bff;
+            transition: color 0.3s ease;
+        }
+
+        .view-all-link a:hover {
+            color: #0056b3;
+        }
+    </style>
+    <div class="pagetitle">
+        <h1>Dashboard</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ route('doner.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+        </nav>
+    </div>
+
+    {{--  <!-- End Page Title -->  --}}
+
     <section class="blog_area single-post-area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 posts-list">
-                    <div class="single-post">
-                        <div class="feature-img">
-                            <img class="img-fluid"
-                                src="{{ asset('storage/organization_images/' . $OrganizationImages->image) }}" alt="">
-                        </div>
-                        <div class="blog_details">
-                            <h1>{{ $organization->userDetail->first()->name }}
-                            </h1>
-                            <ul class="blog-info-link mt-3 mb-4">
-                                {{--  <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>  --}}
-                                <li><a href="#"><i class="fa fa-money"></i> {{ $organization->need->count() }}
-                                        Needs</a></li>
-                            </ul>
-                            <p class="excert">
-                                {{ $organization->userDetail->first()->description }}
-                            </p>
 
-                        </div>
-                    </div>
                     <div class="navigation-top mt-5">
                         <div class="row">
-                            <h3>Donate to Gaza needs through the {{ $organization->userDetail->first()->name }} organization
+                            <h3>Donatition causes to Gaza you might be inersted in:
                             </h3>
                             <br>
                             <div class="mt-5 col-lg-12">
                                 <div class="causes_active owl-carousel"
                                     style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px;">
                                     @foreach ($needs as $need)
-                                        <div class="single_cause"
+                                        <div class=" single_sidebar_widget single_cause"
                                             style="width: 300px; height: 420px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
                                             <div class="thumb" style="height: 180px; overflow: hidden;">
                                                 @php
@@ -102,10 +159,7 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <!-- Pagination Links -->
-                                <div class="mt-3">
-                                    {{ $needs->links() }}
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -114,57 +168,15 @@
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
 
-                        {{--  <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title">Category</h4>
-                            <ul class="list cat-list">
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Resaurant food</p>
-                                        <p>(37)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Travel news</p>
-                                        <p>(10)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Modern technology</p>
-                                        <p>(03)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Product</p>
-                                        <p>(11)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Inspiration</p>
-                                        <p>(21)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Health Care</p>
-                                        <p>(21)</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </aside>  --}}
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title">Recent Post</h3>
                             @foreach ($posts as $post)
                                 <div class="media post_item">
                                     @if ($post->images && $post->images->isNotEmpty())
                                         <img src="{{ asset('storage/post_images/' . $post->images->first()->image) }}"
-                                            alt="post" style="width:100px;">
+                                            alt="post">
                                     @else
-                                        <img src="{{ asset('storage/post_images/post3.jpg') }}" alt="post"
-                                            style="width:100px; height:100px; object-fit:cover">
+                                        <img src="{{ asset('storage/post_images/post3.jpg') }}" alt="post">
                                     @endif
 
                                     <div class="media-body">
@@ -176,11 +188,11 @@
                                 </div>
                             @endforeach
                             <hr>
-                            <h6><a
-                                    href="{{ route('organization.post.all', ['organization_id' => $post->organization_id]) }}">
-                                    View all {{ $organization->userDetail->first()->name }} posts </a>
-                            </h6>
+                            {{--  <div class="view-all-link">
+                                <a href="{{ route('organization.posts') }}">View all organization1 User posts</a>
+                            </div>  --}}
                         </aside>
+
 
 
                     </div>
@@ -188,5 +200,4 @@
             </div>
         </div>
     </section>
-    <!--================ Blog Area end =================-->
 @endsection

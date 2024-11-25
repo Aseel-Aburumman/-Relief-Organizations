@@ -5,7 +5,7 @@
     <h1>Donation Details</h1>
     <nav>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ route('orgnization.dashboard') }}">Home</a></li>
+            <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
             <li class="breadcrumb-item"><a href="{{ route('donations.index') }}">Donations</a></li>
             <li class="breadcrumb-item active">Donation Details</li>
         </ol>
@@ -35,7 +35,7 @@
                         <th>Date Donated</th>
                         <td>{{ $donation->created_at ? $donation->created_at->format('Y-m-d') : 'N/A' }}</td>
                     </tr>
-                  
+
                 </table>
 
                 <a href="{{ route('donations.index') }}" class="btn btn-secondary mt-3">Back to List</a>

@@ -25,7 +25,7 @@
                         <div class="row w-100">
                             <!-- Profile Image Column -->
                             <div class="col-lg-4 d-flex justify-content-center align-items-center">
-                                <img src="{{ $organization->image ? url('/storage/orgnization_images/' . $organization->image) : url('assets/img/default-image.png') }}"
+                                <img src="{{ $organization->image ? url('/storage/organization_images/' . $organization->image) : url('assets/img/default-image.png') }}"
                                     alt="Profile" class="rounded-circle" width="150">
                             </div>
 
