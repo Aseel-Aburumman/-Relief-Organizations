@@ -42,9 +42,9 @@
                             <select name="donor_id" class="form-control" id="donor_id">
                                 <option value="">Select a donor</option>
                                 @foreach ($donors as $donor)
-                                    <option value="{{ $donor->id }}" {{ $donor->id == $donation->donor_id ? 'selected' : '' }}>
-                                        {{ $donor->userDetail->first()?->name ?? $donor->email ?? 'Anonymous' }}
-                                    </option>
+                                <option value="{{ $donor->id }}" {{ $donor->id == $donation->donor_id ? 'selected' : '' }}>
+                                    {{ $donor->userDetail->first()?->name ?? $donor->email ?? 'Anonymous' }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>

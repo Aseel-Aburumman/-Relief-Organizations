@@ -16,7 +16,7 @@
 
     <!-- Filter Section (Using Livewire) -->
     <div class="container my-4">
-        @livewire('need-filter') <!-- Include Livewire component -->
+        @livewire('need-filter')
     </div>
 
     <!-- popular_causes_area_start -->
