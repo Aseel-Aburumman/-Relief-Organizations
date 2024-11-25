@@ -20,11 +20,10 @@
                             @else
                             <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                 @csrf
-                                <button type="submit" class="btn btn-success">
+                                <button type="submit" class="btn custom-logout-btn">
                                     <i class="fas fa-sign-out-alt"></i> Logout
                                 </button>
                             </form>
-
                             @endguest
 
                         </div>

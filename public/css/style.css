@@ -6800,3 +6800,14 @@ h6 {
     margin-right: 10px;
   }
 }
+
+
+.custom-logout-btn {
+    background-color: #3cc78f;
+    color: white;
+    border: none;
+}
+
+.custom-logout-btn:hover {
+    background-color: #34b07f; /* Slightly darker shade for hover */
+}
