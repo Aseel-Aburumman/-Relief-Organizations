@@ -111,7 +111,6 @@
     </div>
 </div>
 <!-- latest_activites_area_end  -->
-
 <!-- popular_causes_area_start -->
 <div class="popular_causes_area section_padding">
     <div class="container">
@@ -158,21 +157,6 @@
                                             </span>
                                         </div>
                                     </div>
-                                    <div class="balance d-flex justify-content-between align-items-center"
-                                        style="margin-bottom: 10px;">
-                                        <span>Donated: {{ $need->donated_quantity }}</span>
-                                        <span>Needed: {{ $need->quantity_needed }}</span>
-                                    </div>
-                                    <!-- عرض اسم الحاجة -->
-                                    <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
-                                        {{ $need->needDetail->first()->item_name ?? 'No Name' }}
-                                    </h4>
-                                    <!-- عرض الوصف -->
-                                    <p
-                                        style="font-size: 14px; color: #777; line-height: 1.5; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">
-                                        {{ Str::limit($need->needDetail->first()->description ?? 'No description available', 100) }}
-                                    </p>
-                                    <a href="{{ route('donation.show', ['id' => $need->id]) }}" class="boxed-btn3">Learn More</a>
                                 </div>
                                 <div class="balance d-flex justify-content-between align-items-center"
                                     style="margin-bottom: 10px;">
