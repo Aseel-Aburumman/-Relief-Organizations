@@ -19,7 +19,7 @@ class RoleAndPermissionSeeder extends Seeder
         // Check and create roles
         $adminRole = Role::firstOrCreate(['name' => 'admin']);
         $donerRole = Role::firstOrCreate(['name' => 'doner']);
-        $orgnizationRole = Role::firstOrCreate(['name' => 'orgnization']);
+        $organizationRole = Role::firstOrCreate(['name' => 'organization']);
 
         // Check and create permissions for orders
         Permission::firstOrCreate(['name' => 'create neeed']);
@@ -30,7 +30,7 @@ class RoleAndPermissionSeeder extends Seeder
 
 
         // Assign order permissions to roles
-        $orgnizationRole->givePermissionTo(['CRUD need', 'view need']);
+        $organizationRole->givePermissionTo(['CRUD need', 'view need']);
         $adminRole->givePermissionTo(['CRUD need', 'view need']);
         $donerRole->givePermissionTo(['view need']);
 
@@ -50,15 +50,15 @@ class RoleAndPermissionSeeder extends Seeder
 
         $organization = User::find(4);
         if ($organization) {
-            $organization->assignRole($orgnizationRole);
+            $organization->assignRole($organizationRole);
         }
         $organization2 = User::find(5);
         if ($organization2) {
-            $organization2->assignRole($orgnizationRole);
+            $organization2->assignRole($organizationRole);
         }
         $organization3 = User::find(6);
         if ($organization3) {
-            $organization3->assignRole($orgnizationRole);
+            $organization3->assignRole($organizationRole);
         }
     }
 }

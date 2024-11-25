@@ -32,7 +32,7 @@ class Organization extends Model
     }
     public function image()
     {
-        return $this->hasMany(OrgnizationImage::class);
+        return $this->hasMany(OrganizationImage::class);
     }
 
     public function post()
@@ -87,5 +87,35 @@ class Organization extends Model
             return true;
         }
         return false;
+    }
+
+
+
+    /**
+     * Fetch an organization with its needs and donations by user ID.
+     *
+     * @param int $userId
+     * @return \App\Models\Organization|null
+     */
+    public static function fetchOrganizationWithNeedsAndDonations($userId)
+    {
+        return self::with(['need.donations'])
+            ->where('user_id', $userId)
+            ->first();
+    }
+
+
+    /**
+     * Fetch an organization with user details ordered by language.
+     *
+     * @param int $id
+     * @param int $languageId
+     * @return \App\Models\Organization|null
+     */
+    public static function fetchOrganizationWithUserDetails($id, $languageId)
+    {
+        return self::with(['userDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+        }])->find($id);
     }
 }

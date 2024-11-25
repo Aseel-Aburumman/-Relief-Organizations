@@ -30,7 +30,7 @@
 
         .signin-card .image-section {
             flex: 1;
-            background: url('/img/auth/signin.jpg') no-repeat center center;
+            background: url('/img/auth/signup.jpg') no-repeat center center;
             background-size: cover;
         }
 

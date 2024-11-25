@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+
 use Carbon\Language;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -33,6 +34,36 @@ class NeedDetail extends Model
         return $this->belongsTo(\App\Models\Language::class, 'language_id');
     }
 
+    /**
+     * Get all NeedDetails for a specific Need ID.
+     *
+     * @param int $needId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getByNeedId($needId)
+    {
+        return self::where('need_id', $needId)->get();
+    }
+
+    /**
+     * Create NeedDetails for a Need.
+     *
+     * @param int $needId
+     * @param array $details
+     * @return void
+     */
+    public static function createNeedDetailsWithLang($needId, array $details)
+    {
+        foreach ($details['item_name'] as $languageCode => $itemName) {
+            self::create([
+                'need_id' => $needId,
+                'item_name' => $itemName,
+                'description' => $details['description'][$languageCode] ?? '',
+                'language_id' => \App\Models\Language::where('key', $languageCode)->first()->id,
+            ]);
+        }
+    }
+
 
 
     // CRUD Methods
@@ -61,14 +92,34 @@ class NeedDetail extends Model
     }
 
 
-    public static function updateNeedDetail($id, array $data)
+    /**
+     * Update or Create Need Details for a Need.
+     *
+     * @param int $needId
+     * @param array $details
+     * @return void
+     */
+    public static function updateNeedDetails($needId, array $details)
     {
-        $NeedDetail = self::find($id);
-        if ($NeedDetail) {
-            $NeedDetail->update($data);
-            return $NeedDetail;
+        foreach ($details['item_name'] as $languageCode => $itemName) {
+            $languageId = \App\Models\Language::where('key', $languageCode)->first()->id;
+
+            $detail = self::where('need_id', $needId)->where('language_id', $languageId)->first();
+
+            if ($detail) {
+                $detail->update([
+                    'item_name' => $itemName,
+                    'description' => $details['description'][$languageCode] ?? '',
+                ]);
+            } else {
+                self::create([
+                    'need_id' => $needId,
+                    'item_name' => $itemName,
+                    'description' => $details['description'][$languageCode] ?? '',
+                    'language_id' => $languageId,
+                ]);
+            }
         }
-        return null;
     }
 
 

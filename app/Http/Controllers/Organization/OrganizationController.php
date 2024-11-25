@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Orgnization;
+namespace App\Http\Controllers\Organization;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\Need;
-use App\Models\OrgnizationImage;
+use App\Models\OrganizationImage;
 use App\Models\Language;
 
 use App\Models\NeedDetail;
 use App\Models\Post;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\NeedImage;
 use App\Http\Requests\OrganizationRequest;
@@ -20,14 +21,14 @@ use Illuminate\Http\Request;
 
 use App\Models\Donation;
 
-class OrgnizationController extends Controller
+class OrganizationController extends Controller
 {
 
 
     public function dashboard()
     {
         // dd(auth()->id());
-        $organization = Organization::with(['need.donations'])->where('user_id', auth()->id())->first();
+        $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
         // dd($organization);
         if (!$organization) {
             return redirect()->back()->with('error', 'No organization found for the logged-in user.');
@@ -45,53 +46,44 @@ class OrgnizationController extends Controller
 
     public function getOne($id)
     {
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        try {
+            $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
+            // Fetch organization with user details
+            $organization = Organization::fetchOrganizationWithUserDetails($id, $languageId);
 
-        $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
-            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-        }])
-            ->find($id);
-        $OrgnizationImages = OrgnizationImage::where('organization_id', $id)->first();
+            // Fetch the first organization image
+            $OrganizationImages = OrganizationImage::fetchFirstImage($id);
 
-        $needs = Need::with(['needDetail' => function ($query) use ($languageId) {
-            $query->where('language_id', $languageId)
-                ->select('id', 'need_id', 'item_name', 'description');
-        }])
-            ->where('organization_id', $id)
-            ->paginate(10);
+            // Fetch needs with their details
+            $needs = Need::fetchNeedsWithDetails($id, $languageId);
 
+            // Fetch posts with images
+            $posts = Post::fetchPostsWithImages($id, $languageId);
 
-        $posts = Post::with('images')
-            ->where('lang_id', $languageId)
-            ->where('organization_id', $id)
-            ->paginate(10);
-        return view('organization.organization_profile', compact('organization', 'OrgnizationImages', 'needs', 'posts'));
+            return view('organization.organization_profile', compact('organization', 'OrganizationImages', 'needs', 'posts'));
+        } catch (\Exception $e) {
+            // Log the exception
+            Log::error('Error fetching organization data: ' . $e->getMessage());
+
+            // Redirect with an error message
+            return redirect()->back()->with('error', 'An error occurred while fetching the organization profile. Please try again later.');
+        }
     }
 
     public function getAll()
     {
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
 
         $organizations = Organization::with(['userDetail' => function ($query) use ($languageId) {
             $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
         }])
             ->paginate(12);
-        $OrgnizationImages = OrgnizationImage::get();
+        $OrganizationImages = OrganizationImage::get();
 
 
-        return view('organization.all_orgnization', compact('organizations', 'OrgnizationImages'));
+        return view('organization.all_organization', compact('organizations', 'OrganizationImages'));
     }
 
     public function create()
@@ -144,7 +136,7 @@ class OrgnizationController extends Controller
         // تحديث الصورة إذا تم رفعها
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('storage/orgnization_images'), $imageName);
+            $request->image->move(public_path('storage/organization_images'), $imageName);
 
             if ($organization->image->isNotEmpty()) {
                 $organization->image->first()->update(['image' => $imageName]);
@@ -153,7 +145,7 @@ class OrgnizationController extends Controller
             }
         }
 
-        return redirect()->route('orgnization.edit_organization', $id)
+        return redirect()->route('organization.edit_organization', $id)
             ->with('success', 'Organization updated successfully.');
     }
 }

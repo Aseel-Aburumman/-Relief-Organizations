@@ -11,7 +11,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin-top: 135px;
+            margin-top: 235px;
             margin-bottom: 135px;
 
         }
@@ -94,7 +94,7 @@
         }
     </style>
 
-    <div class="signup-container">
+    <div class=" signup-container">
         <div class="signup-card">
             @if (session('success'))
                 <div class="alert alert-success">

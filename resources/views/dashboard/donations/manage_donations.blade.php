@@ -6,7 +6,7 @@
         <h1>Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('orgnization.dashboard') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
                 <li class="breadcrumb-item">Donations Control Center</li>
                 <li class="breadcrumb-item active">List of Donations</li>
             </ol>
