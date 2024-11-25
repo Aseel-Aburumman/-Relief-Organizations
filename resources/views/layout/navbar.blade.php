@@ -73,13 +73,8 @@
                             <nav>
                                 <ul id="navigation">
                                     <li><a href="{{ route('index') }}">home</a></li>
-<<<<<<< HEAD
-                                    <li><a href="{{route('about')}}">About</a></li>
-                                    <li><a href="{{ route('orgnization.all') }}">Our Orgnaization</a></li>
-=======
                                     <li><a href="About.html">About</a></li>
                                     <li><a href="{{ route('organization.all') }}">Our organization</a></li>
->>>>>>> d6ea46d608f49976f035866b612ce02eb5f5b101
 
 
                                     {{--  <li><a href="#">pages <i class="ti-angle-down"></i></a>
