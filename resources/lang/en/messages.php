@@ -45,9 +45,27 @@ return [
     'footerA' => 'A humanitarian platform connecting organizations and donors to provide aid to Gaza efficiently, with real-time updates to ensure balanced and impactful distribution.',
 
 
+    // auth
 
-    'bannerTitleA1' => 'Help',
-    'bannerTitleA1' => 'Help',
+    'CreateAccountA' => 'Create Account',
+    'SignOrganizayionA' => 'Sign Up as Organizayion?',
+    'NameA' => 'Name',
+    'EmailA' => 'Email',
+    'PasswordA' => 'Password',
+    'AddressA' => 'Address',
+    'SignUpA' => 'Sign Up',
+    'AlreadyaccountA' => 'Already have an account? ',
+    'SignInA' => 'Sign In',
+    'SignDonerA' => 'Sign Up as Doner?',
+
+    'EmailA' => 'Email',
+    'OrganizationNameA' => 'Organization Name',
+    'Description' => 'Description',
+    'ContactInformation' => 'Contact Information',
+    'Selectcountry' => 'Select your country',
+    'ProofDocument' => 'Upload Proof Document:',
+    'DonaccountA' => 'Don\'t have an account? ',
+
 
 
 
@@ -60,24 +78,24 @@ return [
     'RecentPostA' => 'Recent Post',
     'InstagramFeedsA' => 'Instagram Feeds',
 
-   'urgency' => [
-    'low_priority' => 'Low Priority',
-    'medium_priority' => 'Medium Priority',
-    'high_priority' => 'High Priority',
-],
-'status' => [
-    'available' => 'Available',
-    'partially_fulfilled' => 'Partially Fulfilled',
-    'fulfilled' => 'Fulfilled',
-],
+    'urgency' => [
+        'low_priority' => 'Low Priority',
+        'medium_priority' => 'Medium Priority',
+        'high_priority' => 'High Priority',
+    ],
+    'status' => [
+        'available' => 'Available',
+        'partially_fulfilled' => 'Partially Fulfilled',
+        'fulfilled' => 'Fulfilled',
+    ],
 
 
-'categories' => [
-    'food' => 'Food',
-    'medicine' => 'Medicine',
-    'shelter' => 'Shelter',
-    'clothing' => 'Clothing',
-    'medical_equipment' => 'Medical Equipment',
-],
+    'categories' => [
+        'food' => 'Food',
+        'medicine' => 'Medicine',
+        'shelter' => 'Shelter',
+        'clothing' => 'Clothing',
+        'medical_equipment' => 'Medical Equipment',
+    ],
 
 ];
