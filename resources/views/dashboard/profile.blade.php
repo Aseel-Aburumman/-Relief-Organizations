@@ -18,12 +18,12 @@
             </div>
         @endif
         <div class="row">
-            @role('orgnization')
+            @role('organization')
                 <div class="col-xl-4">
                     <div class="card">
                         <div class="card-body  pt-4 d-flex flex-column align-items-center">
 
-                            <img src="{{ asset('storage/orgnization_images/' . $user->organization->image->first()->image) }}"
+                            <img src="{{ asset('storage/organization_images/' . $user->organization->image->first()->image) }}"
                                 alt="Profile" class="" style="height:300px; width:300px;">
 
                             <h2>{{ $user->name }}</h2>
@@ -33,7 +33,7 @@
                 </div>
             @endrole
 
-            @role('orgnization')
+            @role('organization')
                 <div class="col-xl-8">
                 @endrole
                 @role('doner')
@@ -67,10 +67,10 @@
                                             </div>
                                         @endforeach
                                     @endrole
-                                    @role('orgnization')
+                                    @role('organization')
                                         @foreach ($organizationDetail as $detail)
                                             <div class="row">
-                                                <div class="col-lg-3 col-md-4 label">Orgnization Name
+                                                <div class="col-lg-3 col-md-4 label">organization Name
                                                     ({{ $detail->language_id == 1 ? 'en' : 'ar' }})
                                                 </div>
                                                 <div class="col-lg-9 col-md-8">{{ $detail->name }}</div>
@@ -83,7 +83,7 @@
                                         </div>
                                     @endrole
 
-                                    @role('orgnization')
+                                    @role('organization')
                                         @foreach ($organizationDetail as $detail)
                                             <div class="row">
                                                 <div class="col-lg-3 col-md-4 label">Description
@@ -119,7 +119,7 @@
                                         @method('PUT')
 
                                         <!-- Name Field -->
-                                        @role('orgnization')
+                                        @role('organization')
                                             @foreach ($organizationDetail as $detail)
                                                 <div class="row mb-3">
                                                     <label for="name" class="col-md-4 col-lg-3 col-form-label">Organization
@@ -159,7 +159,7 @@
                                         </div>
 
                                         <!-- Contact Info (for organizations) -->
-                                        @role('orgnization')
+                                        @role('organization')
                                             <div class="row mb-3">
                                                 <label for="contact_info" class="col-md-4 col-lg-3 col-form-label">Contact
                                                     Info</label>
@@ -199,7 +199,7 @@
                                         </div>
 
                                         <!-- Profile Picture Upload -->
-                                        @role('orgnization')
+                                        @role('organization')
                                             <div class="row mb-3">
                                                 <label for="image" class="col-md-4 col-lg-3 col-form-label">Profile
                                                     Picture</label>

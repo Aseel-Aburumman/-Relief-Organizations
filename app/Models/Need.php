@@ -47,7 +47,7 @@ class Need extends Model
     }
     public function image()
     {
-        return $this->hasMany(NeedImage::class );
+        return $this->hasMany(NeedImage::class);
     }
     public function needDetail()
     {
@@ -96,7 +96,7 @@ class Need extends Model
 
     public static function updateNeed($id, array $data)
     {
-        $need = self::find($id);
+        $need = self::findOrFail($id);
         if ($need) {
             $need->update($data);
             return $need;
@@ -130,5 +130,74 @@ class Need extends Model
             return true;
         }
         return false;
+    }
+
+    /**
+     * Fetch paginated needs for an organization with details in a specific language.
+     *
+     * @param int $organizationId
+     * @param int $languageId
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function fetchNeedsWithDetails($organizationId, $languageId)
+    {
+        return self::with(['needDetail' => function ($query) use ($languageId) {
+            $query->where('language_id', $languageId)
+                ->select('id', 'need_id', 'item_name', 'description');
+        }])
+            ->where('organization_id', $organizationId)
+            ->paginate(10);
+    }
+
+
+    /**
+     * Fetch Needs by Organization ID with optional search and language-specific ordering.
+     *
+     * @param int $organizationId
+     * @param string|null $search
+     * @param int $languageId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function fetchNeedsByOrganization($organizationId, $search = null, $languageId)
+    {
+        return self::where('organization_id', $organizationId)
+            ->when($search, function ($query, $search) {
+                return $query->where('item_name', 'like', '%' . $search . '%');
+            })
+            ->with(['needDetail' => function ($query) use ($languageId) {
+                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+            }])
+            ->get();
+    }
+
+
+    /**
+     * Fetch Needs with optional search and language-specific ordering.
+     *
+     * @param string|null $search
+     * @param int $languageId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function fetchNeeds($search = null, $languageId)
+    {
+        return self::when($search, function ($query, $search) {
+            return $query->where('item_name', 'like', '%' . $search . '%');
+        })
+            ->with(['needDetail' => function ($query) use ($languageId) {
+                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+            }])
+            ->get();
+    }
+
+
+    /**
+     * Get all NeedDetails for a specific Need ID.
+     *
+     * @param int $needId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getByNeedId($needId)
+    {
+        return self::where('need_id', $needId)->get();
     }
 }

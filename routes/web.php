@@ -4,10 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\UserController;
 
-use App\Http\Controllers\Orgnization\OrgnizationController;
+use App\Http\Controllers\Organization\OrganizationController;
 use App\Http\Controllers\Need\NeedController;
 use App\Http\Controllers\main\MainController;
-use App\Http\Controllers\OrganizationController;
+// use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\Post\PostController;
 
 use Illuminate\Support\Facades\Log;
@@ -101,16 +101,16 @@ Route::group([
 
 
 
-    Route::get('/orgnization/dashboard', [OrgnizationController::class, 'dashboard'])->name('orgnization.dashboard')->middleware('role:orgnization');
-    Route::get('/orgnization/needs', [NeedController::class, 'getallNeed'])->name('orgnization.manage_Needs');
-    Route::get('/orgnization/needs/create', [NeedController::class, 'create_Need'])->name('orgnization.create_Need')->middleware('role:orgnization|admin');
-    Route::patch('/admin/disable-all-needs/{organization_id}', [NeedController::class, 'disableAllNeeds'])->name('orgnization.disable_need');
+    Route::get('/organization/dashboard', [OrganizationController::class, 'dashboard'])->name('organization.dashboard')->middleware('role:organization');
+    Route::get('/organization/needs', [NeedController::class, 'getallNeed'])->name('organization.manage_Needs');
+    Route::get('/organization/needs/create', [NeedController::class, 'create_Need'])->name('organization.create_Need')->middleware('role:organization|admin');
+    Route::patch('/admin/disable-all-needs/{organization_id}', [NeedController::class, 'disableAllNeeds'])->name('organization.disable_need');
 
     Route::post('/organization/store-need', [NeedController::class, 'storeNeed'])->name('organization.store_need');
-    Route::get('/organization/edit-need/{id}', [NeedController::class, 'editNeed'])->name('organization.edit_need')->middleware('role:orgnization|admin');
+    Route::get('/organization/edit-need/{id}', [NeedController::class, 'editNeed'])->name('organization.edit_need')->middleware('role:organization|admin');
     Route::put('/organization/update-need/{id}', [NeedController::class, 'updateNeed'])->name('organization.update_need');
-    Route::delete('/organization/delete_need/{id}', [NeedController::class, 'destroy'])->name('organization.delete_need')->middleware('role:orgnization|admin');
-    Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:orgnization|admin');
+    Route::delete('/organization/delete_need/{id}', [NeedController::class, 'destroy'])->name('organization.delete_need')->middleware('role:organization|admin');
+    Route::delete('/organization/need-image/{id}', [NeedController::class, 'deleteNeedImage'])->name('organization.delete_need_image')->middleware('role:organization|admin');
 
     // Donations Routes
     Route::get('/donations', [DonationController::class, 'listDonations'])->name('donations.index');
@@ -144,17 +144,17 @@ Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
 Route::post('/contact', [MainController::class, 'storeContact'])->name('contact.store');
 
-Route::get('/organization_profile/{id}', [OrgnizationController::class, 'getOne'])->name('orgnization.profile.one');
-Route::get('/all_organization', [OrgnizationController::class, 'getAll'])->name('orgnization.all');
-Route::get('/organization_post/{id}', [PostController::class, 'getOne'])->name('orgnization.post.one');
-Route::get('/organization_posts/{organization_id}', [PostController::class, 'getAll'])->name('orgnization.post.all');
+Route::get('/organization_profile/{id}', [OrganizationController::class, 'getOne'])->name('organization.profile.one');
+Route::get('/all_organization', [OrganizationController::class, 'getAll'])->name('organization.all');
+Route::get('/organization_post/{id}', [PostController::class, 'getOne'])->name('organization.post.one');
+Route::get('/organization_posts/{organization_id}', [PostController::class, 'getAll'])->name('organization.post.all');
 
 
 
 Route::prefix('organization')->group(function () {
-    Route::get('/edit/{id}', [OrgnizationController::class, 'edit'])->name('orgnization.edit_organization');
-    Route::put('/update/{id}', [OrgnizationController::class, 'update'])->name('orgnization.update_organization');
-    Route::get('/manage', [OrgnizationController::class, 'index'])->name('orgnization.manage_organization');
-    Route::get('/create', [OrgnizationController::class, 'create'])->name('orgnization.create_organization');
-    Route::post('/store', [OrgnizationController::class, 'store'])->name('orgnization.store_organization');
+    Route::get('/edit/{id}', [OrganizationController::class, 'edit'])->name('organization.edit_organization');
+    Route::put('/update/{id}', [OrganizationController::class, 'update'])->name('organization.update_organization');
+    Route::get('/manage', [OrganizationController::class, 'index'])->name('organization.manage_organization');
+    Route::get('/create', [OrganizationController::class, 'create'])->name('organization.create_organization');
+    Route::post('/store', [OrganizationController::class, 'store'])->name('organization.store_organization');
 });

@@ -3,24 +3,24 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\OrgnizationImage;
+use App\Models\OrganizationImage;
 
-class OrgnizationImageTableSeeder extends Seeder
+class OrganizationImageTableSeeder extends Seeder
 {
     public function run()
     {
         // إضافة صور تجريبية
-        OrgnizationImage::create([
+        OrganizationImage::create([
             'organization_id' => 1,
             'image' => 'org1.png',
         ]);
 
 
-        OrgnizationImage::create([
+        OrganizationImage::create([
             'organization_id' => 2,
             'image' => 'org2.jpg',
         ]);
-        OrgnizationImage::create([
+        OrganizationImage::create([
             'organization_id' => 3,
             'image' => 'org3.png',
         ]);

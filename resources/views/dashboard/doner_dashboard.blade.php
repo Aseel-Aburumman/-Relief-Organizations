@@ -180,7 +180,7 @@
                                     @endif
 
                                     <div class="media-body">
-                                        <a href="{{ route('orgnization.post.one', ['id' => $post->id]) }}">
+                                        <a href="{{ route('organization.post.one', ['id' => $post->id]) }}">
                                             <h3>{{ $post->title }}</h3>
                                         </a>
                                         <p>{{ $post->created_at }}</p>

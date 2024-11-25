@@ -9,6 +9,7 @@ use App\Models\Post;
 use App\Models\Donation;
 use App\Models\Need;
 use App\Models\UserDetail;
+use App\Models\Language;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -18,13 +19,8 @@ class UserController extends Controller
 {
     public function Profile()
     {
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
 
         $user = Auth::id();
 
@@ -66,16 +62,16 @@ class UserController extends Controller
         $user->save();
 
         // Update organization details for organizations
-        if ($user->hasRole('orgnization') && $user->organization) {
+        if ($user->hasRole('organization') && $user->organization) {
             $organization = $user->organization;
             $organization->contact_info = $request->input('contact_info');
             $organization->description = $request->input('description');
 
             // Handle profile image upload
             if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('orgnization_images', 'public');
+                $imagePath = $request->file('image')->store('organization_images', 'public');
                 $organization->image()->updateOrCreate(
-                    ['orgnization_id' => $organization->id],
+                    ['organization_id' => $organization->id],
                     ['image' => $imagePath]
                 );
             }
@@ -102,13 +98,8 @@ class UserController extends Controller
 
     public function doner_dashboard()
     {
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
 
 
         $user = Auth::user();

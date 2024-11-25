@@ -3,9 +3,9 @@
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
-        @role('orgnization')
+        @role('organization')
             <li class="nav-item">
-                <a class="nav-link " href="{{ route('orgnization.dashboard') }}">
+                <a class="nav-link " href="{{ route('organization.dashboard') }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -24,13 +24,13 @@
         @endrole
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('orgnization.manage_Needs') }}">
+            <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Needs Control Center</span>
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('orgnization.manage_Needs') }}">
+            <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
                 <i class="bi bi-card-list"></i>
                 <span>Organaization Control Center</span>
             </a>

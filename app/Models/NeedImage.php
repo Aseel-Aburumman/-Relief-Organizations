@@ -26,6 +26,26 @@ class NeedImage extends Model
         return $this->belongsTo(Need::class, 'need_id');
     }
 
+    /**
+     * Handle image upload and associate it with a Need.
+     *
+     * @param int $needId
+     * @param \Illuminate\Http\UploadedFile $file
+     * @return void
+     */
+    public static function uploadNeedImage($needId, $file)
+    {
+        $fileName = $file->getClientOriginalName();
+        $file->storeAs('need_images', $fileName, 'public');
+
+        self::create([
+            'need_id' => $needId,
+            'image' => $fileName,
+        ]);
+    }
+
+
+
 
     public static function deleteNeedImage($id)
     {

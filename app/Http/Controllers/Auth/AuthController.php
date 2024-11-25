@@ -17,6 +17,7 @@ use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Rinvex\Country\CountryLoader;
+use App\Models\Language;
 
 class AuthController extends Controller
 {
@@ -32,14 +33,8 @@ class AuthController extends Controller
     {
         $countries = countries();
 
-        // dd($request);
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
 
         $userData = $request->only(['email', 'password']);
 
@@ -81,13 +76,8 @@ class AuthController extends Controller
         // Get countries (you might want to verify that $countries is used properly)
         $countries = countries();
 
-        // Determine locale and map it to a language ID
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
-        $languageId = $languageMap[$locale] ?? 1;
+        $languageId = Language::getLanguageIdByLocale();
+
 
         // Create user data
         $userData = $request->only(['email', 'password']);
@@ -167,7 +157,7 @@ class AuthController extends Controller
                     'success' => 'Login successful',
                     // 'user' => new UserResource($user)
                 ]);
-            } elseif ($user->hasRole('orgnization')) {
+            } elseif ($user->hasRole('organization')) {
                 return redirect()->route('index')->with([
                     'success' => 'Login successful',
                 ]);

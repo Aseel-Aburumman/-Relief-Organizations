@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Post;
+use App\Models\Language;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
@@ -57,13 +58,8 @@ class PostController extends Controller
 
     public function getOne($id)
     {
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
 
         $post = Post::with('images')
             ->where('id', $id)
@@ -80,13 +76,8 @@ class PostController extends Controller
 
     public function getAll($organization_id)
     {
-        $locale = session('locale', 'en');
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
+        $languageId = Language::getLanguageIdByLocale();
 
-        $languageId = $languageMap[$locale] ?? 1;
         $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
             $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
         }])

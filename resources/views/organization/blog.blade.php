@@ -33,7 +33,7 @@
                                             alt="" style="height:300px; object-fit:cover;">
                                     @endif
 
-                                    <a href="{{ route('orgnization.post.one', ['id' => $post->id]) }}"
+                                    <a href="{{ route('organization.post.one', ['id' => $post->id]) }}"
                                         class="blog_item_date">
                                         <h3>{{ $post->created_at->format('d') }}</h3>
                                         <p>{{ $post->created_at->format('M') }}</p>
@@ -42,13 +42,13 @@
 
                                 <div class="blog_details">
                                     <a class="d-inline-block"
-                                        href="{{ route('orgnization.post.one', ['id' => $post->id]) }}">
+                                        href="{{ route('organization.post.one', ['id' => $post->id]) }}">
                                         <h2>{{ $post->title }}</h2>
                                     </a>
                                     <p>{{ \Illuminate\Support\Str::words($post->content, 20, '...') }}</p>
                                     <ul class="blog-info-link">
                                         {{--  <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>  --}}
-                                        <li><a href="{{ route('orgnization.post.one', ['id' => $post->id]) }}"><i
+                                        <li><a href="{{ route('organization.post.one', ['id' => $post->id]) }}"><i
                                                     class="fa fa-comments"></i> Read more</a></li>
                                     </ul>
                                 </div>
@@ -120,7 +120,7 @@
                                     @endif
 
                                     <div class="media-body">
-                                        <a href="{{ route('orgnization.post.one', ['id' => $post->id]) }}">
+                                        <a href="{{ route('organization.post.one', ['id' => $post->id]) }}">
                                             <h3>{{ $post->title }}</h3>
                                         </a>
                                         <p>{{ $post->created_at }}</p>

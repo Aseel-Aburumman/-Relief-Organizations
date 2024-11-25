@@ -22,7 +22,7 @@
                     <div class="single-post">
                         <div class="feature-img">
                             <img class="img-fluid"
-                                src="{{ asset('storage/orgnization_images/' . $OrgnizationImages->image) }}" alt="">
+                                src="{{ asset('storage/organization_images/' . $OrganizationImages->image) }}" alt="">
                         </div>
                         <div class="blog_details">
                             <h1>{{ $organization->userDetail->first()->name }}
@@ -168,7 +168,7 @@
                                     @endif
 
                                     <div class="media-body">
-                                        <a href="{{ route('orgnization.post.one', ['id' => $post->id]) }}">
+                                        <a href="{{ route('organization.post.one', ['id' => $post->id]) }}">
                                             <h3>{{ $post->title }}</h3>
                                         </a>
                                         <p>{{ $post->created_at }}</p>
@@ -177,7 +177,7 @@
                             @endforeach
                             <hr>
                             <h6><a
-                                    href="{{ route('orgnization.post.all', ['organization_id' => $post->organization_id]) }}">
+                                    href="{{ route('organization.post.all', ['organization_id' => $post->organization_id]) }}">
                                     View all {{ $organization->userDetail->first()->name }} posts </a>
                             </h6>
                         </aside>

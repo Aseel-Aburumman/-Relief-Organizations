@@ -74,7 +74,7 @@
                                 <ul id="navigation">
                                     <li><a href="{{ route('index') }}">home</a></li>
                                     <li><a href="About.html">About</a></li>
-                                    <li><a href="{{ route('orgnization.all') }}">Our Orgnaization</a></li>
+                                    <li><a href="{{ route('organization.all') }}">Our organization</a></li>
 
 
                                     {{--  <li><a href="#">pages <i class="ti-angle-down"></i></a>
@@ -84,7 +84,7 @@
                                         </ul>
                                     </li>  --}}
                                     <li><a href="{{ route('contact') }}">Contact</a></li>
-                                    @role('orgnization')
+                                    @role('organization')
                                         <li><a href="{{ route('need') }}">Make a Donatition</a></li>
                                     @endrole
                                     @role('doner')
@@ -101,10 +101,10 @@
                                     </div>
                                 </div>
                             @endguest
-                            @role('orgnization')
+                            @role('organization')
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a href="{{ route('orgnization.dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('organization.dashboard') }}">Dashboard</a>
                                     </div>
                                 </div>
                             @endrole
