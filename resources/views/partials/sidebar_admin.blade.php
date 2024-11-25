@@ -30,9 +30,9 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
+                <a class="nav-link collapsed" href="{{ route('donations.index') }}">
                     <i class="bi bi-card-list"></i>
-                    <span>Organaization Control Center</span>
+                    <span>donations Control Center</span>
                 </a>
             </li>
 
