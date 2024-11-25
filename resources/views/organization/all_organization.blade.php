@@ -6,7 +6,8 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>All organization</h3>
+                        <h3>{{ __('messages.AllorganizationA') }}
+                        </h3>
                     </div>
                 </div>
             </div>
@@ -38,7 +39,8 @@
                                 <p style="font-size: 14px; color: #666; margin-bottom: 15px;">
                                     {{ $organization->userDetail->first()->description ?? 'No Description Available' }}</p>
                                 <a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}"
-                                    class="read_more">Learn More</a>
+                                    class="read_more">{{ __('messages.LearnMoreA') }}
+                                </a>
                             </div>
                         </div>
                     </div>
