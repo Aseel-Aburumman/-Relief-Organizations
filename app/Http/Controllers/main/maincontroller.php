@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\Need;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
@@ -17,6 +18,12 @@ class MainController extends Controller
     public function index()
     {
         $languageId = Language::getLanguageIdByLocale();
+        $organizationsCount = Organization::count();
+        $postsCount = Post::count();
+        $fullyDonatedNeedsCount = Need::whereColumn('quantity_needed', 'donated_quantity')->count();
+        $usersCount = User::count();
+
+
 
 
         // جلب المنظمات مع userDetail والصور
@@ -32,7 +39,7 @@ class MainController extends Controller
         $posts = Post::with('images')->take(3)->get();
 
         // تمرير البيانات إلى العرض
-        return view('index', compact('organizations', 'needs', 'posts'));
+        return view('index', compact('organizations', 'needs', 'posts','organizationsCount','postsCount','fullyDonatedNeedsCount','usersCount'));
     }
 
 

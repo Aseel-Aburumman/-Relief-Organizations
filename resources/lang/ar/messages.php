@@ -44,24 +44,36 @@ return [
 'noName' => 'لا يوجد اسم',
 'noDescription' => 'لا يوجد وصف',
 'noNeedsFound' => 'لم يتم العثور على أي احتياجات!',
+    //needs
+    'needsTitle' => 'الاحتياجات',
+    'raised' => 'المبلغ المُجمع',
+    'goal' => 'الهدف',
+    'readMore' => 'اقرأ المزيد',
+    'learnMore' => 'تعرف على المزيد',
+    'selectCategory' => 'اختر الفئة',
+    'selectUrgency' => 'اختر مستوى الأهمية',
+    'selectStatus' => 'اختر الحالة',
+    'noName' => 'لا يوجد اسم',
+    'noDescription' => 'لا يوجد وصف',
+    'noNeedsFound' => 'لم يتم العثور على أي احتياجات!',
 
-'urgency' => [
-    'low_priority' => 'أولوية منخفضة',
-    'medium_priority' => 'أولوية متوسطة',
-    'high_priority' => 'أولوية عالية',
-],
-'status' => [
-    'available' => 'متاح',
-    'partially_fulfilled' => 'مكتمل جزئيًا',
-    'fulfilled' => 'مكتمل',
-],
-'categories' => [
-    'food' => 'الغذاء',
-    'medicine' => 'الدواء',
-    'shelter' => 'المأوى',
-    'clothing' => 'الملابس',
-    'medical_equipment' => 'المعدات الطبية',
-],
+    'urgency' => [
+        'low_priority' => 'أولوية منخفضة',
+        'medium_priority' => 'أولوية متوسطة',
+        'high_priority' => 'أولوية عالية',
+    ],
+    'status' => [
+        'available' => 'متاح',
+        'partially_fulfilled' => 'مكتمل جزئيًا',
+        'fulfilled' => 'مكتمل',
+    ],
+    'categories' => [
+        'food' => 'الغذاء',
+        'medicine' => 'الدواء',
+        'shelter' => 'المأوى',
+        'clothing' => 'الملابس',
+        'medical_equipment' => 'المعدات الطبية',
+    ],
     // organizations pages
     'AllorganizationA' => 'كل المنظمات',
     'LearnMoreA' => 'اعرف المزيد',
@@ -87,6 +99,28 @@ return [
 
     // footer
     'footerA' => 'منصة إنسانية تربط بين المنظمات والمتبرعين لتقديم المساعدات إلى غزة بكفاءة، مع تحديثات لحظية لضمان توزيع متوازن وفعّال.',
+
+    // auth
+
+    'CreateAccountA' => 'إنشاء حساب',
+    'SignOrganizayionA' => 'التسجيل كمنظمة؟',
+    'NameA' => 'الاسم',
+    'EmailA' => 'البريد الإلكتروني',
+    'PasswordA' => 'كلمة المرور',
+    'AddressA' => 'العنوان',
+    'SignUpA' => 'تسجيل',
+    'AlreadyaccountA' => 'هل لديك حساب بالفعل؟ ',
+    'SignInA' => 'تسجيل الدخول',
+    'EmailA' => 'البريد الإلكتروني',
+
+    'SignDonerA' => 'التسجيل كمتبرع؟',
+    'OrganizationNameA' => 'اسم المنظمة',
+    'Description' => 'الوصف',
+    'ContactInformation' => 'معلومات الاتصال',
+    'Selectcountry' => 'اختر دولتك',
+    'ProofDocument' => 'قم بتحميل وثيقة الإثبات:',
+    'DonaccountA' => 'ليس لديك حساب؟ ',
+
 
 
     // BLOG pages

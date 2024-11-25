@@ -96,12 +96,14 @@
         <div class="signup-card">
 
             <div class="form-section">
-                <h2 class="signup-title">Create Account</h2>
+                <h2 class="signup-title">{{ __('messages.CreateAccountA') }}
+                </h2>
 
 
-                <p class="text-center mb-3"> <a href="{{ route('register.view.Organization') }}" style="color: #3CC78F;">Sign
-                        Up as
-                        Organizayion?</a></p>
+                <p class="text-center mb-3"> <a href="{{ route('register.view.Organization') }}"
+                        style="color: #3CC78F;">{{ __('messages.SignOrganizayionA') }}
+
+                    </a></p>
                 @if (isset($success))
                     <div class="alert alert-success">
                         {{ $success }}
@@ -111,31 +113,36 @@
                 <form action="{{ route('register.donor') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
+                        <label for="name" class="form-label">{{ __('messages.NameA') }}
+                        </label>
                         <input type="text" class="form-control" id="name" name="name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <label for="email" class="form-label">{{ __('messages.EmailA') }}
+                        </label>
+                        <input type="email" class="form-control" id="email" name="emailA" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}
+                        </label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="mb-3">
-                        <label for="address" class="form-label">Address</label>
+                        <label for="address" class="form-label">{{ __('messages.AddressA') }}
+                        </label>
                         <select class="form-select" id="address" name="address" required>
-                            <option value="" disabled selected>Select your country</option>
+                            <option value="" disabled selected>{{ __('messages.Selectcountry') }}</option>
                             @foreach ($countries as $code => $country)
                                 <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
                             @endforeach
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-2">Sign Up</button>
-                    <p class="text-center">Already have an account? <a href="{{ route('login.view') }}"
-                            style="color: #3CC78F;">Sign
-                            In</a></p>
+                    <button type="submit" class="btn btn-primary w-100 mb-2">{{ __('messages.SignUpA') }}
+                    </button>
+                    <p class="text-center">{{ __('messages.AlreadyaccountA') }}
+                        <a href="{{ route('login.view') }}" style="color: #3CC78F;">{{ __('messages.SignInA') }}</a>
+                    </p>
                 </form>
             </div>
             <div class="image-section"></div>

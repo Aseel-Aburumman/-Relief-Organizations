@@ -87,23 +87,30 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <h2 class="signin-title">Sign In</h2>
+                <h2 class="signin-title">{{ __('messages.SignInA') }}
+                </h2>
 
                 <!-- Sign-In Form -->
                 <form action="{{ route('login') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label">Email</label>
+                        <label for="email" class="form-label">{{ __('messages.EmailA') }}
+                        </label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
                     <div class="mb-3">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}
+                        </label>
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100">Sign In</button>
+                    <button type="submit" class="btn btn-primary w-100">{{ __('messages.SignInA') }}
+                    </button>
                 </form>
                 <div class="text-center mt-3">
-                    <p>Don't have an account? <a href="{{ route('register.view') }}">Sign Up</a></p>
+                    <p>{{ __('messages.DonaccountA') }}
+                        <a href="{{ route('register.view') }}">{{ __('messages.SignUpA') }}
+                        </a>
+                    </p>
                 </div>
             </div>
             <div class="image-section"></div>
