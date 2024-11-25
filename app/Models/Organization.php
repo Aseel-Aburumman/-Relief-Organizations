@@ -99,7 +99,7 @@ class Organization extends Model
      */
     public static function fetchOrganizationWithNeedsAndDonations($userId)
     {
-        return self::with(['needs.donations'])
+        return self::with(['need.donations'])
             ->where('user_id', $userId)
             ->first();
     }

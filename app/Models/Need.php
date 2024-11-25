@@ -190,14 +190,5 @@ class Need extends Model
     }
 
 
-    /**
-     * Get all NeedDetails for a specific Need ID.
-     *
-     * @param int $needId
-     * @return \Illuminate\Database\Eloquent\Collection
-     */
-    public static function getByNeedId($needId)
-    {
-        return self::where('need_id', $needId)->get();
-    }
+   
 }

@@ -34,7 +34,16 @@ class NeedDetail extends Model
         return $this->belongsTo(\App\Models\Language::class, 'language_id');
     }
 
-
+    /**
+     * Get all NeedDetails for a specific Need ID.
+     *
+     * @param int $needId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function getByNeedId($needId)
+    {
+        return self::where('need_id', $needId)->get();
+    }
 
     /**
      * Create NeedDetails for a Need.
