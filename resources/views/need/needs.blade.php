@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="bradcam_text text-center">
-                        <h3>Needs</h3>
+                        <h3>{{ __('messages.needsTitle') }}</h3>
                     </div>
                 </div>
             </div>

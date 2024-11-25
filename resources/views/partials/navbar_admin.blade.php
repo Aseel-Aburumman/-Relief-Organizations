@@ -24,7 +24,8 @@
                 <a class="nav-link nav-icon search-bar-toggle " href="#">
                     <i class="bi bi-search"></i>
                 </a>
-            </li><!-- End Search Icon-->
+            </li>
+            <!-- End Search Icon-->
 
 
 
@@ -36,17 +37,19 @@
 
                 <form class="loginBtn" action="{{ route('logout') }}" method="POST" class="d-inline">
                     @csrf
-
-                    <i class="fas fa-sign-out-alt"></i> Logout
+                    <button type="submit" class="btn loginBtn">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
                 </form>
 
 
+            </li>
 
-
-        </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
 
         </ul>
+        <!-- End Profile Dropdown Items -->
+        <!-- End Profile Nav -->
+
     </nav><!-- End Icons Navigation -->
 
 </header>

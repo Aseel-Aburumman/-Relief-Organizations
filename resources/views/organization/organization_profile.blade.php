@@ -22,7 +22,8 @@
                     <div class="single-post">
                         <div class="feature-img">
                             <img class="img-fluid"
-                                src="{{ asset('storage/organization_images/' . $OrganizationImages->image) }}" alt="">
+                                src="{{ asset('storage/organization_images/' . $OrganizationImages->image) }}"
+                                alt="">
                         </div>
                         <div class="blog_details">
                             <h1>{{ $organization->userDetail->first()->name }}
@@ -30,7 +31,8 @@
                             <ul class="blog-info-link mt-3 mb-4">
                                 {{--  <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>  --}}
                                 <li><a href="#"><i class="fa fa-money"></i> {{ $organization->need->count() }}
-                                        Needs</a></li>
+                                        {{ __('messages.NeedsA') }}
+                                    </a></li>
                             </ul>
                             <p class="excert">
                                 {{ $organization->userDetail->first()->description }}
@@ -40,7 +42,9 @@
                     </div>
                     <div class="navigation-top mt-5">
                         <div class="row">
-                            <h3>Donate to Gaza needs through the {{ $organization->userDetail->first()->name }} organization
+                            <h3>{{ __('messages.DonatetoGazaA') }}
+                                {{ $organization->userDetail->first()->name }} {{ __('messages.DonatetoGazaA2') }}
+
                             </h3>
                             <br>
                             <div class="mt-5 col-lg-12">
@@ -84,8 +88,10 @@
                                                 </div>
                                                 <div class="balance d-flex justify-content-between align-items-center"
                                                     style="margin-bottom: 10px;">
-                                                    <span>Donated: {{ $need->donated_quantity }}</span>
-                                                    <span>Needed: {{ $need->quantity_needed }}</span>
+                                                    <span>{{ __('messages.DonatedA') }}
+                                                        : {{ $need->donated_quantity }}</span>
+                                                    <span>{{ __('messages.NeededA') }}
+                                                        : {{ $need->quantity_needed }}</span>
                                                 </div>
                                                 <!-- عرض اسم الحاجة -->
                                                 <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
@@ -97,7 +103,8 @@
                                                     {{ Str::limit($need->needDetail->first()->description ?? 'No description available', 100) }}
                                                 </p>
                                                 <a href="{{ route('donation.show', ['id' => $need->id]) }}"
-                                                    class="boxed-btn3">Learn More</a>
+                                                    class="boxed-btn3">{{ __('messages.LearnMoreA') }}
+                                                </a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -156,7 +163,8 @@
                             </ul>
                         </aside>  --}}
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Recent Post</h3>
+                            <h3 class="widget_title">{{ __('messages.RecentPostA') }}
+                            </h3>
                             @foreach ($posts as $post)
                                 <div class="media post_item">
                                     @if ($post->images && $post->images->isNotEmpty())
@@ -178,7 +186,9 @@
                             <hr>
                             <h6><a
                                     href="{{ route('organization.post.all', ['organization_id' => $post->organization_id]) }}">
-                                    View all {{ $organization->userDetail->first()->name }} posts </a>
+                                    {{ __('messages.ViewallA') }}
+                                    {{ $organization->userDetail->first()->name }} {{ __('messages.PostsA') }}
+                                </a>
                             </h6>
                         </aside>
 

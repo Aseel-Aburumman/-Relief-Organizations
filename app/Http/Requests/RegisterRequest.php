@@ -14,10 +14,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'email' => 'required|email|unique:users,email',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
             // 'password' => 'required|min:8|confirmed',
-            // 'name' => 'required|string|max:255',
-            // 'address' => 'required|in:' . implode(',', $this->getCountryList()),
+            'address' => 'required|in:' . implode(',', $this->getCountryList()),
         ];
     }
 

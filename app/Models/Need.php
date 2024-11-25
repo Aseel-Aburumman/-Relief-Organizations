@@ -41,9 +41,14 @@ class Need extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+    // public function language()
+    // {
+    //     return $this->belongsTo(Language::class);
+    // }
+
     public function language()
     {
-        return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class, 'language_id');
     }
     public function image()
     {
@@ -162,7 +167,9 @@ class Need extends Model
     {
         return self::where('organization_id', $organizationId)
             ->when($search, function ($query, $search) {
-                return $query->where('item_name', 'like', '%' . $search . '%');
+                return $query->whereHas('needDetail', function ($subQuery) use ($search) {
+                    $subQuery->where('item_name', 'like', '%' . $search . '%');
+                });
             })
             ->with(['needDetail' => function ($query) use ($languageId) {
                 $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
@@ -181,7 +188,9 @@ class Need extends Model
     public static function fetchNeeds($search = null, $languageId)
     {
         return self::when($search, function ($query, $search) {
-            return $query->where('item_name', 'like', '%' . $search . '%');
+            return $query->whereHas('needDetail', function ($subQuery) use ($search) {
+                $subQuery->where('item_name', 'like', '%' . $search . '%');
+            });
         })
             ->with(['needDetail' => function ($query) use ($languageId) {
                 $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
@@ -190,5 +199,5 @@ class Need extends Model
     }
 
 
-   
+
 }

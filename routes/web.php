@@ -125,9 +125,6 @@ Route::group([
     Route::get('/user/donations', [DonationController::class, 'listUserDonations'])->name('donations.user_donations');
 
 
-
-
-
     // Posts routes
     Route::prefix('posts')->group(function () {
         Route::get('/manage', [PostController::class, 'index'])->name('posts.manage');

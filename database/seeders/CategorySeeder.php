@@ -29,7 +29,7 @@ class CategorySeeder extends Seeder
                 'updated_at' => Carbon::now(),
             ],
             [
-                'name' => 'Shelter (tents, blankets)',
+                'name' => 'Shelter',
                 'language_id' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
