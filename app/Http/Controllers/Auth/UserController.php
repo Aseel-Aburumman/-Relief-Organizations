@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\User;
 use App\Models\Post;
@@ -33,67 +35,154 @@ class UserController extends Controller
         $userDetail = $user->userDetail ?? [];
         $organizationDetail = $user->organization->userDetail ?? [];
         $countries = countries();
+        $languages = Language::all();
 
 
 
 
 
-        return view('dashboard.profile', compact('user', 'userDetail', 'organizationDetail','countries'));
+        return view('dashboard.profile', compact('user', 'userDetail', 'organizationDetail', 'countries', 'languages'));
     }
 
+    // public function updateProfile(Request $request)
+    // {
+    //     try {
+    //         $user = Auth::user();
+    //         $user = User::find(Auth::user()->id);
+
+    //         if ($user->hasRole('organization')) {
+    //             // Update general user fields
+    //             $user->email = $request->email;
+    //             $user->password = Hash::make($request->password);
+    //             $user->save();
+
+    //             // Update organization-specific details
+    //             if ($request->has('contact_info')) {
+    //                 $user->organization->contact_info = $request->contact_info;
+    //                 $user->organization->save();
+    //             }
+
+    //             // Handle multilingual organization details
+    //             $organizationDetails = $request->except(['email', 'password', 'contact_info', 'image']);
+    //             foreach ($organizationDetails as $key => $value) {
+    //                 preg_match('/\((en|ar)\)$/', $key, $matches);
+    //                 if ($matches) {
+    //                     $language = $matches[1];
+    //                     $attribute = strtok($key, '(');
+    //                     $detail = UserDetail::updateOrCreate(
+    //                         [
+    //                             'organization_id' => $user->organization->id,
+    //                             'language_id' => $language === 'en' ? 1 : 2,
+    //                         ],
+    //                         [
+    //                             $attribute => $value,
+    //                         ]
+    //                     );
+    //                 }
+    //             }
+
+    //             // Handle image upload
+    //             if ($request->hasFile('image')) {
+    //                 $path = $request->file('image')->store('public/images');
+    //                 $user->organization->profile_picture = $path;
+    //                 $user->organization->save();
+    //             }
+    //         } elseif ($user->hasRole('doner')) {
+    //             // Update donor general fields
+    //             $user->email = $request->email;
+    //             $user->password = Hash::make($request->password);
+    //             $user->save();
+
+    //             // Handle multilingual donor details
+    //             $donorDetails = $request->except(['email', 'password', 'address']);
+    //             foreach ($donorDetails as $key => $value) {
+    //                 preg_match('/\((en|ar)\)$/', $key, $matches);
+    //                 if ($matches) {
+    //                     $language = $matches[1];
+    //                     $attribute = strtok($key, '(');
+    //                     $detail = UserDetail::updateOrCreate(
+    //                         [
+    //                             'user_id' => $user->id,
+    //                             'language_id' => $language === 'en' ? 1 : 2,
+    //                         ],
+    //                         [
+    //                             $attribute => $value,
+    //                         ]
+    //                     );
+    //                 }
+    //             }
+
+    //             // Update address
+    //             if ($request->has('address')) {
+    //                 $userDetail = UserDetail::firstOrCreate(
+    //                     ['user_id' => $user->id, 'language_id' => 1],
+    //                     ['address' => $request->address]
+    //                 );
+    //                 $userDetail->address = $request->address;
+    //                 $userDetail->save();
+    //             }
+    //         }
+
+    //         return redirect()->route('profile.view')->with('success', 'Profile updated successfully.');
+    //     } catch (\Exception $e) {
+    //         Log::error('Error updating profile: ' . $e->getMessage());
+    //         return redirect()->back()->with('error', 'An error occurred while updating the profile. Please try again.');
+    //     }
+    // }
     public function updateProfile(Request $request)
     {
-        $user = Auth::user();
-        $user = User::find(Auth::user()->id);
+        try {
+            $user = Auth::user();
+            $user = User::find(Auth::user()->id);
+            // Update general user fields
+            $user->email = $request->email;
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+            $user->save();
 
-        // Validate the input
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'contact_info' => 'nullable|string|max:255',
-            'description' => 'nullable|string|max:1000',
-            'address' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+            // Handle multilingual fields
+            $languages = $request->input('name', []);
+            foreach ($languages as $langKey => $name) {
+                $languageId = Language::where('key', $langKey)->first()->id;
 
-        // Update user details
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->save();
-
-        // Update organization details for organizations
-        if ($user->hasRole('organization') && $user->organization) {
-            $organization = $user->organization;
-            $organization->contact_info = $request->input('contact_info');
-            $organization->description = $request->input('description');
-
-            // Handle profile image upload
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('organization_images', 'public');
-                $organization->image()->updateOrCreate(
-                    ['organization_id' => $organization->id],
-                    ['image' => $imagePath]
-                );
+                if ($user->hasRole('organization')) {
+                    UserDetail::updateOrCreate(
+                        [
+                            'organization_id' => $user->organization->id,
+                            'language_id' => $languageId,
+                        ],
+                        [
+                            'name' => $name,
+                            'description' => $request->input("description.$langKey", ''),
+                        ]
+                    );
+                } elseif ($user->hasRole('doner')) {
+                    UserDetail::updateOrCreate(
+                        [
+                            'user_id' => $user->id,
+                            'language_id' => $languageId,
+                        ],
+                        [
+                            'name' => $name,
+                        ]
+                    );
+                }
             }
 
-            $organization->save();
-        }
+            // Update organization-specific fields
+            if ($user->hasRole('organization') && $request->has('contact_info')) {
+                $user->organization->contact_info = $request->contact_info;
+                $user->organization->save();
+            }
 
-        // Update user details (name, address) in multiple languages
-        $languageMap = [
-            'en' => 1, // English language_id
-            'ar' => 2, // Arabic language_id
-        ];
-        foreach ($languageMap as $lang => $langId) {
-            $user->userDetail()->updateOrCreate(
-                ['language_id' => $langId],
-                ['address' => $request->input('address')]
-            );
+            return redirect()->route('profile.view')->with('success', 'Profile updated successfully.');
+        } catch (\Exception $e) {
+            Log::error('Error updating profile: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while updating the profile. Please try again.');
         }
-
-        // Redirect back with a success message
-        return redirect()->route('profile.view')->with('success', 'Profile updated successfully.');
     }
+
 
 
     public function doner_dashboard()

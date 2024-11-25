@@ -117,37 +117,41 @@
                                         enctype="multipart/form-data">
                                         @csrf
                                         @method('PUT')
+                                        <!-- Language Selector -->
+                                        <div class="col-md-6">
+                                            <label for="language" class="form-label">Select Language</label>
+                                            <select id="language-selector" class="form-control">
+                                                <option value="">Select a language</option>
+                                                @foreach ($languages as $language)
+                                                    <option value="{{ $language->key }}">{{ $language->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
 
-                                        <!-- Name Field -->
-                                        @role('organization')
-                                            @foreach ($organizationDetail as $detail)
-                                                <div class="row mb-3">
-                                                    <label for="name" class="col-md-4 col-lg-3 col-form-label">Organization
-                                                        Name
-                                                        ({{ $detail->language_id == 1 ? 'en' : 'ar' }})
-                                                    </label>
-                                                    <div class="col-md-8 col-lg-9">
-                                                        <input name="name" type="text" class="form-control" id="name"
-                                                            value="{{ $detail->name }}" required>
-                                                    </div>
-                                                </div>
-                                            @endforeach
-                                        @endrole
-
-                                        @role('doner')
+                                        <!-- Dynamic Fields Container -->
+                                        <div id="language-fields-container">
                                             @foreach ($userDetail as $detail)
-                                                <div class="row mb-3">
-                                                    <label for="name" class="col-md-4 col-lg-3 col-form-label">
-                                                        Name
-                                                        ({{ $detail->language_id == 1 ? 'en' : 'ar' }})
+                                                <div class="col-md-12" id="fields-{{ $detail->language->key }}">
+                                                    <label for="name_{{ $detail->language->key }}" class="form-label">
+                                                        Name ({{ strtoupper($detail->language->key) }})
                                                     </label>
-                                                    <div class="col-md-8 col-lg-9">
-                                                        <input name="name" type="text" class="form-control" id="name"
-                                                            value="{{ $detail->name }}" required>
-                                                    </div>
+                                                    <input type="text" name="name[{{ $detail->language->key }}]"
+                                                        class="form-control" id="name_{{ $detail->language->key }}"
+                                                        value="{{ $detail->name }}">
+
+                                                    @if ($user->hasRole('organization'))
+                                                        @foreach ($organizationDetail as $detail)
+                                                            <label for="description_{{ $detail->language->key }}"
+                                                                class="form-label">
+                                                                Description ({{ strtoupper($detail->language->key) }})
+                                                            </label>
+                                                            <textarea name="description[{{ $detail->language->key }}]" class="form-control"
+                                                                id="description_{{ $detail->language->key }}">{{ $detail->description }}</textarea>
+                                                        @endforeach
+                                                    @endif
                                                 </div>
                                             @endforeach
-                                        @endrole
+                                        </div>
 
                                         <!-- Email Field -->
                                         <div class="row mb-3">
@@ -155,6 +159,16 @@
                                             <div class="col-md-8 col-lg-9">
                                                 <input name="email" type="email" class="form-control" id="email"
                                                     value="{{ $user->email }}" required>
+                                            </div>
+                                        </div>
+
+                                        <!-- password Field -->
+                                        <div class="row mb-3">
+                                            <label for="password" class="col-md-4 col-lg-3 col-form-label">new
+                                                password</label>
+                                            <div class="col-md-8 col-lg-9">
+                                                <input name="password" type="password" class="form-control" id="password"
+                                                    value="{{ $user->password }}" required>
                                             </div>
                                         </div>
 
@@ -168,17 +182,6 @@
                                                         id="contact_info" value="{{ $user->organization->contact_info }}">
                                                 </div>
                                             </div>
-                                            @foreach ($organizationDetail as $detail)
-                                                <div class="row mb-3">
-                                                    <label for="description"
-                                                        class="col-md-4 col-lg-3 col-form-label">Description
-                                                        ({{ $detail->language_id == 1 ? 'en' : 'ar' }})
-                                                    </label>
-                                                    <div class="col-md-8 col-lg-9">
-                                                        <textarea name="description" class="form-control" id="description">{{ $detail->description }}</textarea>
-                                                    </div>
-                                                </div>
-                                            @endforeach
                                         @endrole
 
                                         <!-- Address Field -->
@@ -222,5 +225,39 @@
                     </div>
                 </div>
             </div>
+            <script>
+                document.getElementById('language-selector').addEventListener('change', function() {
+                    const language = this.value;
+                    const container = document.getElementById('language-fields-container');
+
+                    if (!language) {
+                        return;
+                    }
+
+                    const existingFields = document.querySelector(`#fields-${language}`);
+                    if (existingFields) {
+                        existingFields.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        return;
+                    }
+
+                    const fields = document.createElement('div');
+                    fields.id = `fields-${language}`;
+                    fields.innerHTML = `
+            <div class="col-md-12">
+                <label for="name_${language}" class="form-label">Name (${language.toUpperCase()})</label>
+                <input type="text" name="name[${language}]" class="form-control" id="name_${language}">
+            </div>
+            @if ($user->hasRole('organization'))
+                <div class="col-md-12">
+                    <label for="description_${language}" class="form-label">Description (${language.toUpperCase()})</label>
+                    <textarea name="description[${language}]" class="form-control" id="description_${language}"></textarea>
+                </div>
+            @endif
+        `;
+                    container.appendChild(fields);
+                });
+            </script>
     </section>
 @endsection
