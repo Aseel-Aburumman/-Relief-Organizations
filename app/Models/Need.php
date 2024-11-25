@@ -41,9 +41,14 @@ class Need extends Model
     {
         return $this->belongsTo(Organization::class);
     }
+    // public function language()
+    // {
+    //     return $this->belongsTo(Language::class);
+    // }
+
     public function language()
     {
-        return $this->belongsTo(Language::class);
+        return $this->belongsTo(Language::class, 'language_id');
     }
     public function image()
     {
@@ -190,5 +195,5 @@ class Need extends Model
     }
 
 
-   
+
 }
