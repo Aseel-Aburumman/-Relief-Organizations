@@ -47,7 +47,7 @@
                             <nav>
                                 <ul id="navigation">
                                     <li><a href="{{ route('index') }}">home</a></li>
-                                    <li><a href="About.html">About</a></li>
+                                    <li><a href="{{route('about')}}">About</a></li>
                                     <li><a href="{{ route('orgnization.all') }}">Our Orgnaization</a></li>
 
 
