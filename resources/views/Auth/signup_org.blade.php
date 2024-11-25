@@ -108,7 +108,11 @@
                 <p class="text-center mb-3"> <a href="{{ route('register.view') }}" style="color: #3CC78F;">Sign
                         Up as
                         Doner?</a></p>
-
+                @if (isset($success))
+                    <div class="alert alert-success">
+                        {{ $success }}
+                    </div>
+                @endif
                 <!-- Sign-Up Form -->
 
 
@@ -145,7 +149,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="certificate_image">Upload Proof Image:</label>
+                        <label for="certificate_image">Upload Proof Document:</label>
                         <input type="file" name="certificate_image" class="form-control" required>
                     </div>
                     <button type="submit" class="btn btn-primary w-100 mb-2">Sign Up</button>

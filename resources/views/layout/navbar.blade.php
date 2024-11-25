@@ -39,15 +39,16 @@
                             @guest
                                 <button type="submit" class="btn loginBtn">
                                     <i class="fas fa-sign-out-alt"></i>
-                                    <a href="{{ route('register.view') }}">Register
-                                        Now</a>
+                                    <a href="{{ route('register.view') }}">{{ __('messages.RegisterNowA') }}
+                                    </a>
 
                                 </button>
                             @else
                                 <form action="{{ route('logout') }}" method="POST" class="d-inline">
                                     @csrf
                                     <button type="submit" class="btn loginBtn">
-                                        <i class="fas fa-sign-out-alt"></i> Logout
+                                        <i class="fas fa-sign-out-alt"></i>{{ __('messages.LogoutA') }}
+
                                     </button>
                                 </form>
 
@@ -64,7 +65,7 @@
                     <div class="col-xl-3 col-lg-3">
                         <div class="logo">
                             <a href="{{ route('index') }}">
-                                <img src="img/logo.png" alt="">
+                                <img src="{{ asset('img/logo.png') }}" alt="">
                             </a>
                         </div>
                     </div>
@@ -72,9 +73,12 @@
                         <div class="main-menu">
                             <nav>
                                 <ul id="navigation">
-                                    <li><a href="{{ route('index') }}">home</a></li>
-                                    <li><a href="About.html">About</a></li>
-                                    <li><a href="{{ route('organization.all') }}">Our organization</a></li>
+                                    <li><a href="{{ route('index') }}">{{ __('messages.homeA') }}
+                                        </a></li>
+                                    <li><a href="{{ route('about') }}">{{ __('messages.AboutA') }}
+                                        </a></li>
+                                    <li><a href="{{ route('organization.all') }}">{{ __('messages.OurorganizationA') }}
+                                        </a></li>
 
 
                                     {{--  <li><a href="#">pages <i class="ti-angle-down"></i></a>
@@ -83,12 +87,15 @@
                                             <li><a href="Cause.html">Cause</a></li>
                                         </ul>
                                     </li>  --}}
-                                    <li><a href="{{ route('contact') }}">Contact</a></li>
+                                    <li><a href="{{ route('contact') }}">{{ __('messages.ContactA') }}
+                                        </a></li>
                                     @role('organization')
-                                        <li><a href="{{ route('need') }}">Make a Donatition</a></li>
+                                        <li><a href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
+                                            </a></li>
                                     @endrole
                                     @role('doner')
-                                        <li><a href="{{ route('need') }}">Make a Donatition</a></li>
+                                        <li><a href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
+                                            </a></li>
                                     @endrole
                                 </ul>
 
@@ -97,21 +104,24 @@
                             @guest
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a href="{{ route('need') }}">Make a Donatition</a>
+                                        <a href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
+                                        </a>
                                     </div>
                                 </div>
                             @endguest
                             @role('organization')
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a href="{{ route('organization.dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('organization.dashboard') }}">{{ __('messages.DashboardA') }}
+                                        </a>
                                     </div>
                                 </div>
                             @endrole
                             @role('doner')
                                 <div class="Appointment">
                                     <div class="book_btn  d-lg-block">
-                                        <a href="{{ route('doner.dashboard') }}">Dashboard</a>
+                                        <a href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
+                                        </a>
                                     </div>
                                 </div>
                             @endrole

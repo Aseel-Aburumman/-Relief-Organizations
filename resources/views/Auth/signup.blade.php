@@ -92,12 +92,9 @@
     </style>
 
     <div class="mt-5 signup-container">
+
         <div class="signup-card">
-            @if (session('success'))
-                <div class="alert alert-success">
-                    {{ session('success') }}
-                </div>
-            @endif
+
             <div class="form-section">
                 <h2 class="signup-title">Create Account</h2>
 
@@ -105,7 +102,11 @@
                 <p class="text-center mb-3"> <a href="{{ route('register.view.Organization') }}" style="color: #3CC78F;">Sign
                         Up as
                         Organizayion?</a></p>
-
+                @if (isset($success))
+                    <div class="alert alert-success">
+                        {{ $success }}
+                    </div>
+                @endif
                 <!-- Sign-Up Form -->
                 <form action="{{ route('register.donor') }}" method="POST">
                     @csrf

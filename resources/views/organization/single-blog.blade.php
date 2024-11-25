@@ -51,7 +51,8 @@
 
 
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Recent Post</h3>
+                            <h3 class="widget_title">{{ __('messages.RecentPostA') }}
+                            </h3>
                             @foreach ($posts as $post)
                                 <div class="media post_item">
                                     @if ($post->images && $post->images->isNotEmpty())
@@ -75,7 +76,8 @@
                         </aside>
 
                         <aside class="single_sidebar_widget instagram_feeds">
-                            <h4 class="widget_title">Instagram Feeds</h4>
+                            <h4 class="widget_title">{{ __('messages.InstagramFeedsA') }}
+                            </h4>
                             <ul class="instagram_row flex-wrap">
                                 @foreach ($posts as $post)
                                     <li>
