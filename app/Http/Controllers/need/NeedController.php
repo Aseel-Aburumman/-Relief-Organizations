@@ -20,12 +20,11 @@ class NeedController extends Controller
     public function index(Request $request)
     {
         try {
-            $languageId = Language::getLanguageIdByLocale(); 
+            $languageId = Language::getLanguageIdByLocale();
 
             $needs = Need::with(['needDetail' => function ($query) use ($languageId) {
                 $query->where('language_id', $languageId);
-            }])->paginate(12); // تقسيم النتائج إلى صفحات
-
+            }])->paginate(12);
             return view('need.needs', compact('needs'));
         } catch (\Exception $e) {
             Log::error('Error fetching needs: ' . $e->getMessage());
@@ -33,9 +32,7 @@ class NeedController extends Controller
         }
     }
 
-    /**
-     * عرض التفاصيل لحاجة معينة
-     */
+
     public function show($id)
     {
         try {
@@ -52,9 +49,7 @@ class NeedController extends Controller
         }
     }
 
-    /**
-     * إنشاء حاجة جديدة
-     */
+
     public function create()
     {
         $languages = Language::all();
@@ -63,9 +58,7 @@ class NeedController extends Controller
         return view('need.create', compact('categories', 'languages'));
     }
 
-    /**
-     * حفظ حاجة جديدة
-     */
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -99,9 +92,7 @@ class NeedController extends Controller
         }
     }
 
-    /**
-     * تعديل حاجة
-     */
+
     public function edit($id)
     {
         $need = Need::findOrFail($id);
@@ -112,9 +103,7 @@ class NeedController extends Controller
         return view('need.edit', compact('need', 'needDetails', 'categories', 'languages'));
     }
 
-    /**
-     * تحديث حاجة
-     */
+
     public function update(Request $request, $id)
     {
         $data = $request->validate([
@@ -146,9 +135,7 @@ class NeedController extends Controller
         }
     }
 
-    /**
-     * حذف حاجة
-     */
+
     public function destroy($id)
     {
         try {
