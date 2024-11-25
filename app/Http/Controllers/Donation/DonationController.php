@@ -12,8 +12,10 @@ use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
-    public function show(DonationRequest $request)
+    public function show($id)
     {
+
+
         $locale = session('locale', 'en');
         $languageMap = [
             'en' => 1,
@@ -21,17 +23,22 @@ class DonationController extends Controller
         ];
         $languageId = $languageMap[$locale] ?? 1;
 
-        $need = Need::where('id', $request->need_id)
+        $need = Need::where('id', $id)
             ->with(['needDetail' => function ($query) use ($languageId) {
                 $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
             }])
-            ->firstOrFail();
+            ->first();
+
+        if (!$need) {
+            abort(404, 'Need not found');
+        }
 
         $progress = ($need->donated_quantity / $need->quantity_needed) * 100;
         $maxDonation = max($need->quantity_needed - $need->donated_quantity, 0);
 
         return view('donation.donation', compact('need', 'progress', 'maxDonation'));
     }
+
 
     public function store(DonationRequest $request)
     {
