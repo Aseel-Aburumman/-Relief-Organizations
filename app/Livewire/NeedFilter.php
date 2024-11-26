@@ -5,9 +5,13 @@ namespace App\Livewire;
 use App\Models\Need;
 use App\Models\Category;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class NeedFilter extends Component
 {
+    use WithPagination;
+
+    public $search = '';
     public $categories;
     public $urgencies;
     public $statuses;
@@ -16,26 +20,40 @@ class NeedFilter extends Component
     public $selectedUrgency = '';
     public $selectedStatus = '';
 
-    public $needs;
+    protected $queryString = ['search', 'selectedCategory', 'selectedUrgency', 'selectedStatus'];
 
     public function mount()
     {
         $this->categories = Category::all();
         $this->urgencies = Need::select('urgency')->distinct()->pluck('urgency');
         $this->statuses = Need::select('status')->distinct()->pluck('status');
-        $this->filterNeeds();
     }
 
     public function updated($field)
     {
-        if (in_array($field, ['selectedCategory', 'selectedUrgency', 'selectedStatus'])) {
-            $this->filterNeeds();
+        if (in_array($field, ['selectedCategory', 'selectedUrgency', 'selectedStatus', 'search'])) {
+            $this->resetPage();
         }
     }
 
-    public function filterNeeds()
+    public function resetFilters()
     {
-        $this->needs = Need::query()
+        $this->search = '';
+        $this->selectedCategory = '';
+        $this->selectedUrgency = '';
+        $this->selectedStatus = '';
+        $this->resetPage();
+    }
+
+    public function render()
+    {
+        $needs = Need::query()
+            ->when($this->search, function ($query) {
+                $query->whereHas('needDetail', function ($q) {
+                    $q->where('item_name', 'like', '%' . $this->search . '%')
+                      ->orWhere('description', 'like', '%' . $this->search . '%');
+                });
+            })
             ->when($this->selectedCategory, function ($query) {
                 $query->where('category_id', $this->selectedCategory);
             })
@@ -46,13 +64,10 @@ class NeedFilter extends Component
                 $query->where('status', $this->selectedStatus);
             })
             ->with(['needDetail', 'image'])
-            ->get();
-    }
+            ->paginate(3);
 
-    public function render()
-    {
         return view('livewire.need-filter', [
-            'needs' => $this->needs,
+            'needs' => $needs,
         ]);
     }
 }
