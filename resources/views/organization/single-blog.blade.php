@@ -16,7 +16,15 @@
 
     <!--================Blog Area =================-->
     <section class="blog_area single-post-area section-padding">
+       
         <div class="container">
+             <nav>
+            <ol class="breadcrumb" style="background-color: white">
+                <li class="breadcrumb-item"><a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}">{{ $organization->userDetail->first()->name }}</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('organization.post.all', ['organization_id' => $organization->id]) }}">{{ $organization->userDetail->first()->name }} {{ __('messages.PostsA') }}</a></li>
+                <li class="breadcrumb-item active">{{ $post->title }}</li>
+            </ol>
+        </nav>
             <div class="row">
                 <div class="col-lg-8 posts-list">
                     <div class="single-post">

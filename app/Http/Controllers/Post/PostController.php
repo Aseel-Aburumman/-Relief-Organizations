@@ -59,19 +59,22 @@ class PostController extends Controller
     public function getOne($id)
     {
         $languageId = Language::getLanguageIdByLocale();
-
+        
 
         $post = Post::with('images')
             ->where('id', $id)
             ->first();
-
+        $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+        }])
+            ->find($post->organization_id);
         $posts = Post::with('images')
             ->where('lang_id', $languageId)
 
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 
-        return view('organization.single-blog', compact('post', 'posts'));
+        return view('organization.single-blog', compact('post', 'posts', 'organization'));
     }
 
     public function getAll($organization_id)

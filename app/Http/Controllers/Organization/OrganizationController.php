@@ -61,7 +61,7 @@ class OrganizationController extends Controller
             // Fetch posts with images
             $posts = Post::fetchPostsWithImages($id, $languageId);
 
-            return view('organization.organization_profile', compact('organization', 'OrganizationImages', 'needs', 'posts'));
+            return view('organization_profile', compact('organization', 'OrganizationImages', 'needs', 'posts'));
         } catch (\Exception $e) {
             // Log the exception
             Log::error('Error fetching organization data: ' . $e->getMessage());

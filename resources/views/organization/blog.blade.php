@@ -19,11 +19,13 @@
     <!--================Blog Area =================-->
     <section class="blog_area section-padding">
         <div class="container">
+            {{-- <div class="row"> --}}
+                <div class="col-lg-12 mb-5 mb-lg-0">
+                    <div class="blog_left_sidebar ">
             <div class="row">
-                <div class="col-lg-8 mb-5 mb-lg-0">
-                    <div class="blog_left_sidebar">
+
                         @foreach ($posts as $post)
-                            <article class="blog_item">
+                            <article class="mt-3 col col-sm-6  ">
                                 <div class="blog_item_img">
                                     @if ($post->images && $post->images->isNotEmpty())
                                         <img class="card-img rounded-0"
@@ -57,6 +59,7 @@
                             </article>
                         @endforeach
 
+                    </div>
 
 
                         <nav class="blog-pagination justify-content-center d-flex">
@@ -103,65 +106,7 @@
 
                     </div>
                 </div>
-                <div class="col-lg-4">
-                    <div class="blog_right_sidebar">
-
-
-
-
-                        <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">{{ __('messages.RecentPostA') }}
-</h3>
-                            @foreach ($posts as $post)
-                                <div class="media post_item">
-                                    @if ($post->images && $post->images->isNotEmpty())
-                                        <img src="{{ asset('storage/post_images/' . $post->images->first()->image) }}"
-                                            alt="post" style="width:100px;">
-                                    @else
-                                        <img src="{{ asset('storage/post_images/post3.jpg') }}" alt="post"
-                                            style="width:100px; height:100px; object-fit:cover">
-                                    @endif
-
-                                    <div class="media-body">
-                                        <a href="{{ route('organization.post.one', ['id' => $post->id]) }}">
-                                            <h3>{{ $post->title }}</h3>
-                                        </a>
-                                        <p>{{ $post->created_at }}</p>
-                                    </div>
-                                </div>
-                            @endforeach
-                            <hr>
-
-                        </aside>
-
-                        <aside class="single_sidebar_widget instagram_feeds">
-                            <h4 class="widget_title">{{ __('messages.InstagramFeedsA') }}
-</h4>
-                            <ul class="instagram_row flex-wrap">
-                                @foreach ($posts as $post)
-                                    <li>
-                                        <a href="#">
-                                            @if ($post->images && $post->images->isNotEmpty())
-                                                <img class="img-fluid"
-                                                    src="{{ asset('storage/post_images/' . $post->images->first()->image) }}"
-                                                    alt="" style="width:100px; height:100px; object-fit:cover;">
-                                            @else
-                                                <img class="img-fluid" src="{{ asset('storage/post_images/post3.jpg') }}"
-                                                    alt="" style="width:100px; height:100px; object-fit:cover;">
-                                            @endif
-                                        </a>
-
-                                    </li>
-                                @endforeach
-
-
-                            </ul>
-                        </aside>
-
-
-
-                    </div>
-                </div>
+                
             </div>
         </div>
     </section>
