@@ -21,7 +21,7 @@
                 <div class="row">
                     <div class="col-lg-9">
                         <div class="slider_text">
-                            <h3 style="font-size: 40px">The website highlights charitable organizations, providing full information about each one, while allowing users to easily explore all listed needs and follow posts documenting their delivery.
+                            <h3 style="font-size: 40px;text-align:center;margin-left:40%">The website highlights charitable organizations, providing full information about each one, while allowing users to easily explore all listed needs and follow posts documenting their delivery.
                             </h3>
                         </div>
                     </div>
