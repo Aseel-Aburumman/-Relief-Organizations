@@ -16,26 +16,16 @@
 <div class="popular_causes_area pt-120 cause_details">
     <div class="container">
         @if(session('success'))
-            <script>
-                Swal.fire({
-                    icon: 'success',
-                    title: '{{ session('success') }}',
-                    showConfirmButton: true,
-                    timer: 3000
-                });
-            </script>
-        @endif
+        <div class="alert alert-success text-center mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
 
-        @if(session('error'))
-            <script>
-                Swal.fire({
-                    icon: 'error',
-                    title: '{{ session('error') }}',
-                    showConfirmButton: true,
-                    timer: 3000
-                });
-            </script>
-        @endif
+    @if(session('error'))
+        <div class="alert alert-danger text-center mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
 
         <div class="row">
             <div class="col-lg-12 col-md-12">
