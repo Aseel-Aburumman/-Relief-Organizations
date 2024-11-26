@@ -49,8 +49,9 @@
                                     aria-valuemin="0"
                                     aria-valuemax="100">
                                     <span class="progres_count">
-                                        {{ $progress }}%
+                                        {{ number_format($progress, 1) }}%
                                     </span>
+
                                 </div>
                             </div>
                         </div>
