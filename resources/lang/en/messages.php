@@ -31,6 +31,12 @@ return [
     'newsUpdates' => 'News & Updates',
     'defaultImageAlt' => 'Default Image',
 
+    'searchPlaceholder' => 'Search here...',
+'selectCategory' => 'Select Category',
+'selectUrgency' => 'Select Urgency',
+'selectStatus' => 'Select Status',
+'resetFilters' => 'Reset Filters',
+'noNeedsFound' => 'No needs found!',
 
     //needs
     'needsTitle' => 'Needs',
