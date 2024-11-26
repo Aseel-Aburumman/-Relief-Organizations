@@ -24,12 +24,12 @@
                         </a>
                     </div>
 
-                    <form action="{{ route('organization.manage_organizations') }}" method="GET" class="d-flex mb-3">
+                    {{-- <form action="{{ route('organization.manage_organizations') }}" method="GET" class="d-flex mb-3">
                         <input type="text" name="search" class="form-control" placeholder="Search by name..."
                             value="{{ request('search') }}">
                         <button type="submit" class="btn btn-primary ms-2">Search</button>
                         <a href="{{ route('organization.manage_organizations') }}" class="btn btn-secondary ms-2">Reset</a>
-                    </form>
+                    </form> --}}
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
                         <thead>
@@ -53,13 +53,11 @@
                                     <td>{{ $organization->userDetail->first()->location ?? 'N/A' }}</td>
                                     <td class="tableHide">{{ $organization->created_at->format('Y-m-d') }}</td>
                                     <td class="actions">
-                                        <a href="{{ route('organization.view_organization', ['id' => $organization->id]) }}"
+                                        <a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}"
                                             class="fa-solid fa-eye"></a>
                                         <a href="{{ route('organization.edit_organization', ['id' => $organization->id]) }}"
                                             class="fa-solid fa-pencil"></a>
-                                        <form action="{{ route('organization.delete_organization', ['id' => $organization->id]) }}"
-                                            method="POST" style="display:inline;"
-                                            onsubmit="return confirm('Are you sure you want to delete this organization?');">
+                                            <form action="{{ route('organization.delete_organization', ['id' => $organization->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this organization?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit"

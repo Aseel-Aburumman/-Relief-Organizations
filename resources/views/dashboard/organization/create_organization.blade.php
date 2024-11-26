@@ -1,13 +1,24 @@
+
 @extends('layout.admin_master')
 
 @section('content')
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
     <div class="pagetitle">
-        <h1>Create New Need</h1>
+        <h1>Create New Organization</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item">Need Control Center</li>
-                <li class="breadcrumb-item active">Create Need</li>
+                <li class="breadcrumb-item">Organization Control Center</li>
+                <li class="breadcrumb-item active">Create Organization</li>
             </ol>
         </nav>
     </div>
@@ -16,107 +27,86 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">New Need Information</h5>
+                    <h5 class="card-title">New Organization Information</h5>
 
-                    <form class="row g-3" method="POST" action="{{ route('organization.store_need') }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('organization.store_organization') }}" enctype="multipart/form-data">
                         @csrf
-                        <input type="hidden" name="organization_id" value="{{ $organization->id }}">
 
+                        <!-- Email -->
                         <div class="col-md-6">
-                            <label for="language" class="form-label">Select Language</label>
-                            <select id="language-selector" class="form-control">
-                                <option value="">Select a language</option>
-                                @foreach ($languages as $language)
-                                    <option value="{{ $language->key }}">{{ $language->name }}</option>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" id="email" required>
+                        </div>
+
+                        <!-- Password -->
+                        <div class="col-md-6">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" name="password" class="form-control" id="password" required>
+                        </div>
+
+                        <!-- Organization Name in English -->
+                        <div class="col-md-6">
+                            <label for="name_en" class="form-label">Organization Name (English)</label>
+                            <input type="text" name="name_en" class="form-control" id="name_en" required>
+                        </div>
+
+                        <!-- Organization Name in Arabic -->
+                        <div class="col-md-6">
+                            <label for="name_ar" class="form-label">Organization Name (Arabic)</label>
+                            <input type="text" name="name_ar" class="form-control" id="name_ar" required>
+                        </div>
+
+                        <!-- Description in English -->
+                        <div class="col-md-6">
+                            <label for="description_en" class="form-label">Description (English)</label>
+                            <textarea name="description_en" class="form-control" id="description_en"></textarea>
+                        </div>
+
+                        <!-- Description in Arabic -->
+                        <div class="col-md-6">
+                            <label for="description_ar" class="form-label">Description (Arabic)</label>
+                            <textarea name="description_ar" class="form-control" id="description_ar"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="contact_info" class="form-label">Contact Information</label>
+                            <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+                        </div>
+                        <!-- Address -->
+                        <div class="mb-3">
+                            <label for="address" class="form-label">Address</label>
+                            <select class="form-select" id="address" name="address" required>
+                                <option value="" disabled selected>Select your country</option>
+                                @foreach ($countries as $code => $country)
+                                    <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <div id="language-fields-container">
-                            <!-- Dynamically generated fields will be added here -->
-                        </div>
-
+                        <!-- Proof Image -->
                         <div class="col-md-6">
-                            <label for="inputQuantity" class="form-label">Quantity Needed</label>
-                            <input type="number" name="quantity_needed" class="form-control" id="inputQuantity"
-                                value="{{ old('quantity_needed') }}">
+                            <label for="proof_image" class="form-label">Proof Image</label>
+                            <input type="file" name="proof_image" class="form-control" id="proof_image">
                         </div>
 
+                        <!-- Organization Image -->
                         <div class="col-md-6">
-                            <label for="category_id" class="form-label">Category</label>
-                            <select name="category_id" class="form-control" id="category_id">
-                                @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                @endforeach
-                            </select>
+                            <label for="organization_image" class="form-label">Organization Image</label>
+                            <input type="file" name="organization_image" class="form-control" id="organization_image">
                         </div>
 
-                        <div class="col-md-6">
-                            <label for="inputUrgency" class="form-label">Urgency Level</label>
-                            <select name="urgency" class="form-control" id="inputUrgency">
-                                <option value="Low Priority">Low Priority</option>
-                                <option value="Medium Priority">Medium Priority</option>
-                                <option value="High Priority">High Priority</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="inputStatus" class="form-label">Status</label>
-                            <select name="status" class="form-control" id="inputStatus">
-                                <option value="Available">Available</option>
-                                <option value="Partially Fulfilled">Partially Fulfilled</option>
-                                <option value="Fulfilled">Fulfilled</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-6">
-                            <label for="inputImage" class="form-label">Image</label>
-                            <input type="file" name="image" class="form-control" id="inputImage">
-                        </div>
-
+                        <!-- Submit Button -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Create Need</button>
+                            <button type="submit" class="btn btn-primary">Create Organization</button>
                             <button type="reset" class="btn btn-secondary">Reset</button>
                         </div>
                     </form>
+
 
                 </div>
             </div>
         </div>
     </section>
 
-    <script>
-        document.getElementById('language-selector').addEventListener('change', function() {
-            const language = this.value;
-            const container = document.getElementById('language-fields-container');
+    <!-- JavaScript لإضافة الحقول بناءً على اللغة -->
 
-            if (!language) {
-                container.innerHTML = '';
-                return;
-            }
-
-            const existingFields = document.querySelector(`#fields-${language}`);
-            if (existingFields) {
-                existingFields.scrollIntoView({
-                    behavior: 'smooth'
-                });
-                return;
-            }
-
-            const fields = document.createElement('div');
-            fields.id = `fields-${language}`;
-            fields.innerHTML = `
-            <div class="col-md-12">
-                <label for="item_name_${language}" class="form-label">Need Name (${language.toUpperCase()})</label>
-                <input type="text" name="item_name[${language}]" class="form-control" id="item_name_${language}">
-            </div>
-            <div class="col-md-12">
-                <label for="description_${language}" class="form-label">Description (${language.toUpperCase()})</label>
-                <textarea name="description[${language}]" class="form-control" id="description_${language}"></textarea>
-            </div>
-        `;
-            container.appendChild(fields);
-        });
-    </script>
 @endsection
