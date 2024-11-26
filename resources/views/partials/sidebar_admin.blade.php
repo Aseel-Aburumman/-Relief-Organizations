@@ -46,6 +46,14 @@
             @endrole
 
             @role('admin')
+            {{-- @role('organization') --}}
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('admin.dashboard') }}">
+                    <i class="bi bi-grid"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            {{--  <!-- End Dashboard Nav -->  --}}
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
                     <i class="bi bi-card-list"></i>

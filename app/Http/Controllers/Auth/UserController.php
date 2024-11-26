@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use App\Models\Organization;
 
 use App\Models\User;
 use App\Models\Post;
@@ -214,5 +215,14 @@ class UserController extends Controller
         } else {
             return redirect()->route('index')->with('error', 'dont have the right roles');
         }
+    }
+
+    public function admin_dashbored()
+    {
+        $totalUsers = User::count();
+        $totalOrganizations = Organization::count();
+        $totalPosts = Post::count();
+
+        return view('dashboard.admin_dashboard', compact('totalUsers', 'totalOrganizations', 'totalPosts'));
     }
 }
