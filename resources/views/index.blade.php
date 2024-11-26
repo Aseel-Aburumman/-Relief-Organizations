@@ -195,8 +195,8 @@
                             <i class="flaticon-calendar"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
-                            <p>{{ __('messages.finishedEvent') }}</p>
+                            <h3 class="counter">{{ $organizationsCount }}</h3>
+                            <p>Organizations</p>
                         </div>
                     </div>
                 </div>
@@ -206,8 +206,8 @@
                             <i class="flaticon-heart-beat"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
-                            <p>{{ __('messages.finishedEvent') }}</p>
+                            <h3 class="counter">{{ $usersCount }}</h3>
+                            <p>Users</p>
                         </div>
                     </div>
                 </div>
@@ -217,8 +217,8 @@
                             <i class="flaticon-in-love"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
-                            <p>{{ __('messages.finishedEvent') }}</p>
+                            <h3 class="counter">{{ $fullyDonatedNeedsCount }}</h3>
+                            <p>Fulfilled Needs</p>
                         </div>
                     </div>
                 </div>
@@ -228,8 +228,8 @@
                             <i class="flaticon-hug"></i>
                         </div>
                         <div class="events">
-                            <h3 class="counter">120</h3>
-                            <p>{{ __('messages.finishedEvent') }}</p>
+                            <h3 class="counter">{{ $postsCount }}</h3>
+                            <p>Posts</p>
                         </div>
                     </div>
                 </div>
