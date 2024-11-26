@@ -142,31 +142,41 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+        // التأكد من أن `redirect_after_login` يتم الحفاظ عليه عند الخطأ
+        if (!session()->has('redirect_after_login')) {
+            session()->put('redirect_after_login', url()->previous());
+        }
+
+        $redirectTo = session()->get('redirect_after_login', route('index'));
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $user = User::find(Auth::user()->id);
 
-
             if ($user->hasRole('admin')) {
+                session()->forget('redirect_after_login'); // تنظيف الجلسة
                 return redirect()->route('admin.dashboard')->with([
                     'success' => 'Admin login successful',
                 ]);
             } elseif ($user->hasRole('doner')) {
-                return redirect()->route('index')->with([
+                session()->forget('redirect_after_login'); // تنظيف الجلسة
+                return redirect($redirectTo)->with([
                     'success' => 'Login successful',
                     // 'user' => new UserResource($user)
                 ]);
             } elseif ($user->hasRole('organization')) {
+                session()->forget('redirect_after_login'); // تنظيف الجلسة
                 return redirect()->route('index')->with([
                     'success' => 'Login successful',
                 ]);
             }
         }
 
-
+        // عند حدوث خطأ في تسجيل الدخول، احتفظ بالـ redirect_after_login
         return back()->withErrors(['login_error' => 'Invalid email or password']);
     }
+
+
 
     public function logout()
     {

@@ -14,8 +14,6 @@ class DonationController extends Controller
 {
     public function show($id)
     {
-
-
         $locale = session('locale', 'en');
         $languageMap = [
             'en' => 1,
@@ -36,29 +34,61 @@ class DonationController extends Controller
         $progress = ($need->donated_quantity / $need->quantity_needed) * 100;
         $maxDonation = max($need->quantity_needed - $need->donated_quantity, 0);
 
+        session()->put('redirect_need_id', $id);
+
         return view('donation.donation', compact('need', 'progress', 'maxDonation'));
     }
 
 
-    public function store(DonationRequest $request)
+    public function store(Request $request)
     {
-        $validatedData = $request->validated();
+        if (!auth()->check()) {
+            session()->put('redirect_after_login', url()->current());
 
-        $need = Need::findOrFail($validatedData['need_id']);
+            return redirect()->route('login')->with('error', __('You need to log in to make a donation.'));
+        }
 
-        $donation = Donation::create([
-            'need_id' => $validatedData['need_id'],
-            'donor_id' => auth()->id(),
-            'quantity' => $validatedData['donation_amount'],
+        $request->validate([
+            'need_id' => 'required|exists:needs,id',
+            'donation_amount' => 'required|integer|min:1',
         ]);
 
-        $need->donated_quantity += $validatedData['donation_amount'];
-        $need->save();
+        $need = Need::findOrFail($request->need_id);
 
-        return redirect()
-            ->route('donation.show', ['id' => $validatedData['need_id']])
-            ->with('success', 'Thank you for your donation! Your contribution has been recorded.');
+        $remainingQuantity = $need->quantity_needed - $need->donated_quantity;
+        if ($request->donation_amount > $remainingQuantity) {
+            if ($request->ajax()) {
+                return response()->json([
+                    'error' => __('The donation amount exceeds the remaining quantity.'),
+                ], 422);
+            }
+            return redirect()->back()->withErrors([
+                'donation_amount' => __('The donation amount exceeds the remaining quantity.'),
+            ]);
+        }
+
+        $donation = Donation::create([
+            'need_id' => $need->id,
+            'donor_id' => auth()->id(),
+            'quantity' => $request->donation_amount,
+        ]);
+
+        $need->increment('donated_quantity', $request->donation_amount);
+
+        if ($need->donated_quantity >= $need->quantity_needed) {
+            $need->update(['status' => 'Fulfilled']);
+        }
+
+        if ($request->ajax()) {
+            return new DonationResource($donation);
+        }
+
+        return redirect()->route('donation.show', $need->id)
+            ->with('success', __('Thank you for your donation!'));
     }
+
+
+
 
     public function listDonations()
     {

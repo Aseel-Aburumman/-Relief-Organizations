@@ -89,6 +89,11 @@ Route::get('/donation/{id}', [DonationController::class, 'show'])->name('donatio
 
 Route::post('/donate', [DonationController::class, 'store'])->name('donate.store');
 
+Route::get('/donate', function () {
+    return redirect()->route('donation.show', session('redirect_need_id', 1)); 
+});
+
+
 
 Route::group([
     'prefix' => LaravelLocalization::setLocale(),
