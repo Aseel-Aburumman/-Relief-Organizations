@@ -43,36 +43,61 @@
                     <span>Posts Control Center</span>
                 </a>
             </li>
-            {{--
-        <li class="nav-item">
+            @endrole
+
+            @role('admin')
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('organization.manage_Needs') }}">
+                    <i class="bi bi-card-list"></i>
+                    <span>Needs Control Center</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('donations.index') }}">
+                    <i class="bi bi-card-list"></i>
+                    <span>donations Control Center</span>
+                </a>
+            </li>
+
+            <!-- Add Manage Posts option -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('posts.manage') }}">
+                    <i class="bi bi-pencil-square"></i>
+                    <span>Posts Control Center</span>
+                </a>
+            </li>
+         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Needs Control Center</span><i
+                <i class="bi bi-menu-button-wide"></i><span>Organization Control Center</span><i
                     class="bi bi-chevron-down ms-auto"></i>
-            </a>  --}}
-            {{--  <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            </a>
+             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            </a>
+         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
                 <li>
-                    <a href="{{ route('admin.manage_customers') }}">
-                        <i class="bi bi-circle"></i><span>Manage Users</span>
+                    <a href="{{ route('organization.manage_organization') }}">
+                        <i class="bi bi-circle"></i><span>Manage Organization</span>
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('admin.manage_handymans') }}">
-                        <i class="bi bi-circle"></i><span>Manage Handymans</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.manage_store_owners') }}">
-                        <i class="bi bi-circle"></i><span>Manage Store Owners</span>
+                    <a href="{{ route('organization.pending') }}">
+                        <i class="bi bi-circle"></i><span>Application center</span>
                     </a>
                 </li>
 
 
-        </li>
+
+            </ul>
 
 
-    </ul>  --}}
-            {{--  </li>  --}}
+    </ul>
+             </li>
         @endrole
+
+
+
+
+
 
         <li class="nav-heading">Pages</li>
 

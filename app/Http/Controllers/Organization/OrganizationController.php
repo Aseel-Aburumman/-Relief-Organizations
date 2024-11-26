@@ -1,19 +1,25 @@
 <?php
 
 namespace App\Http\Controllers\Organization;
+use Rinvex\Country\CountryLoader;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
 use App\Models\Need;
 use App\Models\OrganizationImage;
 use App\Models\Language;
+use Spatie\Permission\Models\Role;
 
 use App\Models\NeedDetail;
 use App\Models\Post;
+use App\Models\User;
+use App\Models\UserDetail;
+
+use Spatie\Permission\Models\Permission;
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Log;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\NeedImage;
 use App\Http\Requests\OrganizationRequest;
 
@@ -87,65 +93,210 @@ class OrganizationController extends Controller
     }
 
     public function create()
-    {
-        return view('organization.create');
-    }
+{
+    $countries = countries();
 
-    public function store(OrganizationRequest $request)
-    {
-        Organization::create($request->validated());
-        return redirect()->route('organization.index')->with('success', 'Organization created successfully!');
-    }
-    public function index()
-    {
-        $organizations = Organization::all();
-        return view('organization.index', compact('organizations'));
-    }
-    public function edit($id)
-    {
-        $organization = Organization::with('userDetail', 'image')->findOrFail($id);
+    $languages = Language::all();
+    return view('dashboard.organization.create_organization',compact('languages','countries'));
+}
 
-        return view('organization.edit_organization', compact('organization'));
-    }
+public function store(Request $request)
+{
+        // dd('Request received', $request->all());
 
-    public function update(Request $request, $id)
-    {
-        // تحقق من البيانات المدخلة
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'contact_info' => 'nullable|string|max:255',
-            'location' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    // try {
+        // التحقق من صحة البيانات
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'name_en' => 'required|string|max:255',
+            'name_ar' => 'required|string|max:255',
+            'description_en' => 'nullable|string',
+            'description_ar' => 'nullable|string',
+            'contact_info' => 'required|string|max:20',
+            'address' => 'nullable|string|max:255',
+            'proof_image' => 'required',
+            'organization_image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // تحديث البيانات في جدول Organization
-        $organization = Organization::findOrFail($id);
-        $organization->contact_info = $request->contact_info;
-        $organization->save();
+        // رفع الصور
+        $proofImagePath = null;
+        $organizationImagePath = null;
 
-        // تحديث البيانات في جدول UserDetail
-        $userDetail = $organization->userDetail->first();
-        if ($userDetail) {
-            $userDetail->name = $request->name;
-            $userDetail->location = $request->location;
-            $userDetail->description = $request->description;
-            $userDetail->save();
-        }
 
-        // تحديث الصورة إذا تم رفعها
-        if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('storage/organization_images'), $imageName);
 
-            if ($organization->image->isNotEmpty()) {
-                $organization->image->first()->update(['image' => $imageName]);
-            } else {
-                $organization->image()->create(['image' => $imageName]);
+        $userData = $request->only(['email', 'password']);
+        $userData['password'] = bcrypt($userData['password']); // Hash password
+        $user = User::create($userData);
+
+        $organizationData = [];
+        if ($request->hasFile('proof_image')) {
+            $proofImagePath = $request->file('proof_image')->store('certificate_images', 'public');
+            // Prepare organization data
+            $organizationData = [
+                'user_id' => $user->id,
+                'contact_info' => $request->contact_info,
+                'certificate_image' => $proofImagePath,
+                'status' => 'Approved', // Change status to "Pending" for initial submission
+            ];
+
+            // Create organization
+            $organization = Organization::create($organizationData);
+
+            if (!$organization) {
+                return response()->json(['error' => 'Failed to create organization'], 500);
+            }
+
+            // Assign organization role to the user
+            $role = Role::where('name', 'organization')->first();
+            if ($role) {
+                $user->assignRole($role);
+            }
+
+            // Add organization details
+            $details = [
+                [
+                    'name' => $request->name_en,
+                    'description' => $request->description_en ?? '',
+                    'address' => $request->address,
+                    'language_id' => 1,
+                    'organization_id' => $organization->id,
+                ],
+                [
+                    'name' => $request->name_ar,
+                    'description' => $request->description_ar ?? '',
+                    'address' => $request->address,
+                    'language_id' => 2,
+                    'organization_id' => $organization->id,
+                ],
+            ];
+            UserDetail::createMultipleUserDetails($details); // Assuming this method exists
+            if ($request->hasFile('organization_image')) {
+                $organizationImagePath = $request->file('organization_image')->store('organization_images', 'public');
+
+                OrganizationImage::create([
+                    'organization_id' => $organization->id,
+                'image' => $organizationImagePath,
+
+                ]);
+
+
             }
         }
 
-        return redirect()->route('organization.edit_organization', $id)
-            ->with('success', 'Organization updated successfully.');
-    }
+
+
+
+        // إعادة التوجيه مع رسالة نجاح
+        return redirect()->route('organization.manage_organization')->with('success', 'Organization created successfully.');
+    // } catch (\Exception $e) {
+    //     // تسجيل الخطأ وإعادة التوجيه مع رسالة خطأ
+    //     Log::error('Error creating organization: ' . $e->getMessage());
+    //     return redirect()->back()->with('error', 'An error occurred while creating the organization. Please try again.');
+    // }
 }
+
+
+public function index()
+{
+    // عرض المنظمات التي حالتها "approved" فقط
+    $organizations = Organization::where('status', 'approved')->get();
+
+    // تمرير المنظمات إلى الواجهة (view)
+    return view('dashboard.organization.manage_organization', compact('organizations'));
+}
+public function edit($id)
+{
+    $organization = Organization::with(['userDetail.language', 'image'])->findOrFail($id);
+    $languages = Language::all();
+    $organizationDetails = $organization->userDetail;
+
+    return view('dashboard.organization.edit_organization', compact('organization', 'languages', 'organizationDetails'));
+}
+
+public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'name' => 'required|array',
+        'name.*' => 'required|string|max:255',
+        'description' => 'nullable|array',
+        'description.*' => 'nullable|string',
+        'contact_info' => 'nullable|string|max:255',
+        'address' => 'nullable|string|max:255',
+        'proof_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'organization_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+    ]);
+
+    $organization = Organization::findOrFail($id);
+
+    // Update general fields
+    $organization->contact_info = $request->contact_info;
+    $organization->save();
+
+    // Update details per language
+    foreach ($request->name as $languageId => $name) {
+        $detail = $organization->userDetail->where('language_id', $languageId)->first();
+        if ($detail) {
+            $detail->update([
+                'name' => $name,
+                'adress' => $request->adress[$languageId] ?? null,
+
+                'description' => $request->description[$languageId] ?? null,
+            ]);
+        }
+    }
+
+    // Update images
+    if ($request->hasFile('proof_image')) {
+        $proofImagePath = $request->file('proof_image')->store('certificate_images', 'public');
+        $organization->certificate_image = $proofImagePath;
+        $organization->save();
+    }
+
+    if ($request->hasFile('organization_image')) {
+        $organizationImagePath = $request->file('organization_image')->store('organization_images', 'public');
+        $organization->image()->create(['image' => $organizationImagePath]);
+    }
+
+    return redirect()->route('organization.manage_organization')->with('success', 'Organization updated successfully.');
+}
+
+
+
+    public function destroy($id)
+{
+    // منطق الحذف هنا
+    $organization = Organization::findOrFail($id); // استبدل Organization بالنموذج الخاص بك
+    $organization->delete();
+
+    return redirect()->route('organization.manage_organization')
+                     ->with('success', 'Organization deleted successfully!');
+}
+public function showPendingOrganizations()
+{
+    $languageId = Language::getLanguageIdByLocale();
+
+    // استعلام لجلب المنظمات التي حالتها "Pending"
+    $organizations = Organization::with(['userDetail'])
+    ->where('status', 'pending')
+    ->get();
+    // dd( $organizations );
+    // عرض المنظمات في الصفحة
+    return view('dashboard.organization.pending', compact('organizations'));
+}
+
+// تحديث حالة المنظمة (Approve / Reject)
+public function updateOrganizationStatus($id, Request $request)
+{
+    // تحديث حالة المنظمة باستخدام استعلام مباشر
+    DB::table('organizations')
+        ->where('id', $id)
+        ->update(['status' => $request->status]);
+
+    // إعادة توجيه إلى صفحة المنظمات "Pending"
+    return redirect()->route('organization.pending');
+}
+}
+
+
+

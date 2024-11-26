@@ -1,44 +1,61 @@
-
 <div>
-    <div>
-        <!-- Filter Form -->
-        <div class="container my-4">
-            <div class="row">
+    <!-- Filter Form -->
+    <div class="container my-4">
+        <div class="row align-items-center mb-3">
+            <!-- Search Bar -->
+            <div class="col-md-9">
+                <input
+                    type="text"
+                    wire:model.live="search"
+                    placeholder="{{ __('messages.searchPlaceholder') }}"
+                    class="form-control"
+                />
+            </div>
 
-<!-- Category Filter -->
-<div class="col-md-3">
-    <select wire:model.change="selectedCategory" class="form-control">
-        <option value="">{{ __('messages.selectCategory') }}</option>
-        @foreach ($categories as $category)
-            <option value="{{ $category->id }}">
-                {{ __('messages.categories.' . strtolower(str_replace([' ', '(', ')', ','], '_', $category->name))) }}
-            </option>
-        @endforeach
-    </select>
-</div>
+            <!-- Reset Button -->
+            <div class="col-md-3 text-md-end">
+                <button wire:click="resetFilters" class="btn btn-secondary w-100">
+                    {{ __('messages.resetFilters') }}
+                </button>
+            </div>
+        </div>
 
-                <!-- Urgency Filter -->
-                <div class="col-md-3">
-                    <select wire:model.change="selectedUrgency" class="form-control">
-                        <option value="">{{ __('messages.selectUrgency') }}</option>
-                        @foreach ($urgencies as $urgency)
-                            <option value="{{ $urgency }}">
-                                {{ __('messages.urgency.' . strtolower(str_replace(' ', '_', $urgency))) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-                <!-- Status Filter -->
-                <div class="col-md-3">
-                    <select wire:model.change="selectedStatus" class="form-control">
-                        <option value="">{{ __('messages.selectStatus') }}</option>
-                        @foreach ($statuses as $status)
-                            <option value="{{ $status }}">
-                                {{ __('messages.status.' . strtolower(str_replace(' ', '_', $status))) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+        <!-- Filters -->
+        <div class="row gy-3">
+            <!-- Category Filter -->
+            <div class="col-lg-4 col-md-6">
+                <select wire:model.change="selectedCategory" class="form-select">
+                    <option value="">{{ __('messages.selectCategory') }}</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">
+                            {{ __('messages.categories.' . strtolower(str_replace([' ', '(', ')', ','], '_', $category->name))) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Urgency Filter -->
+            <div class="col-lg-4 col-md-6">
+                <select wire:model.change="selectedUrgency" class="form-select">
+                    <option value="">{{ __('messages.selectUrgency') }}</option>
+                    @foreach ($urgencies as $urgency)
+                        <option value="{{ $urgency }}">
+                            {{ __('messages.urgency.' . strtolower(str_replace(' ', '_', $urgency))) }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <!-- Status Filter -->
+            <div class="col-lg-4 col-md-6">
+                <select wire:model.change="selectedStatus" class="form-select">
+                    <option value="">{{ __('messages.selectStatus') }}</option>
+                    @foreach ($statuses as $status)
+                        <option value="{{ $status }}">
+                            {{ __('messages.status.' . strtolower(str_replace(' ', '_', $status))) }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
         </div>
     </div>
@@ -59,7 +76,7 @@
                     </a>
                     <div class="causes_content">
                         <h4>{{ $need->needDetail->first()->item_name ?? __('messages.noName') }}</h4>
-                        <p>{{ Str::limit($need->needDetail->first()->description ?? __('messages.noDescription'), 100) }}</p>
+                        <p>{{ Str::limit($need->needDetail->first()->description ?? __('messages.noDescription'), 75) }}</p>
                         <a class="read_more" href="{{ route('donation.show', $need->id) }}">{{ __('messages.readMore') }}</a>
                     </div>
                 </div>
@@ -68,4 +85,11 @@
             <p>{{ __('messages.noNeedsFound') }}</p>
         @endforelse
     </div>
+<!-- Pagination -->
+<div class="mt-4">
+    <nav>
+        <ul class="pagination justify-content-center ">
+            {{ $needs->links('vendor.pagination.bootstrap-4') }}
+        </ul>
+    </nav>
 </div>

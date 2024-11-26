@@ -1,59 +1,32 @@
 @extends('layout.master')
 @section('content')
+
 <style>
-    body.loading {
-        visibility: hidden;
-        opacity: 0;
+    .login {
+        text-align: center;
     }
-
-    body.loaded {
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.3s ease;
+    a {
+        color: #3CC78F;
     }
-
-    .thumb img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-        max-width: 100%;
-        display: block;
-    }
-
-    #loading-screen {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #ffffff;
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        visibility: visible;
-        opacity: 1;
-        transition: opacity 0.5s ease;
-    }
-
-    #loading-screen.hidden {
-        visibility: hidden;
-        opacity: 0;
+    .single_donate {
+        width: 200px;
     }
 </style>
 
-<div id="loading-screen">
-    <p>Loading...</p>
-</div>
-
-@if(session('success'))
-    <div class="alert alert-success text-center mb-4">
-        {{ session('success') }}
-    </div>
-@endif
-
 <div class="popular_causes_area pt-120 cause_details">
     <div class="container">
+        @if(session('success'))
+        <div class="alert alert-success text-center mb-4">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger text-center mb-4">
+            {{ session('error') }}
+        </div>
+    @endif
+
         <div class="row">
             <div class="col-lg-12 col-md-12">
                 <div class="single_cause">
@@ -76,17 +49,18 @@
                                     aria-valuemin="0"
                                     aria-valuemax="100">
                                     <span class="progres_count">
-                                        {{ $progress }}%
+                                        {{ number_format($progress, 1) }}%
                                     </span>
+
                                 </div>
                             </div>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center mb-4">
-                            <span style="font-size: 18px;">
+                            <span style="font-size: 35px;">
                                 <strong>{{ __('Raised') }}:</strong> {{ $need->donated_quantity }} {{ $need->item_name }}
                             </span>
-                            <span style="font-size: 18px; text-decoration: underline; text-decoration-color: #3CC78F; text-decoration-thickness: 4px;">
+                            <span style="font-size: 35px; text-decoration: underline; text-decoration-color: #3CC78F; text-decoration-thickness: 4px;">
                                 <strong>{{ __('Goal') }}:</strong> {{ $need->quantity_needed }} {{ $need->item_name }}
                             </span>
                         </div>
@@ -110,7 +84,7 @@
                                         </div>
                                         <div class="row justify-content-center" style="height: auto;">
                                             <div class="col-lg-12">
-                                                <form action="{{ route('donate.store') }}" method="POST" class="donation_form">
+                                                <form id="donation-form" action="{{ route('donate.store') }}" method="POST" class="donation_form">
                                                     @csrf
                                                     <input type="hidden" name="need_id" value="{{ $need->id }}">
                                                     <div class="row align-items-center">
@@ -152,7 +126,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="donate_now_btn text-center mt-4">
-                                                        <button type="submit" class="boxed-btn4">{{ __('Donate Now') }}</button>
+                                                        @if ($need->status === 'Fulfilled')
+                                                            <button type="button" class="boxed-btn4" style="background-color: #d3d3d3; cursor: not-allowed;" disabled>
+                                                                {{ __('Donation Completed') }}
+                                                            </button><br><br>
+                                                            <div class="login">
+                                                                {{ __('The required quantity has been fulfilled. Stay tuned for a post documenting the donation!') }}
+                                                            </div>
+                                                        @else
+                                                            <button type="button" id="donate-button" class="boxed-btn4">
+                                                                {{ __('Donate Now') }}
+                                                            </button>
+                                                        @endif
+                                                    </div>
+
+                                                    <br>
+                                                    <div class="login"
+                                                        @if(auth()->check() || $need->status === 'Fulfilled')
+                                                            style="display: none;"
+                                                        @endif>
+                                                        {{ __('You have to login first!') }} <a href="{{ route('login') }}">{{ __('Login') }}</a>
                                                     </div>
                                                 </form>
                                             </div>
@@ -168,18 +161,31 @@
     </div>
 </div>
 
-<!-- popular_causes_area_end -->
-@endsection
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const loadingScreen = document.getElementById('loading-screen');
-        if (loadingScreen) {
-            loadingScreen.style.display = 'none';
+        const donateButton = document.getElementById('donate-button');
+        const donationForm = document.getElementById('donation-form');
+        if (donateButton && donationForm) {
+            donateButton.addEventListener('click', function (event) {
+                const donationAmount = document.getElementById('donation_amount').value;
+                Swal.fire({
+                    title: `{{ __('Are you sure?') }}`,
+                    text: `{{ __('You are about to donate') }} ${donationAmount} {{ $need->item_name }}.`,
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3CC78F',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: '{{ __('Yes, donate!') }}',
+                    cancelButtonText: '{{ __('Cancel') }}'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        donationForm.submit();
+                    }
+                });
+            });
         }
-
-        document.body.classList.remove('loading');
-        document.body.classList.add('loaded');
     });
 </script>
 
+@endsection
