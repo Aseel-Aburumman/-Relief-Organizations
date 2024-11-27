@@ -222,7 +222,8 @@ class UserController extends Controller
         $totalUsers = User::count();
         $totalOrganizations = Organization::count();
         $totalPosts = Post::count();
+        $fullyDonatedNeedsCount = Need::whereColumn('quantity_needed', 'donated_quantity')->count();
 
-        return view('dashboard.admin_dashboard', compact('totalUsers', 'totalOrganizations', 'totalPosts'));
+        return view('dashboard.admin_dashboard', compact('totalUsers', 'totalOrganizations', 'totalPosts','fullyDonatedNeedsCount'));
     }
 }
