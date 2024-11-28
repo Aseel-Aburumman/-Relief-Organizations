@@ -16,15 +16,19 @@
 
     <!--================Blog Area =================-->
     <section class="blog_area single-post-area section-padding">
-       
+
         <div class="container">
-             <nav>
-            <ol class="breadcrumb" style="background-color: white">
-                <li class="breadcrumb-item"><a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}">{{ $organization->userDetail->first()->name }}</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('organization.post.all', ['organization_id' => $organization->id]) }}">{{ $organization->userDetail->first()->name }} {{ __('messages.PostsA') }}</a></li>
-                <li class="breadcrumb-item active">{{ $post->title }}</li>
-            </ol>
-        </nav>
+            <nav>
+                <ol class="breadcrumb" style="background-color: white">
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('organization.profile.one', ['id' => $organization->id]) }}">{{ $organization->userDetail->first()->name }}</a>
+                    </li>
+                    <li class="breadcrumb-item"><a
+                            href="{{ route('organization.post.all', ['organization_id' => $organization->id]) }}">{{ $organization->userDetail->first()->name }}
+                            {{ __('messages.PostsA') }}</a></li>
+                    <li class="breadcrumb-item active">{{ $post->title }}</li>
+                </ol>
+            </nav>
             <div class="row">
                 <div class="col-lg-8 posts-list">
                     <div class="single-post">
@@ -83,29 +87,7 @@
 
                         </aside>
 
-                        <aside class="single_sidebar_widget instagram_feeds">
-                            <h4 class="widget_title">{{ __('messages.InstagramFeedsA') }}
-                            </h4>
-                            <ul class="instagram_row flex-wrap">
-                                @foreach ($posts as $post)
-                                    <li>
-                                        <a href="#">
-                                            @if ($post->images && $post->images->isNotEmpty())
-                                                <img class="img-fluid"
-                                                    src="{{ asset('storage/post_images/' . $post->images->first()->image) }}"
-                                                    alt="" style="width:100px; height:100px; object-fit:cover;">
-                                            @else
-                                                <img class="img-fluid" src="{{ asset('storage/post_images/post3.jpg') }}"
-                                                    alt="" style="width:100px; height:100px; object-fit:cover;">
-                                            @endif
-                                        </a>
 
-                                    </li>
-                                @endforeach
-
-
-                            </ul>
-                        </aside>
 
 
 

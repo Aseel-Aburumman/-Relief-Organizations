@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Organization;
+
 use Rinvex\Country\CountryLoader;
 
 use App\Http\Controllers\Controller;
@@ -63,10 +64,8 @@ class OrganizationController extends Controller
 
             // Fetch needs with their details
             $needs = Need::fetchNeedsWithDetails($id, $languageId);
-
             // Fetch posts with images
             $posts = Post::fetchPostsWithImages($id, $languageId);
-
             return view('organization_profile', compact('organization', 'OrganizationImages', 'needs', 'posts'));
         } catch (\Exception $e) {
             // Log the exception
@@ -93,18 +92,18 @@ class OrganizationController extends Controller
     }
 
     public function create()
-{
-    $countries = countries();
+    {
+        $countries = countries();
 
-    $languages = Language::all();
-    return view('dashboard.organization.create_organization',compact('languages','countries'));
-}
+        $languages = Language::all();
+        return view('dashboard.organization.create_organization', compact('languages', 'countries'));
+    }
 
-public function store(Request $request)
-{
+    public function store(Request $request)
+    {
         // dd('Request received', $request->all());
 
-    // try {
+        // try {
         // التحقق من صحة البيانات
         $request->validate([
             'email' => 'required|email|unique:users,email',
@@ -176,11 +175,9 @@ public function store(Request $request)
 
                 OrganizationImage::create([
                     'organization_id' => $organization->id,
-                'image' => $organizationImagePath,
+                    'image' => $organizationImagePath,
 
                 ]);
-
-
             }
         }
 
@@ -189,114 +186,111 @@ public function store(Request $request)
 
         // إعادة التوجيه مع رسالة نجاح
         return redirect()->route('organization.manage_organization')->with('success', 'Organization created successfully.');
-    // } catch (\Exception $e) {
-    //     // تسجيل الخطأ وإعادة التوجيه مع رسالة خطأ
-    //     Log::error('Error creating organization: ' . $e->getMessage());
-    //     return redirect()->back()->with('error', 'An error occurred while creating the organization. Please try again.');
-    // }
-}
-
-
-public function index()
-{
-    // عرض المنظمات التي حالتها "approved" فقط
-    $organizations = Organization::where('status', 'approved')->get();
-
-    // تمرير المنظمات إلى الواجهة (view)
-    return view('dashboard.organization.manage_organization', compact('organizations'));
-}
-public function edit($id)
-{
-    $organization = Organization::with(['userDetail.language', 'image'])->findOrFail($id);
-    $languages = Language::all();
-    $organizationDetails = $organization->userDetail;
-
-    return view('dashboard.organization.edit_organization', compact('organization', 'languages', 'organizationDetails'));
-}
-
-public function update(Request $request, $id)
-{
-    $validated = $request->validate([
-        'name' => 'required|array',
-        'name.*' => 'required|string|max:255',
-        'description' => 'nullable|array',
-        'description.*' => 'nullable|string',
-        'contact_info' => 'nullable|string|max:255',
-        'address' => 'nullable|string|max:255',
-        'proof_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-        'organization_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-    ]);
-
-    $organization = Organization::findOrFail($id);
-
-    // Update general fields
-    $organization->contact_info = $request->contact_info;
-    $organization->save();
-
-    // Update details per language
-    foreach ($request->name as $languageId => $name) {
-        $detail = $organization->userDetail->where('language_id', $languageId)->first();
-        if ($detail) {
-            $detail->update([
-                'name' => $name,
-                'adress' => $request->adress[$languageId] ?? null,
-
-                'description' => $request->description[$languageId] ?? null,
-            ]);
-        }
+        // } catch (\Exception $e) {
+        //     // تسجيل الخطأ وإعادة التوجيه مع رسالة خطأ
+        //     Log::error('Error creating organization: ' . $e->getMessage());
+        //     return redirect()->back()->with('error', 'An error occurred while creating the organization. Please try again.');
+        // }
     }
 
-    // Update images
-    if ($request->hasFile('proof_image')) {
-        $proofImagePath = $request->file('proof_image')->store('certificate_images', 'public');
-        $organization->certificate_image = $proofImagePath;
+
+    public function index()
+    {
+        // عرض المنظمات التي حالتها "approved" فقط
+        $organizations = Organization::where('status', 'approved')->get();
+
+        // تمرير المنظمات إلى الواجهة (view)
+        return view('dashboard.organization.manage_organization', compact('organizations'));
+    }
+    public function edit($id)
+    {
+        $organization = Organization::with(['userDetail.language', 'image'])->findOrFail($id);
+        $languages = Language::all();
+        $organizationDetails = $organization->userDetail;
+
+        return view('dashboard.organization.edit_organization', compact('organization', 'languages', 'organizationDetails'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|array',
+            'name.*' => 'required|string|max:255',
+            'description' => 'nullable|array',
+            'description.*' => 'nullable|string',
+            'contact_info' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'proof_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'organization_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $organization = Organization::findOrFail($id);
+
+        // Update general fields
+        $organization->contact_info = $request->contact_info;
         $organization->save();
-    }
 
-    if ($request->hasFile('organization_image')) {
-        $organizationImagePath = $request->file('organization_image')->store('organization_images', 'public');
-        $organization->image()->create(['image' => $organizationImagePath]);
-    }
+        // Update details per language
+        foreach ($request->name as $languageId => $name) {
+            $detail = $organization->userDetail->where('language_id', $languageId)->first();
+            if ($detail) {
+                $detail->update([
+                    'name' => $name,
+                    'adress' => $request->adress[$languageId] ?? null,
 
-    return redirect()->route('organization.manage_organization')->with('success', 'Organization updated successfully.');
-}
+                    'description' => $request->description[$languageId] ?? null,
+                ]);
+            }
+        }
+
+        // Update images
+        if ($request->hasFile('proof_image')) {
+            $proofImagePath = $request->file('proof_image')->store('certificate_images', 'public');
+            $organization->certificate_image = $proofImagePath;
+            $organization->save();
+        }
+
+        if ($request->hasFile('organization_image')) {
+            $organizationImagePath = $request->file('organization_image')->store('organization_images', 'public');
+            $organization->image()->create(['image' => $organizationImagePath]);
+        }
+
+        return redirect()->route('organization.manage_organization')->with('success', 'Organization updated successfully.');
+    }
 
 
 
     public function destroy($id)
-{
-    // منطق الحذف هنا
-    $organization = Organization::findOrFail($id); // استبدل Organization بالنموذج الخاص بك
-    $organization->delete();
+    {
+        // منطق الحذف هنا
+        $organization = Organization::findOrFail($id); // استبدل Organization بالنموذج الخاص بك
+        $organization->delete();
 
-    return redirect()->route('organization.manage_organization')
-                     ->with('success', 'Organization deleted successfully!');
+        return redirect()->route('organization.manage_organization')
+            ->with('success', 'Organization deleted successfully!');
+    }
+    public function showPendingOrganizations()
+    {
+        $languageId = Language::getLanguageIdByLocale();
+
+        // استعلام لجلب المنظمات التي حالتها "Pending"
+        $organizations = Organization::with(['userDetail'])
+            ->where('status', 'pending')
+            ->get();
+        // dd( $organizations );
+        // عرض المنظمات في الصفحة
+        return view('dashboard.organization.pending', compact('organizations'));
+    }
+
+    // تحديث حالة المنظمة (Approve / Reject)
+    public function updateOrganizationStatus($id, Request $request)
+    {
+        // تحديث حالة المنظمة باستخدام استعلام مباشر
+        DB::table('organizations')
+            ->where('id', $id)
+            ->update(['status' => $request->status]);
+
+        // إعادة توجيه إلى صفحة المنظمات "Pending"
+        return redirect()->route('organization.pending');
+    }
 }
-public function showPendingOrganizations()
-{
-    $languageId = Language::getLanguageIdByLocale();
-
-    // استعلام لجلب المنظمات التي حالتها "Pending"
-    $organizations = Organization::with(['userDetail'])
-    ->where('status', 'pending')
-    ->get();
-    // dd( $organizations );
-    // عرض المنظمات في الصفحة
-    return view('dashboard.organization.pending', compact('organizations'));
-}
-
-// تحديث حالة المنظمة (Approve / Reject)
-public function updateOrganizationStatus($id, Request $request)
-{
-    // تحديث حالة المنظمة باستخدام استعلام مباشر
-    DB::table('organizations')
-        ->where('id', $id)
-        ->update(['status' => $request->status]);
-
-    // إعادة توجيه إلى صفحة المنظمات "Pending"
-    return redirect()->route('organization.pending');
-}
-}
-
-
-

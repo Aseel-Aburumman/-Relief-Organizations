@@ -1,99 +1,97 @@
 @extends('layout.master')
 @section('content')
-<style>
-    .single_cause {
-    width: 300px;
-    height: 420px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-}
+    <style>
+        .single_cause {
+            width: 300px;
+            height: 420px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-color: #fff;
+        }
 
-.single_cause .thumb {
-    height: 180px;
-    overflow: hidden;
-}
+        .single_cause .thumb {
+            height: 180px;
+            overflow: hidden;
+        }
 
-.single_cause .thumb img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
+        .single_cause .thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-.causes_content {
-    padding: 15px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+        .causes_content {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-.custom_progress_bar {
-    margin-bottom: 10px;
-}
+        .custom_progress_bar {
+            margin-bottom: 10px;
+        }
 
-.custom_progress_bar .progress {
-    height: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    overflow: hidden;
-    position: relative;
-}
+        .custom_progress_bar .progress {
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+        }
 
-.custom_progress_bar .progress-bar {
-    height: 100%;
-    background-color: #4caf50; /* Green progress bar */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: #fff;
-    transition: width 0.3s ease;
-}
+        .custom_progress_bar .progress-bar {
+            height: 100%;
+            background-color: #4caf50;
+            /* Green progress bar */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: #fff;
+            transition: width 0.3s ease;
+        }
 
-.custom_progress_bar .progres_count {
-    position: absolute;
-    top: -20px;
-    font-size: 12px;
-    color: #4caf50; /* Matches the progress bar color */
-    font-weight: bold;
-}
+        .custom_progress_bar .progres_count {
+            position: absolute;
+            top: -20px;
+            font-size: 12px;
+            color: #4caf50;
+            /* Matches the progress bar color */
+            font-weight: bold;
+        }
 
-.balance {
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 14px;
-    color: #777;
-}
+        .balance {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            color: #777;
+        }
 
-h4 {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    color: #333;
-}
+        h4 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
 
-p {
-    font-size: 14px;
-    color: #777;
-    line-height: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-
-
-
-</style>
+        p {
+            font-size: 14px;
+            color: #777;
+            line-height: 1.5;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+    </style>
     <!-- bradcam_area_start  -->
     <div class="bradcam_area breadcam_bg overlay d-flex align-items-center justify-content-center">
         <div class="container">
@@ -204,46 +202,47 @@ p {
                                     @endforeach
                                 </div>
                                 <!-- Pagination Links -->
-                                  <nav class="blog-pagination justify-content-center d-flex">
-                            <ul class="pagination">
-                                <!-- Previous Page Link -->
-                                @if ($needs->onFirstPage())
-                                    <li class="page-item disabled">
-                                        <a class="page-link" aria-label="Previous">
-                                            <i class="ti-angle-left"></i>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li class="page-item">
-                                        <a href="{{ $needs->previousPageUrl() }}" class="page-link" aria-label="Previous">
-                                            <i class="ti-angle-left"></i>
-                                        </a>
-                                    </li>
-                                @endif
+                                <nav class="blog-pagination justify-content-center d-flex">
+                                    <ul class="pagination">
+                                        <!-- Previous Page Link -->
+                                        @if ($needs->onFirstPage())
+                                            <li class="page-item disabled">
+                                                <a class="page-link" aria-label="Previous">
+                                                    <i class="ti-angle-left"></i>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a href="{{ $needs->previousPageUrl() }}" class="page-link"
+                                                    aria-label="Previous">
+                                                    <i class="ti-angle-left"></i>
+                                                </a>
+                                            </li>
+                                        @endif
 
-                                <!-- Pagination Links -->
-                                @foreach ($needs->links()->elements[0] as $page => $url)
-                                    <li class="page-item {{ $page == $needs->currentPage() ? 'active' : '' }}">
-                                        <a href="{{ $url }}" class="page-link">{{ $page }}</a>
-                                    </li>
-                                @endforeach
+                                        <!-- Pagination Links -->
+                                        @foreach ($needs->links()->elements[0] as $page => $url)
+                                            <li class="page-item {{ $page == $needs->currentPage() ? 'active' : '' }}">
+                                                <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                                            </li>
+                                        @endforeach
 
-                                <!-- Next Page Link -->
-                                @if ($needs->hasMorePages())
-                                    <li class="page-item">
-                                        <a href="{{ $needs->nextPageUrl() }}" class="page-link" aria-label="Next">
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                    </li>
-                                @else
-                                    <li class="page-item disabled">
-                                        <a class="page-link" aria-label="Next">
-                                            <i class="ti-angle-right"></i>
-                                        </a>
-                                    </li>
-                                @endif
-                            </ul>
-                        </nav>
+                                        <!-- Next Page Link -->
+                                        @if ($needs->hasMorePages())
+                                            <li class="page-item">
+                                                <a href="{{ $needs->nextPageUrl() }}" class="page-link" aria-label="Next">
+                                                    <i class="ti-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        @else
+                                            <li class="page-item disabled">
+                                                <a class="page-link" aria-label="Next">
+                                                    <i class="ti-angle-right"></i>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                </nav>
                             </div>
                         </div>
                     </div>
@@ -252,47 +251,6 @@ p {
                 <div class="col-lg-4">
                     <div class="blog_right_sidebar">
 
-                        {{--  <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title">Category</h4>
-                            <ul class="list cat-list">
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Resaurant food</p>
-                                        <p>(37)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Travel news</p>
-                                        <p>(10)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Modern technology</p>
-                                        <p>(03)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Product</p>
-                                        <p>(11)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Inspiration</p>
-                                        <p>(21)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Health Care</p>
-                                        <p>(21)</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </aside>  --}}
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title">{{ __('messages.RecentPostA') }}
                             </h3>
@@ -315,8 +273,7 @@ p {
                                 </div>
                             @endforeach
                             <hr>
-                            <h6><a
-                                    href="{{ route('organization.post.all', ['organization_id' => $post->organization_id]) }}">
+                            <h6><a href="{{ route('organization.post.all', ['organization_id' => $organization->id]) }}">
                                     {{ __('messages.ViewallA') }}
                                     {{ $organization->userDetail->first()->name }} {{ __('messages.PostsA') }}
                                 </a>

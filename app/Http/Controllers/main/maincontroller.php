@@ -30,16 +30,16 @@ class MainController extends Controller
         $organizations = Organization::with(['userDetail', 'image'])->take(3)->get();
 
         // جلب الاحتياجات مع التفاصيل المرتبطة باللغة واسم الحاجة
-        $needs = Need::with(['needDetail' => function ($query) use ($languageId) {
-            $query->where('language_id', $languageId)
-                ->select('id', 'need_id', 'item_name', 'description'); // جلب الحقول المطلوبة فقط
-        }])->take(3)->get();
+
+
+        $needs = Need::fetchNeedswithoutsEARCH($languageId);
+
 
         // جلب المنشورات مع الصور المرتبطة
         $posts = Post::with('images')->take(3)->get();
 
         // تمرير البيانات إلى العرض
-        return view('index', compact('organizations', 'needs', 'posts','organizationsCount','postsCount','fullyDonatedNeedsCount','usersCount'));
+        return view('index', compact('organizations', 'needs', 'posts', 'organizationsCount', 'postsCount', 'fullyDonatedNeedsCount', 'usersCount'));
     }
 
 

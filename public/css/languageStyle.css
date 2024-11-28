@@ -107,4 +107,24 @@ body {
 .row {
     flex-direction: row-reverse;
 }
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+/* *********************************************************************************** */
+.main-menu {
+    justify-content: flex-start !important;
+}
+.short_contact_list {
+    text-align: right !important;
+}
+.social_media_links {
+    text-align: left !important;
+}
 
+.slider_bg_1 {
+    background-image: url(../img/banner/banner-mirrored.png) !important;
+}
+
+.contArabic {
+    justify-content: flex-start !important;
+}

@@ -43,8 +43,10 @@ class Post extends Model
         return self::with('images')
             ->where('organization_id', $organizationId)
             ->where('lang_id', $languageId)
+            ->orderByRaw("FIELD(lang_id, ?, 1, 2)", [$languageId]) // Apply the ordering
             ->paginate(10);
     }
+
 
 
     /**
@@ -53,7 +55,7 @@ class Post extends Model
      * @param int $organizationId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function fetchPostsWithImagesWityhoutLang($organizationId )
+    public static function fetchPostsWithImagesWityhoutLang($organizationId)
     {
         return self::with('images')
             ->where('organization_id', $organizationId)

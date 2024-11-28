@@ -144,13 +144,22 @@ class Need extends Model
      * @param int $languageId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
+    // public static function fetchNeedsWithDetails($organizationId, $languageId)
+    // {
+    //     return self::with(['needDetail' => function ($query) use ($languageId) {
+    //         $query->where('language_id', $languageId)
+    //             ->select('id', 'need_id', 'item_name', 'description');
+    //     }])
+    //         ->where('organization_id', $organizationId)
+    //         ->paginate(10);
+    // }
     public static function fetchNeedsWithDetails($organizationId, $languageId)
     {
-        return self::with(['needDetail' => function ($query) use ($languageId) {
-            $query->where('language_id', $languageId)
-                ->select('id', 'need_id', 'item_name', 'description');
-        }])
-            ->where('organization_id', $organizationId)
+        return self::where('organization_id', $organizationId)
+
+            ->with(['needDetail' => function ($query) use ($languageId) {
+                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+            }])
             ->paginate(10);
     }
 
@@ -179,6 +188,21 @@ class Need extends Model
 
 
     /**
+     * Fetch Needs by Organization ID with optional search and language-specific ordering.
+     *
+
+     * @param int $languageId
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public static function fetchNeedswithoutsEARCH($languageId)
+    {
+        return self::with(['needDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+        }])->take(3)->get();
+    }
+
+
+    /**
      * Fetch Needs with optional search and language-specific ordering.
      *
      * @param string|null $search
@@ -197,7 +221,4 @@ class Need extends Model
             }])
             ->get();
     }
-
-
-
 }

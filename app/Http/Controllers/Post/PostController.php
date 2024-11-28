@@ -80,12 +80,8 @@ class PostController extends Controller
             $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
         }])
             ->find($post->organization_id);
-        $posts = Post::with('images')
-            ->where('lang_id', $languageId)
 
-            ->orderBy('created_at', 'desc')
-            ->paginate(6);
-
+        $posts = Post::fetchPostsWithImages($organization->id, $languageId);
         return view('organization.single-blog', compact('post', 'posts', 'organization'));
     }
 

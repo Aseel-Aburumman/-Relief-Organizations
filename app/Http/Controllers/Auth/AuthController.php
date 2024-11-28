@@ -166,7 +166,7 @@ class AuthController extends Controller
                 ]);
             } elseif ($user->hasRole('organization')) {
                 session()->forget('redirect_after_login'); // تنظيف الجلسة
-                return redirect()->route('index')->with([
+                return redirect()->route('organization.dashboard')->with([
                     'success' => 'Login successful',
                 ]);
             }
