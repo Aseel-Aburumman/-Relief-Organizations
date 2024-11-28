@@ -722,19 +722,23 @@ h6 {
     font-size: 15px;
     font-weight: 600;
     /* color: #4154f1; */
-    color: #3cc78f;
+    /* color: #3cc78f; */
 
     transition: 0.3;
-    background: #f6f9ff;
+    /* background: #f6f9ff; */
     padding: 10px 15px;
     border-radius: 4px;
+}
+.activeSideBar {
+    color: #3cc78f;
+    background: #f6f9ff;
 }
 
 .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-right: 10px;
     /* color: #4154f1; */
-    color: #3cc78f;
+    /* color: #3cc78f; */
 }
 
 .sidebar-nav .nav-link.collapsed {
@@ -797,7 +801,7 @@ h6 {
 .sidebar-nav .nav-content a:hover,
 .sidebar-nav .nav-content a.active {
     /* color: #4154f1; */
-    color: #3cc78f;
+    /* color: #3cc78f; */
 }
 
 .sidebar-nav .nav-content a.active i {
