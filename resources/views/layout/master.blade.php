@@ -15,6 +15,10 @@
     <!-- CSS here -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 
+    @if (app()->getLocale() == 'ar')
+        <link rel="stylesheet" href="{{ asset('css/languageStyle.css') }}">
+    @endif
+
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/owl.carousel.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/magnific-popup.css') }}">

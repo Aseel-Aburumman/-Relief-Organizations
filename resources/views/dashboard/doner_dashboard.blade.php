@@ -79,11 +79,11 @@
         }
     </style>
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>{{ __('messages.Dashboard') }}</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('doner.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="{{ route('doner.dashboard') }}">{{ __('messages.Home') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('messages.Dashboard') }} </li>
             </ol>
         </nav>
     </div>
@@ -97,7 +97,7 @@
 
                     <div class="navigation-top mt-5">
                         <div class="row">
-                            <h3>Donatition causes to Gaza you might be inersted in:
+                            <h3>{{ __('messages.Donatitioninerstedin') }}:
                             </h3>
                             <br>
                             <div class="mt-5 col-lg-12">
@@ -141,8 +141,10 @@
                                                 </div>
                                                 <div class="balance d-flex justify-content-between align-items-center"
                                                     style="margin-bottom: 10px;">
-                                                    <span>Donated: {{ $need->donated_quantity }}</span>
-                                                    <span>Needed: {{ $need->quantity_needed }}</span>
+                                                    <span>{{ __('messages.Donated') }}:
+                                                        {{ $need->donated_quantity }}</span>
+                                                    <span>{{ __('messages.needed') }} :
+                                                        {{ $need->quantity_needed }}</span>
                                                 </div>
                                                 <!-- عرض اسم الحاجة -->
                                                 <h4 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">
@@ -154,7 +156,7 @@
                                                     {{ Str::limit($need->needDetail->first()->description ?? 'No description available', 100) }}
                                                 </p>
                                                 <a href="{{ route('donation.show', ['id' => $need->id]) }}"
-                                                    class="boxed-btn3">Learn More</a>
+                                                    class="boxed-btn3">{{ __('messages.learnMore') }}</a>
                                             </div>
                                         </div>
                                     @endforeach
@@ -169,7 +171,7 @@
                     <div class="blog_right_sidebar">
 
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title">Recent Post</h3>
+                            <h3 class="widget_title">{{ __('messages.RecentPostA') }}</h3>
                             @foreach ($posts as $post)
                                 <div class="media post_item">
                                     @if ($post->images && $post->images->isNotEmpty())

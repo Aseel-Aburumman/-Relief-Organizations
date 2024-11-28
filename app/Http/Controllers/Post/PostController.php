@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Post;
+
 use App\Models\Language;
 
 use App\Http\Controllers\Controller;
@@ -8,13 +9,24 @@ use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Post;
 use App\Models\Organization;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::getAllPosts();
+        $user = Auth::user();
+        $user = User::find($user->id);
+        if ($user->hasRole('admin')) {
+
+            $posts = Post::getAllPosts();
+        } elseif ($user->hasRole('organization')) {
+            $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
+
+            $posts = Post::fetchPostsWithImagesWityhoutLang($organization->id);
+        }
         return view('dashboard.post.index', compact('posts'));
     }
 
@@ -59,7 +71,7 @@ class PostController extends Controller
     public function getOne($id)
     {
         $languageId = Language::getLanguageIdByLocale();
-        
+
 
         $post = Post::with('images')
             ->where('id', $id)

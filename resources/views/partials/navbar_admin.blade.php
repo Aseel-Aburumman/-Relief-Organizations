@@ -18,38 +18,18 @@
 
 
     <nav class="header-nav ms-auto">
-        <ul class="d-flex align-items-center">
-
-            <li class="nav-item d-block d-lg-none">
-                <a class="nav-link nav-icon search-bar-toggle " href="#">
-                    <i class="bi bi-search"></i>
-                </a>
-            </li>
-            <!-- End Search Icon-->
 
 
+        <form class="loginBtn" action="{{ route('logout') }}" method="POST" class="d-inline">
+            @csrf
+            <button type="submit" class="btn loginBtn">
+                <i class="fas fa-sign-out-alt"></i> {{ __('messages.LogoutA') }}
+            </button>
+        </form>
 
 
 
 
-
-            <li class="nav-item dropdown pe-3">
-
-                <form class="loginBtn" action="{{ route('logout') }}" method="POST" class="d-inline">
-                    @csrf
-                    <button type="submit" class="btn loginBtn">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </form>
-
-
-            </li>
-
-
-        </ul>
-        <!-- End Profile Dropdown Items -->
-        <!-- End Profile Nav -->
-
-    </nav><!-- End Icons Navigation -->
+    </nav>
 
 </header>

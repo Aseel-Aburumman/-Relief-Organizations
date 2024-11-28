@@ -118,4 +118,18 @@ class Organization extends Model
             $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
         }])->find($id);
     }
+
+    /**
+     * Fetch an organization with user details ordered by language with approve status.
+     *
+     * @param int $id
+     * @param int $languageId
+     * @return \App\Models\Organization|null
+     */
+    public static function fetchOrganizationWithUserDetailsApproved($languageId)
+    {
+        return self::with(['userDetail' => function ($query) use ($languageId) {
+            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId, 1, 2]);
+        }])->where('status', 'Approved')->get();
+    }
 }

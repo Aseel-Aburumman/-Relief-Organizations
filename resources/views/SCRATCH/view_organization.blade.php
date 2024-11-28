@@ -2,13 +2,13 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>{{ __('messages.code_text') }}Dashboard</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item ">Organization Control Center</li>
-                <li class="breadcrumb-item ">List of Organizations</li>
-                <li class="breadcrumb-item active">Organization Info Edit</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('messages.code_text') }}Home</a></li>
+                <li class="breadcrumb-item ">{{ __('messages.code_text') }}Organization Control Center</li>
+                <li class="breadcrumb-item ">{{ __('messages.code_text') }}List of Organizations</li>
+                <li class="breadcrumb-item active">{{ __('messages.code_text') }}Organization Info Edit</li>
             </ol>
         </nav>
     </div>
@@ -35,25 +35,25 @@
 
                                 <div class="tab-content pt-2">
                                     <div class="tab-pane fade show active profile-overview" id="profile-overview">
-                                        <h5 class="card-title">Organization Details</h5>
+                                        <h5 class="card-title">{{ __('messages.code_text') }}Organization Details</h5>
 
                                         <div class="row mb-2">
-                                            <div class="col-lg-4 col-md-4 label">Organization Name</div>
+                                            <div class="col-lg-4 col-md-4 label">{{ __('messages.code_text') }}Organization Name</div>
                                             <div class="col-lg-8 col-md-8">{{ $organization->userDetail->first()->name ?? 'Not provided' }}</div>
                                         </div>
 
                                         <div class="row mb-2">
-                                            <div class="col-lg-4 col-md-4 label">Contact Info</div>
+                                            <div class="col-lg-4 col-md-4 label">{{ __('messages.code_text') }}Contact Info</div>
                                             <div class="col-lg-8 col-md-8">{{ $organization->contact_info ?? 'Not provided' }}</div>
                                         </div>
 
                                         <div class="row mb-2">
-                                            <div class="col-lg-4 col-md-4 label">Description</div>
+                                            <div class="col-lg-4 col-md-4 label">{{ __('messages.code_text') }}Description</div>
                                             <div class="col-lg-8 col-md-8">{{ $organization->userDetail->first()->description ?? 'Not provided' }}</div>
                                         </div>
 
                                         <div class="row mb-2">
-                                            <div class="col-lg-4 col-md-4 label">Location</div>
+                                            <div class="col-lg-4 col-md-4 label">{{ __('messages.code_text') }}Location</div>
                                             <div class="col-lg-8 col-md-8">{{ $organization->userDetail->first()->location ?? 'Not provided' }}</div>
                                         </div>
 
@@ -63,7 +63,7 @@
                                                 <!-- Go to Chat Center Button -->
                                                 <a href="{{ route('chatadmin2', ['receiverId' => $organization->id]) }}"
                                                     class="btn btn-primary btn-lg">
-                                                    <i class="bi bi-chat-dots"></i> Go to Chat Center
+                                                    <i class="bi bi-chat-dots"></i> {{ __('messages.code_text') }}Go to Chat Center
                                                 </a>
 
                                                 <!-- Edit Button -->

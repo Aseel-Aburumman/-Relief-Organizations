@@ -1,24 +1,23 @@
-
 @extends('layout.admin_master')
 
 @section('content')
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <div class="pagetitle">
         <h1>Create New Organization</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item">Organization Control Center</li>
-                <li class="breadcrumb-item active">Create Organization</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('messages.Home') }} </a></li>
+                <li class="breadcrumb-item">{{ __('messages.OrganizationControlCenter') }}</li>
+                <li class="breadcrumb-item active">{{ __('messages.CreateOrganization') }}</li>
             </ol>
         </nav>
     </div>
@@ -27,55 +26,60 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">New Organization Information</h5>
+                    <h5 class="card-title">{{ __('messages.NewOrganizationInformation') }}</h5>
 
-                    <form method="POST" action="{{ route('organization.store_organization') }}" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('organization.store_organization') }}"
+                        enctype="multipart/form-data">
                         @csrf
 
                         <!-- Email -->
                         <div class="col-md-6">
-                            <label for="email" class="form-label">Email</label>
+                            <label for="email" class="form-label">{{ __('messages.EmailA') }}</label>
                             <input type="email" name="email" class="form-control" id="email" required>
                         </div>
 
                         <!-- Password -->
                         <div class="col-md-6">
-                            <label for="password" class="form-label">Password</label>
+                            <label for="password" class="form-label">{{ __('messages.PasswordA') }}</label>
                             <input type="password" name="password" class="form-control" id="password" required>
                         </div>
 
                         <!-- Organization Name in English -->
                         <div class="col-md-6">
-                            <label for="name_en" class="form-label">Organization Name (English)</label>
+                            <label for="name_en" class="form-label">{{ __('messages.Organization NameA') }}
+                                (English)</label>
                             <input type="text" name="name_en" class="form-control" id="name_en" required>
                         </div>
 
                         <!-- Organization Name in Arabic -->
                         <div class="col-md-6">
-                            <label for="name_ar" class="form-label">Organization Name (Arabic)</label>
+                            <label for="name_ar" class="form-label">{{ __('messages.Organization NameA') }}
+                                (Arabic)</label>
                             <input type="text" name="name_ar" class="form-control" id="name_ar" required>
                         </div>
 
                         <!-- Description in English -->
                         <div class="col-md-6">
-                            <label for="description_en" class="form-label">Description (English)</label>
+                            <label for="description_en" class="form-label">{{ __('messages.Description') }}
+                                (English)</label>
                             <textarea name="description_en" class="form-control" id="description_en"></textarea>
                         </div>
 
                         <!-- Description in Arabic -->
                         <div class="col-md-6">
-                            <label for="description_ar" class="form-label">Description (Arabic)</label>
+                            <label for="description_ar" class="form-label">{{ __('messages.Description') }}
+                                (Arabic)</label>
                             <textarea name="description_ar" class="form-control" id="description_ar"></textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="contact_info" class="form-label">Contact Information</label>
+                            <label for="contact_info" class="form-label">{{ __('messages.ContactInformation') }}</label>
                             <input type="text" class="form-control" id="contact_info" name="contact_info" required>
                         </div>
                         <!-- Address -->
                         <div class="mb-3">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="address" class="form-label">{{ __('messages.AddressA') }}</label>
                             <select class="form-select" id="address" name="address" required>
-                                <option value="" disabled selected>Select your country</option>
+                                <option value="" disabled selected>{{ __('messages.Selectcountry') }} </option>
                                 @foreach ($countries as $code => $country)
                                     <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
                                 @endforeach
@@ -84,20 +88,21 @@
 
                         <!-- Proof Image -->
                         <div class="col-md-6">
-                            <label for="proof_image" class="form-label">Proof Image</label>
+                            <label for="proof_image" class="form-label">{{ __('messages.ProofDocument') }} </label>
                             <input type="file" name="proof_image" class="form-control" id="proof_image">
                         </div>
 
                         <!-- Organization Image -->
                         <div class="col-md-6">
-                            <label for="organization_image" class="form-label">Organization Image</label>
+                            <label for="organization_image"
+                                class="form-label">{{ __('messages.organizationImage') }}</label>
                             <input type="file" name="organization_image" class="form-control" id="organization_image">
                         </div>
 
                         <!-- Submit Button -->
                         <div class="text-center">
-                            <button type="submit" class="btn btn-primary">Create Organization</button>
-                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <button type="submit" class="btn btn-primary">{{ __('messages.CreateOrganization') }}</button>
+                            <button type="reset" class="btn btn-secondary">{{ __('messages.Reset') }}</button>
                         </div>
                     </form>
 

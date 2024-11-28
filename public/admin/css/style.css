@@ -81,8 +81,7 @@ h6 {
     margin-bottom: 0;
     font-weight: 600;
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }
 
 /*--------------------------------------------------------------
@@ -257,7 +256,7 @@ h6 {
     font-size: 18px;
     font-weight: 500;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     font-family: "Poppins", sans-serif;
 }
@@ -305,7 +304,7 @@ h6 {
 
 .accordion-button:not(.collapsed) {
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     background-color: #f6f9ff;
 }
@@ -402,7 +401,7 @@ h6 {
     font-size: 26px;
     font-weight: 700;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     font-family: "Nunito", sans-serif;
 }
@@ -425,8 +424,7 @@ h6 {
     padding-left: 10px;
     cursor: pointer;
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }
 
 .header .search-bar {
@@ -464,7 +462,7 @@ h6 {
     border: 0;
     font-size: 14px;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     border: 1px solid rgba(1, 41, 112, 0.2);
     padding: 7px 38px 7px 8px;
@@ -489,8 +487,7 @@ h6 {
 
 .header .search-form button i {
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }
 
 /*--------------------------------------------------------------
@@ -508,7 +505,7 @@ h6 {
 .header-nav .nav-icon {
     font-size: 22px;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     margin-right: 25px;
     position: relative;
@@ -516,8 +513,7 @@ h6 {
 
 .header-nav .nav-profile {
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }
 
 .header-nav .nav-profile img {
@@ -784,7 +780,7 @@ h6 {
     font-size: 14px;
     font-weight: 600;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     transition: 0.3;
     padding: 10px 0 10px 40px;
@@ -859,7 +855,7 @@ h6 {
 .dashboard .info-card h6 {
     font-size: 28px;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     font-weight: 700;
     margin: 0;
@@ -959,7 +955,7 @@ h6 {
 
 .dashboard .news h4 a {
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     transition: 0.3s;
 }
@@ -1034,7 +1030,7 @@ h6 {
     border-radius: 0.25rem;
     text-align: center;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     padding: 15px 0;
 }
@@ -1085,8 +1081,7 @@ h6 {
 
 .profile .profile-card .social-links a:hover {
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }
 
 .profile .profile-overview .row {
@@ -1096,8 +1091,7 @@ h6 {
 
 .profile .profile-overview .card-title {
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }
 
 .profile .profile-overview .label {
@@ -1145,7 +1139,7 @@ h6 {
 .contact .info-box h3 {
     font-size: 20px;
     /* color: #012970; */
-    color: #3CC78F;
+    color: #3cc78f;
 
     font-weight: 700;
     margin: 20px 0 10px 0;
@@ -1305,6 +1299,5 @@ h6 {
     text-align: center;
     font-size: 13px;
     /* color: #012970; */
-    color: #3CC78F;
-
+    color: #3cc78f;
 }

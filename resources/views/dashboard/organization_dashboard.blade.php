@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>{{ __('messages.Dashboard') }}</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item active">Dashboard</li>
+                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">{{ __('messages.Home') }}</a></li>
+                <li class="breadcrumb-item active">{{ __('messages.Dashboard') }} </li>
             </ol>
         </nav>
     </div>
@@ -26,7 +26,8 @@
 
 
                             <div class="card-body">
-                                <h5 class="card-title">Needs <span>| Total</span></h5>
+                                <h5 class="card-title">{{ __('messages.NeedsA') }} <span>|
+                                        {{ __('messages.Total') }}</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -50,7 +51,8 @@
 
 
                             <div class="card-body">
-                                <h5 class="card-title">Donation <span>| This Month</span></h5>
+                                <h5 class="card-title">{{ __('messages.Contributors') }} <span>|
+                                        {{ __('messages.Total') }}</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -76,7 +78,8 @@
 
 
                             <div class="card-body">
-                                <h5 class="card-title">doners <span>| This Year</span></h5>
+                                <h5 class="card-title">{{ __('messages.Doners') }} <span>|
+                                        {{ __('messages.Total') }}</span></h5>
 
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">

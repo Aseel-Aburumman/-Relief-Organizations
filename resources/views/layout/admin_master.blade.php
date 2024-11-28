@@ -20,6 +20,10 @@
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
+    @if (app()->getLocale() == 'ar')
+        <link rel="stylesheet" href="{{ asset('css/languageStyle.css') }}">
+    @endif
+
     <link href="{{ asset('admin/vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
     <link href="{{ asset('admin/vendor/boxicons/css/boxicons.min.css') }}" rel="stylesheet">

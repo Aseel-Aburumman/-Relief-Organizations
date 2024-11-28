@@ -80,7 +80,15 @@ class NeedController extends Controller
 
     public function create_Need()
     {
-        $organization = Organization::where('user_id', auth()->id())->first();
+        $languageId = Language::getLanguageIdByLocale();
+
+        $user = Auth::user();
+        $user = User::find($user->id);
+        if ($user->hasRole('admin')) {
+            $organization = Organization::fetchOrganizationWithUserDetailsApproved($languageId);
+        } elseif ($user->hasRole('organization')) {
+            $organization = Organization::where('user_id', auth()->id())->first();
+        }
         $languages = Language::all();
         $categories = Category::all();
         return view('dashboard.needs.create_need', compact('categories', 'organization', 'languages'));

@@ -2,12 +2,12 @@
 
 @section('content')
     <div class="pagetitle">
-        <h1>Dashboard</h1>
+        <h1>{{ __('messages.OrganizationControlCenter') }}</h1>
         <nav>
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{ route('organization.dashboard') }}">Home</a></li>
-                <li class="breadcrumb-item">Organization Control Center</li>
-                <li class="breadcrumb-item active">List of Organizations</li>
+                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('messages.Home') }}</a></li>
+                <li class="breadcrumb-item">{{ __('messages.OrganizationControlCenter') }} </li>
+                <li class="breadcrumb-item active">{{ __('messages.ListOrganizations') }}</li>
             </ol>
         </nav>
     </div>
@@ -18,29 +18,24 @@
             <div class="card w-100">
                 <div class="card-body w-100">
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <h5 class="card-title">List Of Organizations</h5>
+                        <h5 class="card-title">{{ __('messages.ListOrganizations') }}</h5>
                         <a href="{{ route('organization.create_organization') }}" class="btn btn-success mb-3">
-                            <i class="fa-solid fa-user-plus"></i> Add New Organization
+                            <i class="fa-solid fa-user-plus"></i> {{ __('messages.AddNewOrganization') }}
                         </a>
                     </div>
 
-                    {{-- <form action="{{ route('organization.manage_organizations') }}" method="GET" class="d-flex mb-3">
-                        <input type="text" name="search" class="form-control" placeholder="Search by name..."
-                            value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-primary ms-2">Search</button>
-                        <a href="{{ route('organization.manage_organizations') }}" class="btn btn-secondary ms-2">Reset</a>
-                    </form> --}}
+
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
                         <thead>
                             <tr>
                                 <th class="tableHide" scope="col">#</th>
-                                <th scope="col">Organization Name</th>
-                                <th scope="col">Contact Info</th>
-                                <th scope="col">Description</th>
-                                <th scope="col">Location</th>
-                                <th class="tableHide" scope="col">Date Created</th>
-                                <th scope="col" class="actions">Actions</th>
+                                <th scope="col">{{ __('messages.OrganizationNameA') }}</th>
+                                <th scope="col">{{ __('messages.ContactInformation') }}</th>
+                                <th scope="col">{{ __('messages.Description') }}</th>
+                                <th scope="col">{{ __('messages.AddressA') }}</th>
+                                <th class="tableHide" scope="col">{{ __('messages.DateCreated') }}</th>
+                                <th scope="col" class="actions">{{ __('messages.Actions') }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -49,20 +44,23 @@
                                     <th class="tableHide" scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $organization->userDetail->first()->name ?? 'N/A' }}</td>
                                     <td>{{ $organization->contact_info ?? 'N/A' }}</td>
-                                    <td>{{ $organization->userDetail->first()->description ?? 'N/A' }}</td>
-                                    <td>{{ $organization->userDetail->first()->location ?? 'N/A' }}</td>
+                                    <td>{{ \Illuminate\Support\Str::limit($organization->userDetail->first()->description ?? 'N/A', 50) }}
+                                    </td>
+                                    <td>{{ $organization->userDetail->first()->address ?? 'N/A' }}</td>
                                     <td class="tableHide">{{ $organization->created_at->format('Y-m-d') }}</td>
                                     <td class="actions">
                                         <a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}"
-                                            class="fa-solid fa-eye"></a>
+                                            class="btn btn-info btn-sm">{{ __('messages.View') }}</a>
                                         <a href="{{ route('organization.edit_organization', ['id' => $organization->id]) }}"
-                                            class="fa-solid fa-pencil"></a>
-                                            <form action="{{ route('organization.delete_organization', ['id' => $organization->id]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this organization?');">
+                                            class="btn btn-warning btn-sm">{{ __('messages.Edit') }}</a>
+                                        <form
+                                            action="{{ route('organization.delete_organization', ['id' => $organization->id]) }}"
+                                            method="POST" style="display:inline;"
+                                            onsubmit="return confirm('{{ __('messages.suredeleteorganization') }}?');">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit"
-                                                style="background:none; border:none; color:#007bff; cursor:pointer;">
-                                                <i class="fa-solid fa-trash"></i>
+                                            <button type="submit" class="btn btn-danger btn-sm">
+                                                {{ __('messages.Delete') }}
                                             </button>
                                         </form>
                                     </td>

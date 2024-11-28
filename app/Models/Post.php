@@ -46,6 +46,20 @@ class Post extends Model
             ->paginate(10);
     }
 
+
+    /**
+     * Fetch paginated posts for an organization in a specific language.
+     *
+     * @param int $organizationId
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function fetchPostsWithImagesWityhoutLang($organizationId )
+    {
+        return self::with('images')
+            ->where('organization_id', $organizationId)
+            ->paginate(10);
+    }
+
     // Static methods for CRUD
     public static function getAllPosts()
     {
