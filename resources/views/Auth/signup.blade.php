@@ -91,56 +91,87 @@
         }
     </style>
 
+
+
+
     <div class="mt-5 signup-container">
-
         <div class="signup-card">
-
             <div class="form-section">
-                <h2 class="signup-title">{{ __('messages.CreateAccountA') }}
-                </h2>
+                <h2 class="signup-title">{{ __('messages.CreateAccountA') }}</h2>
 
+                <p class="text-center mb-3">
+                    <a href="{{ route('register.view.Organization') }}"
+                        style="color: #3CC78F;">{{ __('messages.SignOrganizayionA') }}</a>
+                </p>
 
-                <p class="text-center mb-3"> <a href="{{ route('register.view.Organization') }}"
-                        style="color: #3CC78F;">{{ __('messages.SignOrganizayionA') }}
-
-                    </a></p>
                 @if (isset($success))
                     <div class="alert alert-success">
                         {{ $success }}
                     </div>
                 @endif
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+
                 <!-- Sign-Up Form -->
                 <form action="{{ route('register.donor') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label">{{ __('messages.NameA') }}
-                        </label>
-                        <input type="text" class="form-control" id="name" name="name" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="email" class="form-label">{{ __('messages.EmailA') }}
-                        </label>
-                        <input type="email" class="form-control" id="email" name="emailA" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}
-                        </label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="address" class="form-label">{{ __('messages.AddressA') }}
-                        </label>
-                        <select class="form-select" id="address" name="address" required>
-                            <option value="" disabled selected>{{ __('messages.Selectcountry') }}</option>
-                            @foreach ($countries as $code => $country)
-                                <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
-                            @endforeach
-                        </select>
+                        <label for="name" class="form-label">{{ __('messages.NameA') }}</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary w-100 mb-2">{{ __('messages.SignUpA') }}
-                    </button>
-                    <p class="text-center">{{ __('messages.AlreadyaccountA') }}
+                    <div class="mb-3">
+                        <label for="email" class="form-label">{{ __('messages.EmailA') }}</label>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                            name="emailA" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                            name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+
+
+                    <div class="mb-3">
+                        <label for="address" class="form-label">{{ __('messages.AddressA') }}</label>
+                        <select class="form-select @error('address') is-invalid @enderror" id="address" name="address"
+                            required>
+                            <option value="" disabled selected>{{ __('messages.Selectcountry') }}</option>
+                            @foreach ($countries as $code => $country)
+                                <option value="{{ $country['name'] }}"
+                                    {{ old('address') == $country['name'] ? 'selected' : '' }}>
+                                    {{ $country['name'] }}
+                                </option>
+                            @endforeach
+                        </select>
+                        @error('address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-2">{{ __('messages.SignUpA') }}</button>
+                    <p class="text-center">
+                        {{ __('messages.AlreadyaccountA') }}
                         <a href="{{ route('login.view') }}" style="color: #3CC78F;">{{ __('messages.SignInA') }}</a>
                     </p>
                 </form>
@@ -148,4 +179,5 @@
             <div class="image-section"></div>
         </div>
     </div>
+
 @endsection

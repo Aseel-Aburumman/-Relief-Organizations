@@ -166,7 +166,7 @@ Route::prefix('organization')->group(function () {
         ->name('organization.edit_organization'); // ملف edit_organization.blade.php
     Route::get('/manage', [OrganizationController::class, 'index'])->name('organization.manage_organizations');
     Route::delete('/delete1/{id}', [OrganizationController::class, 'destroy'])
-    ->name('organization.delete_organization');
+        ->name('organization.delete_organization');
     // تحديث بيانات منظمة
     Route::put('/update/{id}', [OrganizationController::class, 'update'])
         ->name('organization.update_organization');
@@ -174,15 +174,15 @@ Route::prefix('organization')->group(function () {
     // إدارة المنظمات
     Route::get('/manage', [OrganizationController::class, 'index'])
         ->name('organization.manage_organization'); // ملف manage_organization.blade.php
-        Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create_organization');
-        Route::post('/store-organization', [OrganizationController::class, 'store'])->name('organization.store_organization');
+    Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create_organization');
+    Route::post('/store-organization', [OrganizationController::class, 'store'])->name('organization.store_organization');
 
-// ملف web.php
+    // ملف web.php
 
-Route::get('/organization/pending', [OrganizationController::class, 'showPendingOrganizations'])->name('organization.pending');
+    Route::get('/organization/pending', [OrganizationController::class, 'showPendingOrganizations'])->name('organization.pending');
 
-// تحديث حالة المنظمة
-Route::put('/organization/{id}/update-status', [OrganizationController::class, 'updateOrganizationStatus'])->name('organization.updateStatus');
+    // تحديث حالة المنظمة
+    Route::put('/organization/{id}/update-status', [OrganizationController::class, 'updateOrganizationStatus'])->name('organization.updateStatus');
 
     // تخزين منظمة جديدة
     Route::post('/store', [OrganizationController::class, 'store'])
@@ -191,10 +191,9 @@ Route::put('/organization/{id}/update-status', [OrganizationController::class, '
     // عرض تفاصيل منظمة
     Route::get('/view/{id}', [OrganizationController::class, 'show'])
         ->name('organization.view_organization'); // ملف view_organization.blade.php
-        Route::delete('/delete/{id}', [OrganizationController::class, 'destroy'])
+    Route::delete('/delete/{id}', [OrganizationController::class, 'destroy'])
         ->name('organaization.delete_organization');
-    });
-    Route::middleware(['auth', 'role:admin'])->group(function () {
-        Route::get('/admin/dashboard', [UserController::class, 'admin_dashbored'])->name('admin.dashboard');
-    });
-
+});
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/admin/dashboard', [UserController::class, 'admin_dashbored'])->name('admin.dashboard');
+});

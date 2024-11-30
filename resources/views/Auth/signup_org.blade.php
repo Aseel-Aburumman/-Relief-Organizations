@@ -117,55 +117,94 @@
                 <!-- Sign-Up Form -->
 
 
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
 
+                <!-- Sign-Up Form -->
                 <form action="{{ route('register.organization') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
-                        <label for="name" class="form-label">{{ __('messages.OrganizationNameA') }}
-                        </label>
-                        <input type="text" class="form-control" id="name" name="name" required>
+                        <label for="name" class="form-label">{{ __('messages.OrganizationNameA') }}</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                            name="name" value="{{ old('name') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
                     <div class="mb-3">
-                        <label for="email" class="form-label">{{ __('messages.EmailA') }}
-                        </label>
-                        <input type="email" class="form-control" id="email" name="email" required>
+                        <label for="email" class="form-label">{{ __('messages.EmailA') }}</label>
+                        <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                            name="email" value="{{ old('email') }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
                     <div class="mb-3">
-                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}
-                        </label>
-                        <input type="password" class="form-control" id="password" name="password" required>
+                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}</label>
+                        <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
+                            name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
                     <div class="mb-3">
-                        <label for="description" class="form-label">{{ __('messages.Description') }}
-                        </label>
-                        <input type="text" class="form-control" id="description" name="description" required>
+                        <label for="description" class="form-label">{{ __('messages.Description') }}</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror"
+                            id="description" name="description" value="{{ old('description') }}" required>
+                        @error('description')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
                     <div class="mb-3">
-                        <label for="contact_info" class="form-label">{{ __('messages.ContactInformation') }}
-                        </label>
-                        <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+                        <label for="contact_info" class="form-label">{{ __('messages.ContactInformation') }}</label>
+                        <input type="text" class="form-control @error('contact_info') is-invalid @enderror"
+                            id="contact_info" name="contact_info" value="{{ old('contact_info') }}" required>
+                        @error('contact_info')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
                     <div class="mb-3">
-                        <label for="address" class="form-label">{{ __('messages.AddressA') }}
-                        </label>
-                        <select class="form-select" id="address" name="address" required>
-                            <option value="" disabled selected>{{ __('messages.Selectcountry') }}
-                            </option>
+                        <label for="address" class="form-label">{{ __('messages.AddressA') }}</label>
+                        <select class="form-select @error('address') is-invalid @enderror" id="address" name="address"
+                            required>
+                            <option value="" disabled selected>{{ __('messages.Selectcountry') }}</option>
                             @foreach ($countries as $code => $country)
-                                <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                <option value="{{ $country['name'] }}"
+                                    {{ old('address') == $country['name'] ? 'selected' : '' }}>
+                                    {{ $country['name'] }}
+                                </option>
                             @endforeach
                         </select>
+                        @error('address')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <div class="form-group">
-                        <label for="certificate_image">{{ __('messages.ProofDocument') }}
-                        </label>
-                        <input type="file" name="certificate_image" class="form-control" required>
+
+                    <div class="mb-3">
+                        <label for="certificate_image" class="form-label">{{ __('messages.ProofDocument') }}</label>
+                        <input type="file" name="certificate_image"
+                            class="form-control @error('certificate_image') is-invalid @enderror" required>
+                        @error('certificate_image')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                    <button type="submit" class="btn btn-primary w-100 mb-2">{{ __('messages.SignUpA') }}
-                    </button>
-                    <p class="text-center">{{ __('messages.AlreadyaccountA') }}
-                        <a href="{{ route('login.view') }}" style="color: #3CC78F;">{{ __('messages.SignInA') }}
-                        </a>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-2">{{ __('messages.SignUpA') }}</button>
+                    <p class="text-center">
+                        {{ __('messages.AlreadyaccountA') }}
+                        <a href="{{ route('login.view') }}" style="color: #3CC78F;">{{ __('messages.SignInA') }}</a>
                     </p>
                 </form>
 
@@ -173,4 +212,6 @@
             <div class="image-section"></div>
         </div>
     </div>
+
+
 @endsection
