@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\Donation;
 
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;
 use App\Http\Resources\DonationResource;
 use App\Models\Need;
+use App\Models\Organization;
+
 use App\Models\User;
+use App\Models\Language;
 use App\Models\Donation;
 use Illuminate\Http\Request;
 
@@ -92,9 +98,23 @@ class DonationController extends Controller
 
     public function listDonations()
     {
-        $donations = DonationResource::collection(Donation::with(['user.userDetail', 'need.needDetail'])->get());
+        try {
+            $user = Auth::user();
+            $user = User::find($user->id);
 
-        return view('dashboard.donations.manage_donations', compact('donations'));
+            $languageId = Language::getLanguageIdByLocale();
+            if ($user->hasRole('admin')) {
+                $donations = Donation::fetchDonationsWithDetails($languageId);
+            } elseif ($user->hasRole('organization')) {
+                $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
+
+                $donations = Donation::fetchOrganizationDonationsWithDetails($organization->id, $languageId);
+            }
+            return view('dashboard.donations.manage_donations', compact('donations'));
+        } catch (\Exception $e) {
+            Log::error('Error fetching needs: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while fetching the donations. Please try again.');
+        }
     }
 
     public function showDonation($id)
@@ -120,9 +140,9 @@ class DonationController extends Controller
         $previousQuantity = $donation->quantity;
 
         $donation->update([
-        'need_id' => $validatedData['need_id'],
+            'need_id' => $validatedData['need_id'],
 
-        'quantity' => $validatedData['quantity'],
+            'quantity' => $validatedData['quantity'],
         ]);
 
         $need = $donation->need;

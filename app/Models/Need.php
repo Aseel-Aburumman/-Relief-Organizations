@@ -144,15 +144,7 @@ class Need extends Model
      * @param int $languageId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    // public static function fetchNeedsWithDetails($organizationId, $languageId)
-    // {
-    //     return self::with(['needDetail' => function ($query) use ($languageId) {
-    //         $query->where('language_id', $languageId)
-    //             ->select('id', 'need_id', 'item_name', 'description');
-    //     }])
-    //         ->where('organization_id', $organizationId)
-    //         ->paginate(10);
-    // }
+
     public static function fetchNeedsWithDetails($organizationId, $languageId)
     {
         return self::where('organization_id', $organizationId)

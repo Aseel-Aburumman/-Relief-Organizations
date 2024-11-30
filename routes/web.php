@@ -36,8 +36,7 @@ Route::get('/blog', function () {
 
 
 
-Route::get('/needs', [NeedController::class, 'index'])->name('need');
-Route::get('/needs/{id}', [NeedController::class, 'show'])->name('need.show');
+
 
 
 
@@ -198,4 +197,4 @@ Route::put('/organization/{id}/update-status', [OrganizationController::class, '
     Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/admin/dashboard', [UserController::class, 'admin_dashbored'])->name('admin.dashboard');
     });
-  
+

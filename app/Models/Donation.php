@@ -76,4 +76,32 @@ class Donation extends Model
         }
         return false;
     }
+
+    public static function fetchDonationsWithDetails($languageId)
+    {
+        return self::with([
+            'user.userDetail' => function ($query) use ($languageId) {
+                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+            },
+            'need.needDetail' => function ($query) use ($languageId) {
+                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+            }
+        ])->paginate(10);
+    }
+
+
+    public static function fetchOrganizationDonationsWithDetails($organizationId, $languageId)
+    {
+        return self::whereHas('need', function ($query) use ($organizationId) {
+            $query->where('organization_id', $organizationId);
+        })
+            ->with([
+                'user.userDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                },
+                'need.needDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                }
+            ])->paginate(10);
+    }
 }
