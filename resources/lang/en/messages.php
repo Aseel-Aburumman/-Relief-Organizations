@@ -302,6 +302,7 @@ return [
     'TrendsInDonations' => 'Trends in Donations Over Time',
     'Dates' => 'Dates',
     'Donations' => 'Donations',
+    'AboutWebsite' => 'About Website',
 
     'Contact' => 'Contact',
     'GetInTouch' => 'Get in Touch',

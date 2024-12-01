@@ -300,6 +300,7 @@ return [
     'TrendsInDonations' => 'اتجاهات التبرعات بمرور الوقت',
     'Dates' => 'التواريخ',
     'Donations' => 'التبرعات',
+    'AboutWebsite' => 'عن الموقع',
 
     'Contact' => 'اتصل بنا',
     'GetInTouch' => 'تواصل معنا',
