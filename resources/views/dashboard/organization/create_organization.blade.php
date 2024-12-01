@@ -28,90 +28,82 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ __('messages.NewOrganizationInformation') }}</h5>
 
-                    <form method="POST" action="{{ route('organization.store_organization') }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('organization.store_organization') }}" enctype="multipart/form-data">
                         @csrf
 
-                        <!-- Email -->
-                        <div class="col-md-6">
-                            <label for="email" class="form-label">{{ __('messages.EmailA') }}</label>
-                            <input type="email" name="email" class="form-control" id="email" required>
+                        <!-- Row 1: Email and Password -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="email" class="form-label">{{ __('messages.EmailA') }}</label>
+                                <input type="email" name="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="password" class="form-label">{{ __('messages.PasswordA') }}</label>
+                                <input type="password" name="password" class="form-control" id="password" required>
+                            </div>
                         </div>
 
-                        <!-- Password -->
-                        <div class="col-md-6">
-                            <label for="password" class="form-label">{{ __('messages.PasswordA') }}</label>
-                            <input type="password" name="password" class="form-control" id="password" required>
+                        <!-- Row 2: Organization Names -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="name_en" class="form-label">{{ __('messages.OrganizationNameA') }} (English)</label>
+                                <input type="text" name="name_en" class="form-control" id="name_en" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="name_ar" class="form-label">{{ __('messages.OrganizationNameA') }} (Arabic)</label>
+                                <input type="text" name="name_ar" class="form-control" id="name_ar" required>
+                            </div>
                         </div>
 
-                        <!-- Organization Name in English -->
-                        <div class="col-md-6">
-                            <label for="name_en" class="form-label">{{ __('messages.Organization NameA') }}
-                                (English)</label>
-                            <input type="text" name="name_en" class="form-control" id="name_en" required>
+                        <!-- Row 3: Descriptions -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="description_en" class="form-label">{{ __('messages.Description') }} (English)</label>
+                                <textarea name="description_en" class="form-control" id="description_en"></textarea>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="description_ar" class="form-label">{{ __('messages.Description') }} (Arabic)</label>
+                                <textarea name="description_ar" class="form-control" id="description_ar"></textarea>
+                            </div>
                         </div>
 
-                        <!-- Organization Name in Arabic -->
-                        <div class="col-md-6">
-                            <label for="name_ar" class="form-label">{{ __('messages.Organization NameA') }}
-                                (Arabic)</label>
-                            <input type="text" name="name_ar" class="form-control" id="name_ar" required>
+                        <!-- Row 4: Contact Information and Address -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="contact_info" class="form-label">{{ __('messages.ContactInformation') }}</label>
+                                <input type="text" class="form-control" id="contact_info" name="contact_info" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="address" class="form-label">{{ __('messages.AddressA') }}</label>
+                                <select class="form-select" id="address" name="address" required>
+                                    <option value="" disabled selected>{{ __('messages.Selectcountry') }}</option>
+                                    @foreach ($countries as $code => $country)
+                                        <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
 
-                        <!-- Description in English -->
-                        <div class="col-md-6">
-                            <label for="description_en" class="form-label">{{ __('messages.Description') }}
-                                (English)</label>
-                            <textarea name="description_en" class="form-control" id="description_en"></textarea>
+                        <!-- Row 5: Proof Document and Organization Image -->
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label for="proof_image" class="form-label">{{ __('messages.ProofDocument') }}</label>
+                                <input type="file" name="proof_image" class="form-control" id="proof_image">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="organization_image" class="form-label">{{ __('messages.OrganizationImage') }}</label>
+                                <input type="file" name="organization_image" class="form-control" id="organization_image">
+                            </div>
                         </div>
-
-                        <!-- Description in Arabic -->
-                        <div class="col-md-6">
-                            <label for="description_ar" class="form-label">{{ __('messages.Description') }}
-                                (Arabic)</label>
-                            <textarea name="description_ar" class="form-control" id="description_ar"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="contact_info" class="form-label">{{ __('messages.ContactInformation') }}</label>
-                            <input type="text" class="form-control" id="contact_info" name="contact_info" required>
-                        </div>
-                        <!-- Address -->
-                        <div class="mb-3">
-                            <label for="address" class="form-label">{{ __('messages.AddressA') }}</label>
-                            <select class="form-select" id="address" name="address" required>
-                                <option value="" disabled selected>{{ __('messages.Selectcountry') }} </option>
-                                @foreach ($countries as $code => $country)
-                                    <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <!-- Proof Image -->
-                        <div class="col-md-6">
-                            <label for="proof_image" class="form-label">{{ __('messages.ProofDocument') }} </label>
-                            <input type="file" name="proof_image" class="form-control" id="proof_image">
-                        </div>
-
-                        <!-- Organization Image -->
-                        <div class="col-md-6">
-                            <label for="organization_image"
-                                class="form-label">{{ __('messages.organizationImage') }}</label>
-                            <input type="file" name="organization_image" class="form-control" id="organization_image">
-                        </div>
-
+<br><br>
                         <!-- Submit Button -->
                         <div class="text-center">
                             <button type="submit" class="btn btn-primary">{{ __('messages.CreateOrganization') }}</button>
-                            <button type="reset" class="btn btn-secondary">{{ __('messages.Reset') }}</button>
                         </div>
                     </form>
-
-
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- JavaScript لإضافة الحقول بناءً على اللغة -->
 
 @endsection
