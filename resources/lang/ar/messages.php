@@ -301,4 +301,17 @@ return [
     'Dates' => 'التواريخ',
     'Donations' => 'التبرعات',
 
+    'Contact' => 'اتصل بنا',
+    'GetInTouch' => 'تواصل معنا',
+    'EnterMessage' => 'أدخل الرسالة',
+    'EnterYourName' => 'أدخل اسمك',
+    'Email' => 'البريد الإلكتروني',
+    'EnterSubject' => 'أدخل الموضوع',
+    'Send' => 'إرسال',
+    'Address' => 'العنوان',
+    'AddressDetails' => 'عمان، الأردن. عبدون، عمان 91770',
+    'PhoneNumber' => '+962 79 661 2365',
+    'WorkingHours' => 'الأحد إلى الخميس من 9 صباحًا إلى 6 مساءً',
+    'SupportEmail' => 'support@charifit.com',
+    'QueryInfo' => 'أرسل استفسارك في أي وقت!',
 ];
