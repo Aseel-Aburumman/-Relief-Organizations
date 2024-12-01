@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\UserController;
-
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Organization\OrganizationController;
 use App\Http\Controllers\Need\NeedController;
 use App\Http\Controllers\main\MainController;
@@ -78,7 +79,23 @@ Route::get('register0', [AuthController::class, 'showRegisterFormOrganization'])
 Route::post('/register/organization', [AuthController::class, 'registerOrganization'])->name('register.organization');
 Route::post('/login', [AuthController::class, 'login'])->name('login');      // Login route
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+Route::get('password/reset', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
+Route::post('password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+Route::post('password/reset', [AuthController::class, 'reset'])->name('password.update');
 
+// 
+Route::get('/test-email', function () {
+    try {
+        \Illuminate\Support\Facades\Mail::raw('This is a test email.', function ($message) {
+            $message->to('aburummanaseel8@gmail.com')
+                    ->subject('Test Email');
+        });
+        return 'Email sent successfully!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
 
 
 //donation

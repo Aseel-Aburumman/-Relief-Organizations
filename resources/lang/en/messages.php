@@ -2,6 +2,15 @@
 
 return [
 
+    'SignInA' => 'Sign In',
+    'EmailA' => 'Email',
+    'PasswordA' => 'Password',
+    'DonaccountA' => "Don't have an account?",
+    'SignUpA' => 'Sign Up',
+    'ForgotPassword' => 'Forgot Password?',
+    'SendResetLink' => 'Send Reset Link',
+    'ConfirmPassword' => 'Confirm Password',
+    'ResetPassword' => 'Reset Password',
 
     'bannerTitleA1' => 'Help',
     'bannerTitleA2' => 'the Children',

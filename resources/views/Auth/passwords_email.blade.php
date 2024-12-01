@@ -91,29 +91,21 @@
                 </h2>
 
                 <!-- Sign-In Form -->
-                <form action="{{ route('login') }}" method="POST">
+                <form action="{{ route('password.email') }}" method="POST">
                     @csrf
                     <div class="mb-3">
-                        <label for="email" class="form-label">{{ __('messages.EmailA') }}
-                        </label>
+                        <label for="email" class="form-label">{{ __('messages.EmailA') }}</label>
                         <input type="email" class="form-control" id="email" name="email" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">{{ __('messages.PasswordA') }}
-                        </label>
-                        <input type="password" class="form-control" id="password" name="password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary w-100">{{ __('messages.SignInA') }}
-                    </button>
+                    <button type="submit" class="btn btn-primary w-100">{{ __('messages.SendResetLink') }}</button>
                 </form>
+
                 <div class="text-center mt-3">
                     <p>{{ __('messages.DonaccountA') }}
                         <a href="{{ route('register.view') }}">{{ __('messages.SignUpA') }}
                         </a>
                     </p>
-                    <p>
-                        <a href="{{ route('password.request') }}">{{ __('messages.ForgotPassword') }}</a>
-                    </p>
+
                 </div>
             </div>
             <div class="image-section"></div>
