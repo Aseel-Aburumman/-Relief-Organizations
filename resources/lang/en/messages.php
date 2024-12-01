@@ -269,8 +269,23 @@ return [
     'Available' => 'Available',
     'PartiallyFulfilled' => 'Partially Fulfilled',
     'Fulfilled' => 'Fulfilled',
-    'Approved' => 'Approved'
-
+    'Approved' => 'Approved',
+    'AdminDashboard' => 'Admin Dashboard',
+    'Home' => 'Home',
+    'Dashboard' => 'Dashboard',
+    'Users' => 'Users',
+    'Organizations' => 'Organizations',
+    'Posts' => 'Posts',
+    'FullyDonatedNeeds' => 'Fully Donated Needs',
+    'WeeklyUsers' => 'Weekly Users',
+    'NeedsStatus' => 'Needs Status',
+    'OrganizationsStatus' => 'Organizations Status',
+    'UsersPerWeek' => 'Users Per Week',
+    'Available' => 'Available',
+    'PartiallyFulfilled' => 'Partially Fulfilled',
+    'Fulfilled' => 'Fulfilled',
+    'Approved' => 'Approved',
+    'WebsiteDescription' => 'The website highlights charitable organizations, providing full information about each one, while allowing users to easily explore all listed needs and follow posts documenting their delivery.',
 
 
 ];
