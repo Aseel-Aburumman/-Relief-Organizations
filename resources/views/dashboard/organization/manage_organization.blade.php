@@ -6,12 +6,11 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('messages.Home') }}</a></li>
-                <li class="breadcrumb-item">{{ __('messages.OrganizationControlCenter') }} </li>
+                <li class="breadcrumb-item">{{ __('messages.OrganizationControlCenter') }}</li>
                 <li class="breadcrumb-item active">{{ __('messages.ListOrganizations') }}</li>
             </ol>
         </nav>
     </div>
-    {{--  <!-- End Page Title -->  --}}
 
     <section class="section dashboard">
         <div class="row w-100">
@@ -24,7 +23,6 @@
                         </a>
                     </div>
 
-
                     <!-- Table with hoverable rows -->
                     <table class="table table-hover">
                         <thead>
@@ -32,6 +30,7 @@
                                 <th class="tableHide" scope="col">#</th>
                                 <th scope="col">{{ __('messages.OrganizationNameA') }}</th>
                                 <th scope="col">{{ __('messages.ContactInformation') }}</th>
+                                <th scope="col">{{ __('messages.Image') }}</th>
                                 <th scope="col">{{ __('messages.Description') }}</th>
                                 <th scope="col">{{ __('messages.AddressA') }}</th>
                                 <th class="tableHide" scope="col">{{ __('messages.DateCreated') }}</th>
@@ -44,8 +43,16 @@
                                     <th class="tableHide" scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $organization->userDetail->first()->name ?? 'N/A' }}</td>
                                     <td>{{ $organization->contact_info ?? 'N/A' }}</td>
-                                    <td>{{ \Illuminate\Support\Str::limit($organization->userDetail->first()->description ?? 'N/A', 50) }}
+                                    <td>
+                                        @if ($organization->image)
+                                        <img src="{{ asset('storage/organization_images/' . $organization->image->first()->image) }}"
+                                        alt="{{ $organization->userDetail->first()->name }}"
+                                                style="width: 50px; height: 50px; border-radius: 5px;">
+                                        @else
+                                            <span>{{ __('messages.NoImage') }}</span>
+                                        @endif
                                     </td>
+                                    <td>{{ \Illuminate\Support\Str::limit($organization->userDetail->first()->description ?? 'N/A', 50) }}</td>
                                     <td>{{ $organization->userDetail->first()->address ?? 'N/A' }}</td>
                                     <td class="tableHide">{{ $organization->created_at->format('Y-m-d') }}</td>
                                     <td class="actions">
@@ -73,4 +80,5 @@
             </div>
         </div>
     </section>
+    <br>
 @endsection

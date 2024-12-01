@@ -13,6 +13,7 @@ use App\Models\Donation;
 use App\Models\Need;
 use App\Models\UserDetail;
 use App\Models\Language;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -223,7 +224,34 @@ class UserController extends Controller
         $totalOrganizations = Organization::count();
         $totalPosts = Post::count();
         $fullyDonatedNeedsCount = Need::whereColumn('quantity_needed', 'donated_quantity')->count();
-
-        return view('dashboard.admin_dashboard', compact('totalUsers', 'totalOrganizations', 'totalPosts','fullyDonatedNeedsCount'));
+    
+        // عدد المستخدمين حسب الأسبوع
+        $weeklyUsers = DB::table('users')
+            ->selectRaw('WEEK(created_at) as week, COUNT(*) as count')
+            ->groupBy('week')
+            ->orderBy('week')
+            ->get();
+    
+        // حالة التبرعات
+        $needsStatus = DB::table('needs')
+            ->select('status', DB::raw('COUNT(*) as count'))
+            ->groupBy('status')
+            ->get();
+    
+        // عدد المنظمات حسب حالة الحساب
+        $organizationsStatus = DB::table('organizations')
+            ->select('status', DB::raw('COUNT(*) as count'))
+            ->groupBy('status')
+            ->get();
+    
+        return view('dashboard.admin_dashboard', compact(
+            'totalUsers',
+            'totalOrganizations',
+            'totalPosts',
+            'fullyDonatedNeedsCount',
+            'weeklyUsers',
+            'needsStatus',
+            'organizationsStatus'
+        ));
     }
 }

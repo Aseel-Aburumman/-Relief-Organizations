@@ -35,7 +35,28 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5009c5b097.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- library for charts-->
 
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            background-color: #f8f9fa;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            position: relative;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,13 +67,12 @@
 
     <!-- ======= Sidebar ======= -->
     @include('partials.sidebar_admin')
-    <!-- End Sidebar-->
+    <!-- End Sidebar -->
 
-
+    <!-- Main Content -->
     <main id="main" class="main">
         @yield('content')
     </main>
-
 
     <!-- ======= Footer ======= -->
     @include('partials.footer_admin')
@@ -70,10 +90,7 @@
     <script src="{{ asset('admin/vendor/simple-datatables/simple-datatables.js') }}"></script>
     <script src="{{ asset('admin/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('admin/vendor/php-email-form/validate.js') }}"></script>
-    <!-- Add this to the head or before the closing </body> tag -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Template Main JS File -->
     <script src="{{ asset('admin/js/main.js') }}"></script>
 
 </body>
