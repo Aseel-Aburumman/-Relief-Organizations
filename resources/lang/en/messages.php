@@ -255,7 +255,21 @@ return [
     'Pages' => 'Pages',
 
     'FulfilledNeeds' => 'Fulfilled Needs',
-
+    'AdminDashboard' => 'Admin Dashboard',
+    'Home' => 'Home',
+    'Dashboard' => 'Dashboard',
+    'Users' => 'Users',
+    'Organizations' => 'Organizations',
+    'Posts' => 'Posts',
+    'FullyDonatedNeeds' => 'Fully Donated Needs',
+    'WeeklyUsers' => 'Weekly Users',
+    'NeedsStatus' => 'Needs Status',
+    'OrganizationsStatus' => 'Organizations Status',
+    'UsersPerWeek' => 'Users Per Week',
+    'Available' => 'Available',
+    'PartiallyFulfilled' => 'Partially Fulfilled',
+    'Fulfilled' => 'Fulfilled',
+    'Approved' => 'Approved'
 
 
 

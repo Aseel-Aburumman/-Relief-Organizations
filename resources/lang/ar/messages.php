@@ -253,5 +253,19 @@ return [
     'Pages' => 'الصفحات',
 
     'FulfilledNeeds' => 'الحاجات المستوفاة',
-
+    'AdminDashboard' => 'لوحة تحكم المدير',
+    'Home' => 'الرئيسية',
+    'Dashboard' => 'لوحة التحكم',
+    'Users' => 'المستخدمون',
+    'Organizations' => 'المنظمات',
+    'Posts' => 'المنشورات',
+    'FullyDonatedNeeds' => 'الاحتياجات المكتملة',
+    'WeeklyUsers' => 'المستخدمون الأسبوعيون',
+    'NeedsStatus' => 'حالة الاحتياجات',
+    'OrganizationsStatus' => 'حالة المنظمات',
+    'UsersPerWeek' => 'عدد المستخدمين لكل أسبوع',
+    'Available' => 'متوفرة',
+    'PartiallyFulfilled' => 'تم التبرع بجزء منها',
+    'Fulfilled' => 'تمت تلبيتها',
+    'Approved' => 'تمت الموافقة',
 ];
