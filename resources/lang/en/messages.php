@@ -287,5 +287,21 @@ return [
     'Approved' => 'Approved',
     'WebsiteDescription' => 'The website highlights charitable organizations, providing full information about each one, while allowing users to easily explore all listed needs and follow posts documenting their delivery.',
 
+    'NeedsVsDonated' => 'Needs vs Donated Quantities',
+    'DonationTrends' => 'Trends in Donations',
+    'UnfulfilledNeeds' => 'Unfulfilled Needs',
+    'NeedID' => 'Need ID',
+    'Category' => 'Category',
+    'QuantityNeeded' => 'Quantity Needed',
+    'DonatedQuantity' => 'Donated Quantity',
+    'Status' => 'Status',
+    'QuantityNeeded' => 'Quantity Needed',
+    'DonatedQuantity' => 'Donated Quantity',
+
+    'TotalDonations' => 'Total Donations',
+    'TrendsInDonations' => 'Trends in Donations Over Time',
+    'Dates' => 'Dates',
+    'Donations' => 'Donations',
+
 
 ];

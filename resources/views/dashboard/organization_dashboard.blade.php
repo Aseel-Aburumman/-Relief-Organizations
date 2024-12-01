@@ -71,7 +71,7 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Needs vs Donated Quantities</h5>
+                        <h5 class="card-title">{{ __('messages.NeedsVsDonated') }}</h5>
                         <canvas id="needsChart"></canvas>
                     </div>
                 </div>
@@ -80,85 +80,80 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title">Trends in Donations</h5>
+                        <h5 class="card-title">{{ __('messages.DonationTrends') }}</h5>
                         <canvas id="lineChart"></canvas>
                     </div>
                 </div>
             </div>
 
 
-<div class="col-lg-12">
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title">Unfulfilled Needs</h5>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Need ID</th>
-                        {{-- <th>organization name</th> --}}
-
-                        <th>Category</th>
-                        <th>Quantity Needed</th>
-                        <th>Donated Quantity</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($needs as $need)
-                        @if($need->status == 'Available')
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                                <td>{{ $need->id }}</td>
-                                {{-- <td>{{ $need->user->userDetail->name ?? 'N/A' }}</td> --}}
-                                <td>{{ $need->category->name }}</td>
-                                <td>{{ $need->quantity_needed }}</td>
-                                <td>{{ $need->donated_quantity }}</td>
-                                <td>{{ $need->status }}</td>
-                            </tr>
-                        @endif
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ __('messages.UnfulfilledNeeds') }}</h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>{{ __('messages.NeedID') }}</th>
+                                    <th>{{ __('messages.Category') }}</th>
+                                    <th>{{ __('messages.QuantityNeeded') }}</th>
+                                    <th>{{ __('messages.DonatedQuantity') }}</th>
+                                    <th>{{ __('messages.Status') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($needs as $need)
+                                    @if($need->status == 'Available')
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $need->id }}</td>
+                                            <td>{{ $need->category->name }}</td>
+                                            <td>{{ $need->quantity_needed }}</td>
+                                            <td>{{ $need->donated_quantity }}</td>
+                                            <td>{{ $need->status }}</td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
 
-    <script>
-        //Needs vs Donated Quantities
-        const ctx = document.getElementById('needsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: @json($needNames),
-                datasets: [
-                    {
-                        label: 'Quantity Needed',
-                        data: @json($needsData),
-                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        borderWidth: 1
+            <script>
+                const ctx = document.getElementById('needsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: @json($needNames),
+                        datasets: [
+                            {
+                                label: "{{ __('messages.QuantityNeeded') }}", // ترجمة "Quantity Needed"
+                                data: @json($needsData),
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                borderWidth: 1
+                            },
+                            {
+                                label: "{{ __('messages.DonatedQuantity') }}", // ترجمة "Donated Quantity"
+                                data: @json($donatedData),
+                                backgroundColor: 'rgba(60, 199, 143, 0.2)',
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 1
+                            }
+                        ]
                     },
-                    {
-                        label: 'Donated Quantity',
-                        data: @json($donatedData),
-                        backgroundColor: 'rgba(60, 199, 143, 0.2)',
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        borderWidth: 1
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
                     }
-                ]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
+                });
         // //Trends in Donations
         // const lineCtx = document.getElementById('lineChart').getContext('2d');
         // new Chart(lineCtx, {
@@ -186,7 +181,7 @@
         //         }
         //     }
         // });
-    const dates = @json($dates);
+        const dates = @json($dates);
     const donationsByDate = @json($donationsByDate);
 
     // Trends in Donations (Line Chart)
@@ -196,7 +191,7 @@
         data: {
             labels: dates,
             datasets: [{
-                label: 'Total Donations',
+                label: "{{ __('messages.TotalDonations') }}", // ترجمة "Total Donations"
                 data: donationsByDate,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(60, 199, 143, 0.2)',
@@ -209,7 +204,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: 'Trends in Donations Over Time'
+                    text: "{{ __('messages.TrendsInDonations') }}" // ترجمة "Trends in Donations Over Time"
                 }
             },
             scales: {
@@ -217,7 +212,7 @@
                     beginAtZero: false,
                     title: {
                         display: true,
-                        text: 'Dates'
+                        text: "{{ __('messages.Dates') }}" // ترجمة "Dates"
                     },
                     ticks: {
                         autoSkip: true,
@@ -228,7 +223,7 @@
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: 'Donations'
+                        text: "{{ __('messages.Donations') }}" // ترجمة "Donations"
                     }
                 }
             }
