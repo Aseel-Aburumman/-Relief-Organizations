@@ -35,6 +35,7 @@
     <!-- Template Main CSS File -->
     <link href="{{ asset('admin/css/style.css') }}" rel="stylesheet">
     <script src="https://kit.fontawesome.com/5009c5b097.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- library for charts-->
 
 </head>
 
