@@ -303,5 +303,18 @@ return [
     'Dates' => 'Dates',
     'Donations' => 'Donations',
 
+    'Contact' => 'Contact',
+    'GetInTouch' => 'Get in Touch',
+    'EnterMessage' => 'Enter Message',
+    'EnterYourName' => 'Enter your name',
+    'Email' => 'Email',
+    'EnterSubject' => 'Enter Subject',
+    'Send' => 'Send',
+    'Address' => 'Address',
+    'AddressDetails' => 'Amman, Jordan. Abdali, Am 91770',
+    'PhoneNumber' => '+962 79 661 2365',
+    'WorkingHours' => 'Sun to Thu 9am to 6pm',
+    'SupportEmail' => 'support@charifit.com',
+    'QueryInfo' => 'Send us your query anytime!',
 
 ];

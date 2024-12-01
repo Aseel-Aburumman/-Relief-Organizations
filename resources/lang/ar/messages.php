@@ -300,8 +300,6 @@ return [
     'TrendsInDonations' => 'اتجاهات التبرعات بمرور الوقت',
     'Dates' => 'التواريخ',
     'Donations' => 'التبرعات',
-    'AboutWebsite' => 'حول الموقع',
-
 
     'Contact' => 'اتصل بنا',
     'GetInTouch' => 'تواصل معنا',
@@ -316,6 +314,7 @@ return [
     'WorkingHours' => 'الأحد إلى الخميس من 9 صباحًا إلى 6 مساءً',
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'أرسل استفسارك في أي وقت!',
+
 ];
 
 
