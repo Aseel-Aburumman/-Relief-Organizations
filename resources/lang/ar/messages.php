@@ -208,7 +208,7 @@ return [
     'suredeleteorganization' => 'هل أنت متأكد أنك تريد حذف هذه المنظمة',
     'PendingOrganizations' => 'المنظمات المعلقة',
     'Approve' => 'اعتماد',
-
+    'item'=>'عنصر',
     'CreateNewPost' => 'إنشاء منشور جديد',
     'PostControlCenter' => 'مركز التحكم بالمنشورات',
     'NewPostInformation' => 'معلومات المنشور الجديد',
