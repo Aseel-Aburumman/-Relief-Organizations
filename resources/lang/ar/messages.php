@@ -1,6 +1,15 @@
 <?php
 
 return [
+    'SignInA' => 'تسجيل الدخول',
+    'EmailA' => 'البريد الإلكتروني',
+    'PasswordA' => 'كلمة المرور',
+    'DonaccountA' => 'ليس لديك حساب؟',
+    'SignUpA' => 'إنشاء حساب',
+    'ForgotPassword' => 'نسيت كلمة المرور؟',
+    'SendResetLink' => 'إرسال رابط إعادة التعيين',
+    'ConfirmPassword' => 'تأكيد كلمة المرور',
+    'ResetPassword' => 'إعادة تعيين كلمة المرور',
 
 
     'bannerTitleA1' => 'ساعد  ',

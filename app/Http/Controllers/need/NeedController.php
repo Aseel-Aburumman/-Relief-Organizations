@@ -7,6 +7,7 @@ use App\Models\User;
 
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\NeedRequest;
+use App\Services\NeedNotificationService;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -22,6 +23,11 @@ use Illuminate\Support\Facades\App;
 
 class NeedController extends Controller
 {
+    protected $notificationService;
+    public function __construct(NeedNotificationService $notificationService)
+    {
+        $this->notificationService = $notificationService;
+    }
 
 
     public function getallNeed(Request $request)
@@ -114,6 +120,18 @@ class NeedController extends Controller
             if ($request->hasFile('image')) {
                 NeedImage::uploadNeedImage($need->id, $request->file('image'));
             }
+
+            $needDetails = [
+                'organization_id' => $request->input('organization_id'),
+
+                'item_name' => $request->input('item_name'),
+                'description' => $request->input('description'),
+                'category' => Category::find($request->input('category_id'))->name,
+                'quantity_needed' => $request->input('quantity_needed'),
+                'link' => route('donation.show', ['id' => $need->id]),
+            ];
+            $this->notificationService->notifyUsers($needDetails);
+
 
             return redirect()->route('organization.manage_Needs')->with('success', 'Need created successfully.');
         } catch (\Exception $e) {
