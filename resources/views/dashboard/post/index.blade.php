@@ -16,15 +16,22 @@
         <div class="row">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">{{ __('messages.PostList') }}</h5>
-
-                    @if (session('success'))
-                        <div class="alert alert-success">{{ session('success') }}</div>
-                    @endif
-
-                    <a href="{{ route('posts.create') }}"
-                        class="btn btn-primary mb-3">{{ __('messages.CreateNewPost') }}</a>
-
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h5 class="card-title">{{ __('messages.PostList') }}</h5>
+                        @if (session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                        @endif
+                        <a href="{{ route('posts.create') }}" class="btn btn-success mb-3"> <i
+                                class="fa-solid fa-user-plus"></i>{{ __('messages.CreateNewPost') }}</a>
+                    </div>
+                    <form action="{{ route('posts.manage') }}" method="GET" class="d-flex mb-3">
+                        <input type="text" name="search" class="form-control"
+                            placeholder="{{ __('messages.Searchbyname') }}..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary ms-2">{{ __('messages.Search') }}</button>
+                        <a href="{{ route('posts.manage') }}"
+                            class="btn btn-secondary ms-2">{{ __('messages.Reset') }}</a>
+                        </a>
+                    </form>
                     <table class="table table-hover">
                         <thead>
                             <tr>

@@ -13,9 +13,9 @@ use App\Models\User;
 use App\Models\Language;
 use App\Models\Donation;
 use Illuminate\Http\Request;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\DonationsExport;
 use Barryvdh\DomPDF\Facade\Pdf;
+use App\Events\DonationUpdated;
 
 class DonationController extends Controller
 {
@@ -79,16 +79,16 @@ class DonationController extends Controller
             'donor_id' => auth()->id(),
             'quantity' => $request->donation_amount,
         ]);
+        event(new DonationUpdated($donation, 'created'));
+        // $need->increment('donated_quantity', $request->donation_amount);
 
-        $need->increment('donated_quantity', $request->donation_amount);
+        // if ($need->donated_quantity >= $need->quantity_needed) {
+        //     $need->update(['status' => 'Fulfilled']);
+        // }
 
-        if ($need->donated_quantity >= $need->quantity_needed) {
-            $need->update(['status' => 'Fulfilled']);
-        }
-
-        if ($request->ajax()) {
-            return new DonationResource($donation);
-        }
+        // if ($request->ajax()) {
+        //     return new DonationResource($donation);
+        // }
 
         return redirect()->route('donation.show', $need->id)
             ->with('success', __('Thank you for your donation!'));
@@ -108,23 +108,25 @@ class DonationController extends Controller
         }
     }
 
-    public function listDonations()
+    public function listDonations(Request $request)
     {
         try {
             $user = Auth::user();
             $user = User::find($user->id);
 
+            $search = $request->input('search');
             $languageId = Language::getLanguageIdByLocale();
-            if ($user->hasRole('admin')) {
-                $donations = Donation::fetchDonationsWithDetails($languageId);
-            } elseif ($user->hasRole('organization')) {
-                $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
 
-                $donations = Donation::fetchOrganizationDonationsWithDetails($organization->id, $languageId);
+            if ($user->hasRole('admin')) {
+                $donations = Donation::fetchDonationsWithDetails($search, $languageId);
+            } elseif ($user->hasRole('organization')) {
+                $organization = Organization::fetchOrganizationWithNeedsAndDonations($user->id);
+                $donations = Donation::fetchOrganizationDonationsWithDetails($search, $organization->id, $languageId);
             }
+
             return view('dashboard.donations.manage_donations', compact('donations'));
         } catch (\Exception $e) {
-            Log::error('Error fetching needs: ' . $e->getMessage());
+            Log::error('Error fetching donations: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while fetching the donations. Please try again.');
         }
     }
@@ -151,16 +153,18 @@ class DonationController extends Controller
         $validatedData = $request->validated();
         $donation = Donation::findOrFail($id);
         $previousQuantity = $donation->quantity;
-
         $donation->update([
             'need_id' => $validatedData['need_id'],
 
             'quantity' => $validatedData['quantity'],
         ]);
+        // dd($previousQuantity);
 
-        $need = $donation->need;
-        $need->donated_quantity = $need->donated_quantity - $previousQuantity + $validatedData['quantity'];
-        $need->save();
+        event(new DonationUpdated($donation, 'updated', $previousQuantity));
+
+        // $need = $donation->need;
+        // $need->donated_quantity = $need->donated_quantity - $previousQuantity + $validatedData['quantity'];
+        // $need->save();
 
         return redirect()
             ->route('donations.index')
@@ -170,6 +174,8 @@ class DonationController extends Controller
     public function deleteDonation($id)
     {
         $donation = Donation::findOrFail($id);
+        event(new DonationUpdated($donation, 'deleted'));
+
         $donation->delete();
 
         return redirect()

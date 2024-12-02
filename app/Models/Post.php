@@ -68,6 +68,27 @@ class Post extends Model
         return self::all();
     }
 
+
+    public static function fetchPostsWithImagesWityhoutLangSearch($organizationId, $search = null)
+    {
+        return self::with('images')
+            ->where('organization_id', $organizationId)
+            ->when($search, function ($query, $search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->paginate(10);
+    }
+
+    public static function getAllPostsSearch($search = null)
+    {
+        return self::when($search, function ($query, $search) {
+                $query->where('title', 'like', '%' . $search . '%');
+            })
+            ->with('images')
+            ->paginate(10);
+    }
+
+
     public static function getPostById($id)
     {
         return self::findOrFail($id);

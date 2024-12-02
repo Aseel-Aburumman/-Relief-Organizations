@@ -77,23 +77,12 @@ class Donation extends Model
         return false;
     }
 
-    public static function fetchDonationsWithDetails($languageId)
+    public static function fetchDonationsWithDetails($search = null, $languageId)
     {
-        return self::with([
-            'user.userDetail' => function ($query) use ($languageId) {
-                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-            },
-            'need.needDetail' => function ($query) use ($languageId) {
-                $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-            }
-        ])->paginate(10);
-    }
-
-
-    public static function fetchOrganizationDonationsWithDetails($organizationId, $languageId)
-    {
-        return self::whereHas('need', function ($query) use ($organizationId) {
-            $query->where('organization_id', $organizationId);
+        return self::when($search, function ($query, $search) {
+            return $query->whereHas('user.userDetail', function ($subQuery) use ($search) {
+                $subQuery->where('name', 'like', '%' . $search . '%');
+            });
         })
             ->with([
                 'user.userDetail' => function ($query) use ($languageId) {
@@ -102,6 +91,28 @@ class Donation extends Model
                 'need.needDetail' => function ($query) use ($languageId) {
                     $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
                 }
-            ])->paginate(10);
+            ])
+            ->paginate(10);
+    }
+
+    public static function fetchOrganizationDonationsWithDetails($search = null, $organizationId, $languageId)
+    {
+        return self::whereHas('need', function ($query) use ($organizationId) {
+            $query->where('organization_id', $organizationId);
+        })
+            ->when($search, function ($query, $search) {
+                return $query->whereHas('user.userDetail', function ($subQuery) use ($search) {
+                    $subQuery->where('name', 'like', '%' . $search . '%');
+                });
+            })
+            ->with([
+                'user.userDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                },
+                'need.needDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                }
+            ])
+            ->paginate(10);
     }
 }
