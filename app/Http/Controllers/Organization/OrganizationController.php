@@ -40,11 +40,11 @@ class OrganizationController extends Controller
         if (!$organization) {
             return redirect()->back()->with('error', 'No organization found for the logged-in user.');
         }
-          // Get basic metrics
-    $needs = $organization->need;
-    $totalDonatedQuantity = $needs->sum('donated_quantity');
-    $totalNeeds = $needs->count();
-    $totalPendingNeeds = $needs->where('status', 'Available')->count();
+        // Get basic metrics
+        $needs = $organization->need;
+        $totalDonatedQuantity = $needs->sum('donated_quantity');
+        $totalNeeds = $needs->count();
+        $totalPendingNeeds = $needs->where('status', 'Available')->count();
 
 
         $totalDonations = Donation::whereIn('need_id', function ($query) use ($organization) {
@@ -53,46 +53,46 @@ class OrganizationController extends Controller
                 ->where('organization_id', $organization->id);
         })->count();
 
-    $needsData = $needs->pluck('quantity_needed');
-    $donatedData = $needs->pluck('donated_quantity');
-    $needNames = $needs->pluck('id');
-    $organizationsWithDonations = Organization::with('need.donations')->get();
-    $user = User::with('organization')->find(auth()->id());
-// dd($user->organization);
+        $needsData = $needs->pluck('quantity_needed');
+        $donatedData = $needs->pluck('donated_quantity');
+        $needNames = $needs->pluck('id');
+        $organizationsWithDonations = Organization::with('need.donations')->get();
+        $user = User::with('organization')->find(auth()->id());
+        // dd($user->organization);
 
-$donationsByOrganization = $organizationsWithDonations->map(function ($organization) {
-    return [
-        'organization_name' => $organization->name,
-        'total_donations' => $organization->need->flatMap->donations->sum('quantity'),
-    ];
-});
-$donationsTrends = Donation::selectRaw('DATE(created_at) as date, SUM(quantity) as total_donations')
-        ->whereIn('need_id', $needs->pluck('id'))
-        ->groupBy('date')
-        ->orderBy('date')
-        ->get()
-        ->pluck('total_donations', 'date')
-        ->toArray();
+        $donationsByOrganization = $organizationsWithDonations->map(function ($organization) {
+            return [
+                'organization_name' => $organization->name,
+                'total_donations' => $organization->need->flatMap->donations->sum('quantity'),
+            ];
+        });
+        $donationsTrends = Donation::selectRaw('DATE(created_at) as date, SUM(quantity) as total_donations')
+            ->whereIn('need_id', $needs->pluck('id'))
+            ->groupBy('date')
+            ->orderBy('date')
+            ->get()
+            ->pluck('total_donations', 'date')
+            ->toArray();
 
         $dates = array_keys($donationsTrends);
         $donationsByDate = array_values($donationsTrends);
 
-    return view('dashboard.organization_dashboard', compact(
-        'organization',
-        'needs',
-        'totalDonatedQuantity',
-        'totalNeeds',
-        'totalPendingNeeds',
-        'totalDonations',
-        'needsData',
-        'donatedData',
-        'needNames',
-        'donationsByOrganization',
-        'donationsTrends',
-        'dates',
-        'donationsByDate'
+        return view('dashboard.organization_dashboard', compact(
+            'organization',
+            'needs',
+            'totalDonatedQuantity',
+            'totalNeeds',
+            'totalPendingNeeds',
+            'totalDonations',
+            'needsData',
+            'donatedData',
+            'needNames',
+            'donationsByOrganization',
+            'donationsTrends',
+            'dates',
+            'donationsByDate'
 
-    ));
+        ));
     }
 
 
