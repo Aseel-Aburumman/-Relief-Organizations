@@ -4,17 +4,17 @@ namespace App\Http\Controllers\Donation;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequest;
 use App\Http\Resources\DonationResource;
 use App\Models\Need;
 use App\Models\Organization;
-
 use App\Models\User;
 use App\Models\Language;
 use App\Models\Donation;
 use Illuminate\Http\Request;
+use App\Exports\DonationsExport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Events\DonationUpdated;
 
 class DonationController extends Controller
@@ -96,6 +96,17 @@ class DonationController extends Controller
 
 
 
+    public function exportPdf()
+    {
+        try {
+            $donations = Donation::with(['need.needDetail', 'user.userDetail'])->get();
+            $pdf = Pdf::loadView('exports.donations-pdf', compact('donations'));
+            return $pdf->download('donations.pdf');
+        } catch (\Exception $e) {
+            Log::error('Error exporting PDF: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'An error occurred while generating the PDF. Please try again.');
+        }
+    }
 
     public function listDonations(Request $request)
     {

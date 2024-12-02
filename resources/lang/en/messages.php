@@ -129,6 +129,7 @@ return [
 
 
 
+
     // BLOG pages
 
     'PostsA' => 'Posts',
@@ -321,8 +322,9 @@ return [
     'TrendsInDonations' => 'Trends in Donations Over Time',
     'Dates' => 'Dates',
     'Donations' => 'Donations',
-    'AboutWebsite' => 'About Website',
 
+
+//contact
     'Contact' => 'Contact',
     'GetInTouch' => 'Get in Touch',
     'EnterMessage' => 'Enter Message',
@@ -336,5 +338,7 @@ return [
     'WorkingHours' => 'Sun to Thu 9am to 6pm',
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'Send us your query anytime!',
+    'Print' => 'Print'
+
 
 ];

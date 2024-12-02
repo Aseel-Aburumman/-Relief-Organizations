@@ -146,6 +146,11 @@ Route::group([
     Route::get('/donations/{id}', [DonationController::class, 'showDonation'])->name('donations.show');
 
 
+    Route::get('/donations/export/excel', [DonationController::class, 'exportExcel'])->name('donations.export.excel');
+    Route::get('/donations/export/pdf', [DonationController::class, 'exportPdf'])->name('donations.export.pdf');
+
+
+
     Route::get('/user/donations', [DonationController::class, 'listUserDonations'])->name('donations.user_donations');
 
 
