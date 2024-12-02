@@ -120,39 +120,53 @@
                                         @csrf
                                         @method('PUT')
                                         <!-- Language Selector -->
-                                        <div class="col-md-6">
-                                            <label for="language" class="form-label">{{ __('messages.SelectLanguage') }}
+                                        <div class="row mb-3 mt-3">
+                                            <label for="language"
+                                                class="col-md-4 col-lg-3 col-form-label">{{ __('messages.SelectLanguage') }}
                                             </label>
-                                            <select id="language-selector" class="form-control">
-                                                <option value="">{{ __('messages.SelectLanguage') }}
-                                                </option>
-                                                @foreach ($languages as $language)
-                                                    <option value="{{ $language->key }}">{{ $language->name }}</option>
-                                                @endforeach
-                                            </select>
+                                            <div class="col-md-8 col-lg-9">
+
+                                                <select id="language-selector" class="form-control">
+                                                    <option value="">{{ __('messages.SelectLanguage') }}
+                                                    </option>
+                                                    @foreach ($languages as $language)
+                                                        <option value="{{ $language->key }}">{{ $language->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
                                         </div>
 
                                         <!-- Dynamic Fields Container -->
                                         <div id="language-fields-container">
                                             @foreach ($userDetail as $detail)
-                                                <div class="col-md-12" id="fields-{{ $detail->language->key }}">
-                                                    <label for="name_{{ $detail->language->key }}" class="form-label">
+                                                <div class="row mb-3 mt-3" id="fields-{{ $detail->language->key }}">
+                                                    <label for="name_{{ $detail->language->key }}"
+                                                        class="col-md-4 col-lg-3 col-form-label">
                                                         {{ __('messages.Name') }}
                                                         ({{ strtoupper($detail->language->key) }})
                                                     </label>
-                                                    <input type="text" name="name[{{ $detail->language->key }}]"
-                                                        class="form-control" id="name_{{ $detail->language->key }}"
-                                                        value="{{ $detail->name }}">
+                                                    <div class="col-md-8 col-lg-9">
+
+                                                        <input type="text" name="name[{{ $detail->language->key }}]"
+                                                            class="form-control" id="name_{{ $detail->language->key }}"
+                                                            value="{{ $detail->name }}">
+                                                    </div>
 
                                                     @if ($user->hasRole('organization'))
                                                         @foreach ($organizationDetail as $detail)
                                                             <label for="description_{{ $detail->language->key }}"
-                                                                class="form-label">
+                                                                class="col-md-4 col-lg-3 col-form-label">
                                                                 {{ __('messages.Description') }}
                                                                 ({{ strtoupper($detail->language->key) }})
                                                             </label>
-                                                            <textarea name="description[{{ $detail->language->key }}]" class="form-control"
-                                                                id="description_{{ $detail->language->key }}">{{ $detail->description }}</textarea>
+                                                            <div class="col-md-8 col-lg-9">
+
+                                                                <textarea name="description[{{ $detail->language->key }}]" class="form-control"
+                                                                    id="description_{{ $detail->language->key }}">{{ $detail->description }}</textarea>
+
+                                                            </div>
                                                         @endforeach
                                                     @endif
                                                 </div>
@@ -160,7 +174,7 @@
                                         </div>
 
                                         <!-- Email Field -->
-                                        <div class="row mb-3">
+                                        <div class="row mb-3 mt-3">
                                             <label for="email"
                                                 class="col-md-4 col-lg-3 col-form-label">{{ __('messages.EmailA') }}</label>
                                             <div class="col-md-8 col-lg-9">

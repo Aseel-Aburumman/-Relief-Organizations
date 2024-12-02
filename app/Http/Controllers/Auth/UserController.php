@@ -46,91 +46,7 @@ class UserController extends Controller
         return view('dashboard.profile', compact('user', 'userDetail', 'organizationDetail', 'countries', 'languages'));
     }
 
-    // public function updateProfile(Request $request)
-    // {
-    //     try {
-    //         $user = Auth::user();
-    //         $user = User::find(Auth::user()->id);
 
-    //         if ($user->hasRole('organization')) {
-    //             // Update general user fields
-    //             $user->email = $request->email;
-    //             $user->password = Hash::make($request->password);
-    //             $user->save();
-
-    //             // Update organization-specific details
-    //             if ($request->has('contact_info')) {
-    //                 $user->organization->contact_info = $request->contact_info;
-    //                 $user->organization->save();
-    //             }
-
-    //             // Handle multilingual organization details
-    //             $organizationDetails = $request->except(['email', 'password', 'contact_info', 'image']);
-    //             foreach ($organizationDetails as $key => $value) {
-    //                 preg_match('/\((en|ar)\)$/', $key, $matches);
-    //                 if ($matches) {
-    //                     $language = $matches[1];
-    //                     $attribute = strtok($key, '(');
-    //                     $detail = UserDetail::updateOrCreate(
-    //                         [
-    //                             'organization_id' => $user->organization->id,
-    //                             'language_id' => $language === 'en' ? 1 : 2,
-    //                         ],
-    //                         [
-    //                             $attribute => $value,
-    //                         ]
-    //                     );
-    //                 }
-    //             }
-
-    //             // Handle image upload
-    //             if ($request->hasFile('image')) {
-    //                 $path = $request->file('image')->store('public/images');
-    //                 $user->organization->profile_picture = $path;
-    //                 $user->organization->save();
-    //             }
-    //         } elseif ($user->hasRole('doner')) {
-    //             // Update donor general fields
-    //             $user->email = $request->email;
-    //             $user->password = Hash::make($request->password);
-    //             $user->save();
-
-    //             // Handle multilingual donor details
-    //             $donorDetails = $request->except(['email', 'password', 'address']);
-    //             foreach ($donorDetails as $key => $value) {
-    //                 preg_match('/\((en|ar)\)$/', $key, $matches);
-    //                 if ($matches) {
-    //                     $language = $matches[1];
-    //                     $attribute = strtok($key, '(');
-    //                     $detail = UserDetail::updateOrCreate(
-    //                         [
-    //                             'user_id' => $user->id,
-    //                             'language_id' => $language === 'en' ? 1 : 2,
-    //                         ],
-    //                         [
-    //                             $attribute => $value,
-    //                         ]
-    //                     );
-    //                 }
-    //             }
-
-    //             // Update address
-    //             if ($request->has('address')) {
-    //                 $userDetail = UserDetail::firstOrCreate(
-    //                     ['user_id' => $user->id, 'language_id' => 1],
-    //                     ['address' => $request->address]
-    //                 );
-    //                 $userDetail->address = $request->address;
-    //                 $userDetail->save();
-    //             }
-    //         }
-
-    //         return redirect()->route('profile.view')->with('success', 'Profile updated successfully.');
-    //     } catch (\Exception $e) {
-    //         Log::error('Error updating profile: ' . $e->getMessage());
-    //         return redirect()->back()->with('error', 'An error occurred while updating the profile. Please try again.');
-    //     }
-    // }
     public function updateProfile(Request $request)
     {
         try {
@@ -187,36 +103,59 @@ class UserController extends Controller
 
 
 
-    public function doner_dashboard()
+    public function doner_dashboard(Request $request)
     {
-        $languageId = Language::getLanguageIdByLocale();
+        try {
+            $languageId = Language::getLanguageIdByLocale();
+            $user = Auth::user();
+            $user = User::find($user->id);
+            $search = $request->input('search');
+            $filterDate = $request->input('filter_date');
 
+            $donationsQuery = Donation::with([
+                'need.needDetail' => function ($query) use ($languageId) {
+                    $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
+                },
+                'need.organization'
+            ])
+                ->where('donor_id', $user->id);
 
+            // Apply search filter by need name
+            if ($search) {
+                $donationsQuery->whereHas('need.needDetail', function ($query) use ($search) {
+                    $query->where('item_name', 'like', '%' . $search . '%');
+                });
+            }
 
-        $user = Auth::user();
-        $user = User::find(Auth::user()->id);
-        if ($user->hasRole('doner')) {
+            // Apply date filter
+            if ($filterDate) {
+                $donationsQuery->whereDate('created_at', $filterDate);
+            }
 
+            $donations = $donationsQuery->orderBy('created_at', 'desc')->paginate(5);
 
-            $donations = Donation::where('user_id', $user->id);
+            // Fetch recently added needs
             $needs = Need::with(['needDetail' => function ($query) use ($languageId) {
                 $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
             }])
-                ->take(4)
+                ->orderBy('created_at', 'desc')
+                ->take(6)
                 ->get();
 
-
+            // Fetch latest posts (news or updates)
             $posts = Post::with('images')
                 ->where('lang_id', $languageId)
                 ->orderBy('created_at', 'desc')
-                ->take(10)
+                ->take(6)
                 ->get();
 
             return view('dashboard.doner_dashboard', compact('donations', 'needs', 'posts'));
-        } else {
-            return redirect()->route('index')->with('error', 'dont have the right roles');
+        } catch (\Exception $e) {
+            Log::error('Error loading donor dashboard: ' . $e->getMessage());
+            return redirect()->route('index')->with('error', 'An error occurred while loading the dashboard.');
         }
     }
+
 
     public function admin_dashbored()
     {
@@ -224,26 +163,26 @@ class UserController extends Controller
         $totalOrganizations = Organization::count();
         $totalPosts = Post::count();
         $fullyDonatedNeedsCount = Need::whereColumn('quantity_needed', 'donated_quantity')->count();
-    
+
         // عدد المستخدمين حسب الأسبوع
         $weeklyUsers = DB::table('users')
             ->selectRaw('WEEK(created_at) as week, COUNT(*) as count')
             ->groupBy('week')
             ->orderBy('week')
             ->get();
-    
+
         // حالة التبرعات
         $needsStatus = DB::table('needs')
             ->select('status', DB::raw('COUNT(*) as count'))
             ->groupBy('status')
             ->get();
-    
+
         // عدد المنظمات حسب حالة الحساب
         $organizationsStatus = DB::table('organizations')
             ->select('status', DB::raw('COUNT(*) as count'))
             ->groupBy('status')
             ->get();
-    
+
         return view('dashboard.admin_dashboard', compact(
             'totalUsers',
             'totalOrganizations',

@@ -27,7 +27,7 @@
                   <div class="col-xl-4 col-md-6 col-lg-4">
                       <div class="footer_widget">
                           <h3 class="footer_title">
-                              Services
+                              {{ __('messages.Services') }}
                           </h3>
                           <ul class="links">
                               <li><a href="{{ route('index') }}">{{ __('messages.homeA') }}</a></li>

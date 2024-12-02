@@ -29,6 +29,26 @@
                             <td>{{ $donation->need->needDetail->first()?->item_name ?? 'N/A' }}</td>
                         </tr>
                         <tr>
+                            <th>{{ __('messages.Description') }}
+                            </th>
+                            <td>{{ $donation->need->needDetail->first()?->description ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('messages.QuantityNeeded') }}
+                            </th>
+                            <td>{{ $donation->need->first()?->quantity_needed ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('messages.UrgencyLevel') }}
+                            </th>
+                            <td>{{ $donation->need->first()?->urgency ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
+                            <th>{{ __('messages.Status') }}
+                            </th>
+                            <td>{{ $donation->need->first()?->status ?? 'N/A' }}</td>
+                        </tr>
+                        <tr>
                             <th>{{ __('messages.DonorName') }}
                             </th>
                             <td>{{ $donation->user->userDetail->first()?->name ?? 'Anonymous' }}</td>
