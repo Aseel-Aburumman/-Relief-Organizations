@@ -324,6 +324,7 @@ return [
     'WorkingHours' => 'الأحد إلى الخميس من 9 صباحًا إلى 6 مساءً',
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'أرسل استفسارك في أي وقت!',
+    'Print' => 'طباعة'
 
 ];
 

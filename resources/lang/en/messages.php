@@ -111,6 +111,7 @@ return [
 
 
 
+
     // BLOG pages
 
     'PostsA' => 'Posts',
@@ -210,7 +211,6 @@ return [
     'suredeleteorganization' => 'Are you sure you want to delete this organization',
     'PendingOrganizations' => 'Pending Organizations',
     'Approve' => 'Approve',
-    'item'=>'Item',
 
     'CreateNewPost' => 'Create New Post',
     'PostControlCenter' => 'Post Control Center',
@@ -303,8 +303,9 @@ return [
     'TrendsInDonations' => 'Trends in Donations Over Time',
     'Dates' => 'Dates',
     'Donations' => 'Donations',
-    'AboutWebsite' => 'About Website',
 
+
+//contact
     'Contact' => 'Contact',
     'GetInTouch' => 'Get in Touch',
     'EnterMessage' => 'Enter Message',
@@ -318,5 +319,7 @@ return [
     'WorkingHours' => 'Sun to Thu 9am to 6pm',
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'Send us your query anytime!',
+    'Print' => 'Print'
+
 
 ];
