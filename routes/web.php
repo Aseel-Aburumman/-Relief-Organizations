@@ -145,12 +145,6 @@ Route::group([
     Route::get('/donations/{id}', [DonationController::class, 'showDonation'])->name('donations.show')->middleware('role:organization|admin');
 
 
-<<<<<<< HEAD
-
-=======
-    Route::get('/donations/export/excel', [DonationController::class, 'exportExcel'])->name('donations.export.excel')->middleware('role:organization|admin');
-    Route::get('/donations/export/pdf', [DonationController::class, 'exportPdf'])->name('donations.export.pdf')->middleware('role:organization|admin');
->>>>>>> 8799869416e7b6be3e77e3ef9463e4edb5ac678c
 
 
 
