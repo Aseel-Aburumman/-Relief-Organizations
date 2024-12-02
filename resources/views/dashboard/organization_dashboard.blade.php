@@ -91,7 +91,7 @@
             </div>
 
 
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ __('messages.UnfulfilledNeeds') }}</h5>
@@ -123,7 +123,7 @@
                         </table>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
 
             <script>

@@ -342,7 +342,8 @@ return [
     'WorkingHours' => 'Sun to Thu 9am to 6pm',
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'Send us your query anytime!',
-    'Print' => 'Print'
+    'Print' => 'Print',
+    'Reject' => 'Reject'
 
 
 ];

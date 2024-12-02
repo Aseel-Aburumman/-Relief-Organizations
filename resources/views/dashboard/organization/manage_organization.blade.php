@@ -57,12 +57,8 @@
                                             <span>{{ __('messages.NoImage') }}</span>
                                         @endif
                                     </td>
-<<<<<<< HEAD
-                                    <td>{{ \Illuminate\Support\Str::limit($organization->userDetail->first()->description ?? 'N/A', 50) }}</td>
-=======
                                     <td>{{ \Illuminate\Support\Str::limit($organization->userDetail->first()->description ?? 'N/A', 30) }}
                                     </td>
->>>>>>> 8799869416e7b6be3e77e3ef9463e4edb5ac678c
                                     <td>{{ $organization->userDetail->first()->address ?? 'N/A' }}</td>
                                     <td class="tableHide">{{ $organization->created_at->format('Y-m-d') }}</td>
                                     <td class="actions">

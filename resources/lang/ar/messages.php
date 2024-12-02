@@ -236,7 +236,7 @@ return [
     'AddNewOrganization' => 'إضافة منظمة جديدة',
     'suredeleteorganization' => 'هل أنت متأكد أنك تريد حذف هذه المنظمة',
     'PendingOrganizations' => 'المنظمات المعلقة',
-    'Approve' => 'اعتماد',
+    'Approve' => 'موافقة',
     'item' => 'عنصر',
     'CreateNewPost' => 'إنشاء منشور جديد',
     'PostControlCenter' => 'مركز التحكم بالمنشورات',
@@ -344,6 +344,9 @@ return [
     'WorkingHours' => 'الأحد إلى الخميس من 9 صباحًا إلى 6 مساءً',
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'أرسل استفسارك في أي وقت!',
-    'Print' => 'طباعة'
+    'Print' => 'طباعة',
+    'Reject' => 'رفض'
+
+
 
 ];
