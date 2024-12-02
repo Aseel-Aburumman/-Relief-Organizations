@@ -20,7 +20,8 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card sales-card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('messages.NeedsA') }} <span>| {{ __('messages.Total') }}</span></h5>
+                                <h5 class="card-title">{{ __('messages.NeedsA') }} <span>| {{ __('messages.Total') }}</span>
+                                </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-cart"></i>
@@ -36,10 +37,12 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('messages.item') }} <span>| {{ __('messages.Total') }}</span></h5>
+                                <h5 class="card-title">{{ __('messages.item') }} <span>| {{ __('messages.Total') }}</span>
+                                </h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                    <i class="fas fa-box" style="font-size: 24px; color: #007bff;"></i> <!-- أيقونة صندوق -->
+                                        <i class="fas fa-box" style="font-size: 24px; color: #007bff;"></i>
+                                        <!-- أيقونة صندوق -->
                                     </div>
                                     <div class="ps-3">
                                         <h6>{{ $totalDonatedQuantity }}</h6>
@@ -52,7 +55,8 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card customers-card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('messages.Doners') }} <span>| {{ __('messages.Total') }}</span></h5>
+                                <h5 class="card-title">{{ __('messages.Doners') }} <span>|
+                                        {{ __('messages.Total') }}</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                         <i class="bi bi-people"></i>
@@ -103,8 +107,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($needs as $need)
-                                    @if($need->status == 'Available')
+                                @foreach ($needs as $need)
+                                    @if ($need->status == 'Available')
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $need->id }}</td>
@@ -128,8 +132,7 @@
                     type: 'bar',
                     data: {
                         labels: @json($needNames),
-                        datasets: [
-                            {
+                        datasets: [{
                                 label: "{{ __('messages.QuantityNeeded') }}",
                                 data: @json($needsData),
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
@@ -154,80 +157,81 @@
                         }
                     }
                 });
-        // //Trends in Donations
-        // const lineCtx = document.getElementById('lineChart').getContext('2d');
-        // new Chart(lineCtx, {
-        //     type: 'line',
-        //     data: {
-        //         labels: ['January', 'February', 'March', 'April'],
-        //         datasets: [{
-        //             label: 'Total Donations',
-        //             data: [100, 200, 150, 300],
-        //             borderColor: 'rgba(75, 192, 192, 1)',
-        //             backgroundColor: 'rgba(60, 199, 143, 0.2)',
-        //             fill: true,
-        //             tension: 0.4
-        //         }]
-        //     },
-        //     options: {
-        //         responsive: true,
-        //         scales: {
-        //             x: {
-        //                 beginAtZero: true
-        //             },
-        //             y: {
-        //                 beginAtZero: true
-        //             }
-        //         }
-        //     }
-        // });
-        const dates = @json($dates);
-    const donationsByDate = @json($donationsByDate);
+                // //Trends in Donations
+                // const lineCtx = document.getElementById('lineChart').getContext('2d');
+                // new Chart(lineCtx, {
+                //     type: 'line',
+                //     data: {
+                //         labels: ['January', 'February', 'March', 'April'],
+                //         datasets: [{
+                //             label: 'Total Donations',
+                //             data: [100, 200, 150, 300],
+                //             borderColor: 'rgba(75, 192, 192, 1)',
+                //             backgroundColor: 'rgba(60, 199, 143, 0.2)',
+                //             fill: true,
+                //             tension: 0.4
+                //         }]
+                //     },
+                //     options: {
+                //         responsive: true,
+                //         scales: {
+                //             x: {
+                //                 beginAtZero: true
+                //             },
+                //             y: {
+                //                 beginAtZero: true
+                //             }
+                //         }
+                //     }
+                // });
+                const dates = @json($dates);
+                const donationsByDate = @json($donationsByDate);
 
-    // Trends in Donations (Line Chart)
-    const lineCtx = document.getElementById('lineChart').getContext('2d');
-    new Chart(lineCtx, {
-        type: 'line',
-        data: {
-            labels: dates,
-            datasets: [{
-                label: "{{ __('messages.TotalDonations') }}",
-                data: donationsByDate,
-                borderColor: 'rgba(75, 192, 192, 1)',
-                backgroundColor: 'rgba(60, 199, 143, 0.2)',
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                title: {
-                    display: true,
-                    text: "{{ __('messages.TrendsInDonations') }}"
-                }
-            },
-            scales: {
-                x: {
-                    beginAtZero: false,
-                    title: {
-                        display: true,
-                        text: "{{ __('messages.Dates') }}" "
+                // Trends in Donations (Line Chart)
+                const lineCtx = document.getElementById('lineChart').getContext('2d');
+                new Chart(lineCtx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: "{{ __('messages.TotalDonations') }}",
+                            data: donationsByDate,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(60, 199, 143, 0.2)',
+                            fill: true,
+                            tension: 0.4
+                        }]
                     },
-                    ticks: {
-                        autoSkip: true,
-                        maxTicksLimit: 10
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: "{{ __('messages.TrendsInDonations') }}"
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: false,
+                                title: {
+                                    display: true,
+                                    text: "{{ __('messages.Dates') }}"
+
+                                },
+                                ticks: {
+                                    autoSkip: true,
+                                    maxTicksLimit: 10
+                                }
+                            },
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: "{{ __('messages.Donations') }}"
+                                }
+                            }
+                        }
                     }
-                },
-                y: {
-                    beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: "{{ __('messages.Donations') }}"
-                    }
-                }
-            }
-        }
-    });
-    </script>
-@endsection
+                });
+            </script>
+        @endsection
