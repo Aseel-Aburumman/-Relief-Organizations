@@ -73,8 +73,8 @@
         }
 
         .btnColor {
-            background-color: #3CC78F;
-            color: white;
+            background-color: #3CC78F !important;
+            color: white !important;
         }
     </style>
 
@@ -126,7 +126,46 @@
                         @endforelse
                     </tbody>
                 </table>
-                {{ $donations->links() }}
+                <nav class="blog-pagination justify-content-center d-flex">
+                    <ul class="pagination">
+                        <!-- Previous Page Link -->
+                        @if ($donations->onFirstPage())
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="Previous">
+                                    <i class="fa-solid fa-arrow-left" style="color: #1f1f1f;"></i>
+                                </a>
+                            </li>
+                        @else
+                            <li class="page-item">
+                                <a href="{{ $donations->previousPageUrl() }}" class="page-link" aria-label="Previous">
+                                    <i class="fa-solid fa-arrow-left" style="color: #1f1f1f;"></i>
+                                </a>
+                            </li>
+                        @endif
+
+                        <!-- Pagination Links -->
+                        @foreach ($donations->links()->elements[0] as $page => $url)
+                            <li class="  {{ $page == $donations->currentPage() ? 'btnColor' : '' }}"
+                                style="{{ $page == $donations->currentPage() ? ' background-color: #3CC78F !important;' : '' }}">
+                                <a href="{{ $url }}" class="page-link">{{ $page }}</a>
+                            </li>
+                        @endforeach
+
+                        <!-- Next Page Link -->
+                        @if ($donations->hasMorePages())
+                            <li class="page-item">
+                                <a href="{{ $donations->nextPageUrl() }}" class="page-link" aria-label="Next">
+                                    <i class="fa-solid fa-arrow-right" style="color: #1f1f1f;"></i> </a>
+                            </li>
+                        @else
+                            <li class="page-item disabled">
+                                <a class="page-link" aria-label="Next">
+                                    <i class="fa-solid fa-arrow-right" style="color: #1f1f1f;"></i> </a>
+                            </li>
+                        @endif
+                    </ul>
+                </nav>
+                {{--  {{ $donations->links() }}  --}}
             </div>
         </div>
     </section>
