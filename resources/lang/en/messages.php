@@ -1,6 +1,24 @@
 <?php
 
 return [
+    'YourDonationHistory' => 'Your Donation History',
+    'NoDonationsFound' => 'No Donations Found',
+    'RecommendedNeeds' => 'Recommended Needs',
+    'NoNeedsFound' => 'No Needs Found',
+    'LatestUpdates' => 'Latest Updates',
+    'NoPostsFound' => 'No Posts Found',
+    'QuantityNeeded' => 'Quantity Needed',
+    'Donate' => 'Donate',
+    'SearchByNeedName' => 'Search by Need Name',
+    'Filter' => 'Filter',
+    'Reset' => 'Reset',
+    'Organization' => 'Organization',
+    'Need' => 'Need',
+    'Quantity' => 'Quantity',
+    'Date' => 'Date',
+    'ReadMore' => 'Read More',
+    'DonorDashboard' => 'Donor Dashboard',
+
 
     'SignInA' => 'Sign In',
     'EmailA' => 'Email',
@@ -210,7 +228,7 @@ return [
     'suredeleteorganization' => 'Are you sure you want to delete this organization',
     'PendingOrganizations' => 'Pending Organizations',
     'Approve' => 'Approve',
-    'item'=>'Item',
+    'item' => 'Item',
 
     'CreateNewPost' => 'Create New Post',
     'PostControlCenter' => 'Post Control Center',
