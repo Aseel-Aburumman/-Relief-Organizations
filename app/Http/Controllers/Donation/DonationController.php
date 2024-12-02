@@ -97,26 +97,29 @@ class DonationController extends Controller
 
 
 
-    public function listDonations()
+    public function listDonations(Request $request)
     {
         try {
             $user = Auth::user();
             $user = User::find($user->id);
 
+            $search = $request->input('search');
             $languageId = Language::getLanguageIdByLocale();
-            if ($user->hasRole('admin')) {
-                $donations = Donation::fetchDonationsWithDetails($languageId);
-            } elseif ($user->hasRole('organization')) {
-                $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
 
-                $donations = Donation::fetchOrganizationDonationsWithDetails($organization->id, $languageId);
+            if ($user->hasRole('admin')) {
+                $donations = Donation::fetchDonationsWithDetails($search, $languageId);
+            } elseif ($user->hasRole('organization')) {
+                $organization = Organization::fetchOrganizationWithNeedsAndDonations($user->id);
+                $donations = Donation::fetchOrganizationDonationsWithDetails($search, $organization->id, $languageId);
             }
+
             return view('dashboard.donations.manage_donations', compact('donations'));
         } catch (\Exception $e) {
-            Log::error('Error fetching needs: ' . $e->getMessage());
+            Log::error('Error fetching donations: ' . $e->getMessage());
             return redirect()->back()->with('error', 'An error occurred while fetching the donations. Please try again.');
         }
     }
+
 
     public function showDonation($id)
     {

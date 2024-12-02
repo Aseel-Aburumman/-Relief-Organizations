@@ -30,11 +30,11 @@
                     </div>
 
                     <form action="{{ route('donations.index') }}" method="GET" class="d-flex mb-3">
-                        <input type="text" name="search" class="form-control" placeholder="Search by donor name..."
-                            value="{{ request('search') }}">
-                        <button type="submit" class="btn btn-primary ms-2">{{ __('messages.Search') }}
-                        </button>
-                        <a href="{{ route('donations.index') }}" class="btn btn-secondary ms-2">{{ __('messages.Reset') }}
+                        <input type="text" name="search" class="form-control"
+                            placeholder="{{ __('messages.Searchbyname') }}..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary ms-2">{{ __('messages.Search') }}</button>
+                        <a href="{{ route('donations.index') }}"
+                            class="btn btn-secondary ms-2">{{ __('messages.Reset') }}</a>
                         </a>
                     </form>
 

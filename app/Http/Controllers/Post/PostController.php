@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Post;
 
 use App\Models\Language;
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
@@ -15,17 +16,19 @@ use App\Models\User;
 
 class PostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
         $user = User::find($user->id);
+        $search = $request->input('search');
+
         if ($user->hasRole('admin')) {
 
-            $posts = Post::getAllPosts();
+            $posts = Post::getAllPostsSearch($search);
         } elseif ($user->hasRole('organization')) {
             $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
 
-            $posts = Post::fetchPostsWithImagesWityhoutLang($organization->id);
+            $posts = Post::fetchPostsWithImagesWityhoutLangSearch($organization->id, $search);
         }
         return view('dashboard.post.index', compact('posts'));
     }
