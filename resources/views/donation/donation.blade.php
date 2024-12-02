@@ -49,7 +49,7 @@
                                     aria-valuemin="0"
                                     aria-valuemax="100">
                                     <span class="progres_count">
-                                        {{ number_format($progress, 1) }}%
+                                        {{ number_format($progress, 0) }}%
                                     </span>
 
                                 </div>
@@ -161,6 +161,7 @@
     </div>
 </div>
 
+
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -172,7 +173,10 @@
                 Swal.fire({
                     title: `{{ __('Are you sure?') }}`,
                     text: `{{ __('You are about to donate') }} ${donationAmount} {{ $need->item_name }}.`,
-                    icon: 'warning',
+                    iconHtml: '👍',
+                    customClass: {
+                        icon: 'no-border'
+                    },
                     showCancelButton: true,
                     confirmButtonColor: '#3CC78F',
                     cancelButtonColor: '#d33',
