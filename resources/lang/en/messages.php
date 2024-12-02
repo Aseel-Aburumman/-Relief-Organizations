@@ -210,6 +210,7 @@ return [
     'suredeleteorganization' => 'Are you sure you want to delete this organization',
     'PendingOrganizations' => 'Pending Organizations',
     'Approve' => 'Approve',
+    'item'=>'Item',
 
     'CreateNewPost' => 'Create New Post',
     'PostControlCenter' => 'Post Control Center',

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordResetMail;
 
 use App\Models\User;
 use App\Models\UserDetail;
@@ -181,7 +183,16 @@ class AuthController extends Controller
     {
         $request->validate(['email' => 'required|email']);
 
-        $status = Password::sendResetLink($request->only('email'));
+        $status = Password::sendResetLink(
+            $request->only('email'),
+            function ($user, $token) {
+                // Create a reset link
+                $resetLink = url(route('password.reset', ['token' => $token, 'email' => $user->email], false));
+
+                // Send the email using the custom mailable
+                Mail::to($user->email)->send(new PasswordResetMail($resetLink));
+            }
+        );
 
         return $status === Password::RESET_LINK_SENT
             ? back()->with(['success' => __($status)])
@@ -198,7 +209,7 @@ class AuthController extends Controller
         $request->validate([
             'token' => 'required',
             'email' => 'required|email',
-            'password' => 'required|min:8|confirmed',
+            'password' => 'required|min:6|confirmed',
         ]);
 
         $status = Password::reset(

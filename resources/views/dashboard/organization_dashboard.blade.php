@@ -36,10 +36,10 @@
                     <div class="col-xxl-4 col-md-6">
                         <div class="card info-card revenue-card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ __('messages.Contributors') }} <span>| {{ __('messages.Total') }}</span></h5>
+                                <h5 class="card-title">{{ __('messages.item') }} <span>| {{ __('messages.Total') }}</span></h5>
                                 <div class="d-flex align-items-center">
                                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                        <i class="bi bi-currency-dollar"></i>
+                                    <i class="fas fa-box" style="font-size: 24px; color: #007bff;"></i> <!-- أيقونة صندوق -->
                                     </div>
                                     <div class="ps-3">
                                         <h6>{{ $totalDonatedQuantity }}</h6>
