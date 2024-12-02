@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'Services' => 'Services',
+
+
     'YourDonationHistory' => 'Your Donation History',
     'NoDonationsFound' => 'No Donations Found',
     'RecommendedNeeds' => 'Recommended Needs',
@@ -322,9 +325,10 @@ return [
     'TrendsInDonations' => 'Trends in Donations Over Time',
     'Dates' => 'Dates',
     'Donations' => 'Donations',
+    'AboutWebsite' => ' About Website',
 
 
-//contact
+    //contact
     'Contact' => 'Contact',
     'GetInTouch' => 'Get in Touch',
     'EnterMessage' => 'Enter Message',

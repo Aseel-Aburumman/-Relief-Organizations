@@ -1,6 +1,26 @@
 <?php
 
 return [
+    'Services' => 'خدماتنا',
+
+    'YourDonationHistory' => 'سجل التبرعات الخاص بك',
+    'NoDonationsFound' => 'لم يتم العثور على أي تبرعات',
+    'RecommendedNeeds' => 'الاحتياجات الموصى بها',
+    'NoNeedsFound' => 'لم يتم العثور على أي احتياجات',
+    'LatestUpdates' => 'أحدث المنشورات',
+    'NoPostsFound' => 'لم يتم العثور على أي منشورات',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'Donate' => 'تبرع',
+    'SearchByNeedName' => 'ابحث حسب اسم الحاجة',
+    'Filter' => 'تصفية',
+    'Reset' => 'إعادة تعيين',
+    'Organization' => 'المنظمة',
+    'Need' => 'الحاجة',
+    'Quantity' => 'الكمية',
+    'Date' => 'التاريخ',
+    'ReadMore' => 'اقرأ المزيد',
+    'DonorDashboard' => 'لوحة التحكم الخاصة بالمتبرع',
+
     'SignInA' => 'تسجيل الدخول',
     'EmailA' => 'البريد الإلكتروني',
     'PasswordA' => 'كلمة المرور',
@@ -217,7 +237,7 @@ return [
     'suredeleteorganization' => 'هل أنت متأكد أنك تريد حذف هذه المنظمة',
     'PendingOrganizations' => 'المنظمات المعلقة',
     'Approve' => 'اعتماد',
-    'item'=>'عنصر',
+    'item' => 'عنصر',
     'CreateNewPost' => 'إنشاء منشور جديد',
     'PostControlCenter' => 'مركز التحكم بالمنشورات',
     'NewPostInformation' => 'معلومات المنشور الجديد',
@@ -305,7 +325,7 @@ return [
     'QuantityNeeded' => 'الكمية المطلوبة',
     'DonatedQuantity' => 'الكمية المتبرع بها',
 
-'TotalDonations' => 'إجمالي التبرعات',
+    'TotalDonations' => 'إجمالي التبرعات',
     'TrendsInDonations' => 'اتجاهات التبرعات بمرور الوقت',
     'Dates' => 'التواريخ',
     'Donations' => 'التبرعات',
@@ -327,5 +347,3 @@ return [
     'Print' => 'طباعة'
 
 ];
-
-

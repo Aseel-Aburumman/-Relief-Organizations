@@ -117,6 +117,14 @@
                                     </div>
                                 </div>
                             @endrole
+                            @role('admin')
+                                <div class="Appointment">
+                                    <div class="book_btn d-none d-lg-block">
+                                        <a href="{{ route('admin.dashboard') }}">{{ __('messages.DashboardA') }}
+                                        </a>
+                                    </div>
+                                </div>
+                            @endrole
                             @role('doner')
                                 <div class="Appointment">
                                     <div class="book_btn  d-lg-block">

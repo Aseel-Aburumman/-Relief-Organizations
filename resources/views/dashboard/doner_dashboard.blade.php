@@ -93,7 +93,7 @@
         <div class="dashboard-card">
             <form action="{{ route('doner.dashboard') }}" method="GET" class="d-flex mb-3">
                 <input type="text" name="search" class="form-control"
-                    placeholder="{{ __('messages.SearchbyNeedName') }}" value="{{ request('search') }}">
+                    placeholder="{{ __('messages.SearchByNeedName') }}" value="{{ request('search') }}">
                 <input type="date" name="filter_date" class="form-control ms-2" placeholder="{{ __('messages.Date') }}"
                     value="{{ request('filter_date') }}">
                 <button type="submit" class="btn btnColor ms-2">{{ __('messages.Filter') }}</button>

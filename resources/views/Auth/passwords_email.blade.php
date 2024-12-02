@@ -87,7 +87,7 @@
                         {{ session('error') }}
                     </div>
                 @endif
-                <h2 class="signin-title">{{ __('messages.SignInA') }}
+                <h2 class="signin-title">{{ __('messages.SendResetLink') }}
                 </h2>
 
                 <!-- Sign-In Form -->
