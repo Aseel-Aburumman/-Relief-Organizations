@@ -309,7 +309,8 @@ $donationsTrends = Donation::selectRaw('DATE(created_at) as date, SUM(quantity) 
     public function destroy($id)
     {
         // منطق الحذف هنا
-        $organization = Organization::findOrFail($id); // استبدل Organization بالنموذج الخاص بك
+        $organization = Organization::findOrFail($id);
+
         $organization->delete();
 
         return redirect()->route('organization.manage_organization')

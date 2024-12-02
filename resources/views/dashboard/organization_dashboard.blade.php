@@ -130,14 +130,14 @@
                         labels: @json($needNames),
                         datasets: [
                             {
-                                label: "{{ __('messages.QuantityNeeded') }}", // ترجمة "Quantity Needed"
+                                label: "{{ __('messages.QuantityNeeded') }}",
                                 data: @json($needsData),
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgba(255, 99, 132, 1)',
                                 borderWidth: 1
                             },
                             {
-                                label: "{{ __('messages.DonatedQuantity') }}", // ترجمة "Donated Quantity"
+                                label: "{{ __('messages.DonatedQuantity') }}",
                                 data: @json($donatedData),
                                 backgroundColor: 'rgba(60, 199, 143, 0.2)',
                                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -191,7 +191,7 @@
         data: {
             labels: dates,
             datasets: [{
-                label: "{{ __('messages.TotalDonations') }}", // ترجمة "Total Donations"
+                label: "{{ __('messages.TotalDonations') }}",
                 data: donationsByDate,
                 borderColor: 'rgba(75, 192, 192, 1)',
                 backgroundColor: 'rgba(60, 199, 143, 0.2)',
@@ -204,7 +204,7 @@
             plugins: {
                 title: {
                     display: true,
-                    text: "{{ __('messages.TrendsInDonations') }}" // ترجمة "Trends in Donations Over Time"
+                    text: "{{ __('messages.TrendsInDonations') }}"
                 }
             },
             scales: {
@@ -212,7 +212,7 @@
                     beginAtZero: false,
                     title: {
                         display: true,
-                        text: "{{ __('messages.Dates') }}" // ترجمة "Dates"
+                        text: "{{ __('messages.Dates') }}" "
                     },
                     ticks: {
                         autoSkip: true,
@@ -223,7 +223,7 @@
                     beginAtZero: true,
                     title: {
                         display: true,
-                        text: "{{ __('messages.Donations') }}" // ترجمة "Donations"
+                        text: "{{ __('messages.Donations') }}"
                     }
                 }
             }
