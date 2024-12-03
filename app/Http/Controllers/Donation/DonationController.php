@@ -116,7 +116,6 @@ class DonationController extends Controller
 
             $search = $request->input('search');
             $languageId = Language::getLanguageIdByLocale();
-
             if ($user->hasRole('admin')) {
                 $donations = Donation::fetchDonationsWithDetails($search, $languageId);
             } elseif ($user->hasRole('organization')) {
