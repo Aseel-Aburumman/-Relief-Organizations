@@ -182,4 +182,27 @@ class DonationController extends Controller
             ->route('donations.index')
             ->with('success', 'Donation deleted successfully.');
     }
+    public function showCreateForm()
+{
+    $donors = User::with('userDetail')->get(); 
+    $needs = Need::all(); // جلب جميع الاحتياجات (حسب المطلوب)
+    return view('dashboard.donations.create_donation', compact('donors', 'needs'));
+}
+public function saveDonation(Request $request)
+{
+    $request->validate([
+        'donor_id' => 'required|exists:users,id',
+        'need_id' => 'required|exists:needs,id',
+        'quantity' => 'required|integer|min:1',
+    ]);
+
+    $donation = Donation::create([
+        'donor_id' => $request->donor_id,
+        'need_id' => $request->need_id,
+        'quantity' => $request->quantity,
+    ]);
+
+    return redirect()->route('donations.index')
+        ->with('success', __('Donation saved successfully.'));
+}
 }
