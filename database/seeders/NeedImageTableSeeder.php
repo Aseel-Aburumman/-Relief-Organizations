@@ -17,31 +17,31 @@ class NeedImageTableSeeder extends Seeder
         // إضافة صور تجريبية
         NeedImage::create([
             'need_id' => 1,
-            'image' => 'blanket.webp',
+            'image' => 'blanket.jpg',
         ]);
 
         NeedImage::create([
             'need_id' => 2,
-            'image' => 'food.webp',
+            'image' => 'food.jpg',
         ]);
 
         NeedImage::create([
             'need_id' => 3,
-            'image' => 'medical_supplies.webp',
+            'image' => 'medical_supplies.jpg',
         ]);
         NeedImage::create([
             'need_id' => 4,
-            'image' => 'winter_jackets.webp',
+            'image' => 'winter_jackets.jpg',
         ]);
 
         NeedImage::create([
             'need_id' => 5,
-            'image' => 'first_aid_kits.webp',
+            'image' => 'first_aid_kits.jpg',
         ]);
 
         NeedImage::create([
             'need_id' => 6,
-            'image' => 'tents.webp',
+            'image' => 'tents.jpg',
         ]);
     }
 }

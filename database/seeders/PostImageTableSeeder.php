@@ -13,17 +13,17 @@ class PostImageTableSeeder extends Seeder
         PostImage::create([
             'post_id' => 1,
 
-            'image' => 'post_1.webp',
+            'image' => 'post_1.png',
         ]);
 
         PostImage::create([
             'post_id' => 1,
-            'image' => 'post_1.webp',
+            'image' => 'post_1.png',
         ]);
 
         PostImage::create([
             'post_id' => 2,
-            'image' => 'post_1.webp',
+            'image' => 'post_2.png',
         ]);
     }
 }

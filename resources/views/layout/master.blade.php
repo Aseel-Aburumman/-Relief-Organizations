@@ -37,10 +37,6 @@
     {{--  @livewireStyles  --}}
 
     <link rel="preload" href="../img/banner/banner_opt.webp" as="image">
-    <link rel="preload" href="../img/banner/man.webp" as="image">
-    <link rel="preload" href="../img/banner/counter_bg.webp" as="image">
-
-
 
 </head>
 
