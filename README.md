@@ -1,6 +1,6 @@
 # ⚙️ Installation
 
-To set up KafMueen on your local environment, please ensure you have PHP, Composer, and MySQL installed.
+To set up the project on your local environment, please ensure you have PHP, Composer, and MySQL installed.
 
 1. **Clone the Repository**
 
