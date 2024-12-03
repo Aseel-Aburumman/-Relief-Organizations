@@ -354,7 +354,13 @@ return [
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'Send us your query anytime!',
     'Print' => 'Print',
-    'Reject' => 'Reject'
+    'Reject' => 'Reject',
+    'TotalDonations' => 'Total Donations',
+    'TrendsInDonations' => 'Trends in Donations Over Time',
+    'Dates' => 'Dates',
+    'Donations' => 'Donations',
+    'SelectOrganization' => 'Select Organization',
+
     'TotalDonations' => 'Total Donations',
     'TrendsInDonations' => 'Trends in Donations Over Time',
     'Dates' => 'Dates',

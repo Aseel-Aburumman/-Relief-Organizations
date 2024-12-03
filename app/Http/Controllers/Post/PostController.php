@@ -35,22 +35,46 @@ class PostController extends Controller
         return view('dashboard.post.show', compact('post'));
     }
 
+    // public function create()
+    // {
+    //     $languages = Language::all();
+
+    //     if (Auth::user()->hasRole('organization')) {
+
+    //         $organization = Organization::where('user_id', Auth::id())->first();
+
+    //         return view('dashboard.post.create', compact('languages', 'organization'));
+    //     } elseif (Auth::user()->hasRole('admin')) {
+
+    //         $organizations = Organization::all();
+    //         return view('dashboard.post.create', compact('languages', 'organizations'));
+    //     }
+
+    //     return redirect()->route('posts.index')->withErrors(__('You are not authorized to create posts.'));
+
+    // }
+
     public function create()
-    {
-        $languages = Language::all();
+{
+    $languages = Language::all();
 
-        if (Auth::user()->hasRole('organization')) {
+    if (Auth::user()->hasRole('organization')) {
+        $organization = Organization::where('user_id', Auth::id())->first();
 
-            $organization = Organization::where('user_id', Auth::id())->first();
-            return view('dashboard.post.create', compact('languages', 'organization'));
-        } elseif (Auth::user()->hasRole('admin')) {
 
-            $organizations = Organization::all();
-            return view('dashboard.post.create', compact('languages', 'organizations'));
-        }
-
-        return redirect()->route('posts.index')->withErrors(__('You are not authorized to create posts.'));
+        return view('dashboard.post.create', compact('languages', 'organization'));
     }
+
+    elseif (Auth::user()->hasRole('admin')) {
+        $organizations = Organization::all();
+
+
+        return view('dashboard.post.create', compact('languages', 'organizations'));
+    }
+
+    return redirect()->route('posts.index')->withErrors(__('You are not authorized to create posts.'));
+}
+
 
     public function store(PostStoreRequest $request)
     {
@@ -58,12 +82,29 @@ class PostController extends Controller
 
         if (Auth::user()->hasRole('organization')) {
             $organization = Organization::where('user_id', Auth::id())->first();
-            $data['organization_id'] = $organization->id;
+            if ($organization) {
+                $data['organization_id'] = $organization->id;
+            } else {
+                return redirect()->back()->withErrors(__('Organization not found.'));
+            }
+        } elseif (Auth::user()->hasRole('admin')) {
+            if (!isset($data['organization_id'])) {
+
+                $defaultOrganization = Organization::first();
+                if ($defaultOrganization) {
+                    $data['organization_id'] = $defaultOrganization->id;
+                } else {
+                    return redirect()->back()->withErrors(__('No organization found to assign.'));
+                }
+            }
+        } else {
+            return redirect()->back()->withErrors(__('You are not authorized to create posts.'));
         }
 
         Post::createPost($data);
         return redirect()->route('posts.manage')->with('success', 'Post created successfully');
     }
+
 
     public function edit($id)
     {

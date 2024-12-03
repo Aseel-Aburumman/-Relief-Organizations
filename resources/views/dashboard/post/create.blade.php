@@ -70,6 +70,7 @@
 @endsection --}}
 
 
+
 @extends('layout.admin_master')
 
 @section('content')
@@ -115,7 +116,7 @@
                                     <option value="">{{ __('messages.SelectOrganization') }}</option>
                                     @foreach ($organizations as $org)
                                         <option value="{{ $org->id }}" {{ old('organization_id') == $org->id ? 'selected' : '' }}>
-                                            {{ $org->name }}
+                                            {{ $org->userDetail->first()->name }}
                                         </option>
                                     @endforeach
                                 </select>
