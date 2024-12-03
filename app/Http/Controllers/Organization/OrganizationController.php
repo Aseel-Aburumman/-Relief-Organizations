@@ -217,14 +217,23 @@ class OrganizationController extends Controller
             ];
             UserDetail::createMultipleUserDetails($details); // Assuming this method exists
             if ($request->hasFile('organization_image')) {
-                $organizationImagePath = $request->file('organization_image')->store('organization_images', 'public');
-
+                // الحصول على الملف
+                $file = $request->file('organization_image');
+                
+                // إنشاء اسم جديد للملف (على سبيل المثال، ID المنظمة مع التوقيت)
+                $organizationImageName = $organization->id . '_' . time() . '.' . $file->getClientOriginalExtension();
+            
+                // تخزين الصورة في المجلد مع الاسم الجديد
+                $file->storeAs('organization_images', $organizationImageName, 'public');
+            
+                // حفظ اسم الصورة في قاعدة البيانات
                 OrganizationImage::create([
                     'organization_id' => $organization->id,
-                    'image' => $organizationImagePath,
-
+                    'image' => $organizationImageName, // الاسم الجديد الذي تم تخزينه
                 ]);
             }
+            
+            
         }
 
 
