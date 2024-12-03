@@ -238,6 +238,8 @@ return [
     'PendingOrganizations' => 'المنظمات المعلقة',
     'Approve' => 'موافقة',
     'item' => 'عنصر',
+    'Reject' => 'رفض',
+
     'CreateNewPost' => 'إنشاء منشور جديد',
     'PostControlCenter' => 'مركز التحكم بالمنشورات',
     'NewPostInformation' => 'معلومات المنشور الجديد',
