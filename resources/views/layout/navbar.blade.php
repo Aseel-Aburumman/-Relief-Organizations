@@ -18,6 +18,18 @@
         .loginBtn>a:hover {
             color: black !important;
         }
+
+        /* Hide the logout form by default */
+        #logout-form-container {
+            display: none;
+        }
+
+        /* Show the logout form only if screen width is 990px or less */
+        @media (max-width: 990px) {
+            #logout-form-container {
+                display: block;
+            }
+        }
     </style>
     <div class="header-area ">
         <div class="header-top_area">
@@ -33,9 +45,9 @@
                     </div>
                     <div class="col-xl-6 col-md-6 col-lg-4">
                         <div class="social_media_links d-none d-lg-block">
-                            <a href="{{ url('lang/en') }}">English &nbsp | </a>
+                            <a class="responHiddenNav" href="{{ url('lang/en') }}">English &nbsp | </a>
 
-                            <a href="{{ url('lang/ar') }}"> العربية</a>
+                            <a class="responHiddenNav" href="{{ url('lang/ar') }}"> العربية</a>
                             @guest
                                 <button type="submit" class="btn loginBtn">
                                     <i class="fas fa-sign-out-alt"></i>
@@ -97,6 +109,46 @@
                                         <li><a href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
                                             </a></li>
                                     @endrole
+
+                                    <li id="logout-form-container">
+                                        <a class="responHiddenNav" href="{{ url('lang/en') }}">English </a>
+
+                                        <a class="responHiddenNav" href="{{ url('lang/ar') }}"> العربية</a>
+                                        @role('organization')
+                                            <a data-scroll-nav='1'
+                                                href="{{ route('organization.dashboard') }}">{{ __('messages.DashboardA') }}
+                                            </a>
+                                        @endrole
+                                        @role('admin')
+                                            <a data-scroll-nav='1'
+                                                href="{{ route('admin.dashboard') }}">{{ __('messages.DashboardA') }}
+                                            </a>
+                                        @endrole
+                                        @role('doner')
+                                            <a data-scroll-nav='1'
+                                                href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
+                                            </a>
+                                        @endrole
+
+                                        @guest
+                                            <button type="submit" class="btn loginBtn">
+                                                <i class="fas fa-sign-out-alt"></i>
+                                                <a href="{{ route('register.view') }}">{{ __('messages.RegisterNowA') }}
+                                                </a>
+
+                                            </button>
+                                        @else
+                                            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <button type="submit" class="btn loginBtn">
+                                                    <i class="fas fa-sign-out-alt"></i>{{ __('messages.LogoutA') }}
+
+                                                </button>
+                                            </form>
+
+                                        @endguest
+
+                                    </li>
                                 </ul>
 
 
@@ -104,7 +156,8 @@
                             @guest
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
+                                        <a data-scroll-nav='1'
+                                            href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
                                         </a>
                                     </div>
                                 </div>
@@ -112,7 +165,8 @@
                             @role('organization')
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a href="{{ route('organization.dashboard') }}">{{ __('messages.DashboardA') }}
+                                        <a data-scroll-nav='1'
+                                            href="{{ route('organization.dashboard') }}">{{ __('messages.DashboardA') }}
                                         </a>
                                     </div>
                                 </div>
@@ -120,7 +174,8 @@
                             @role('admin')
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a href="{{ route('admin.dashboard') }}">{{ __('messages.DashboardA') }}
+                                        <a data-scroll-nav='1'
+                                            href="{{ route('admin.dashboard') }}">{{ __('messages.DashboardA') }}
                                         </a>
                                     </div>
                                 </div>
@@ -128,7 +183,8 @@
                             @role('doner')
                                 <div class="Appointment">
                                     <div class="book_btn  d-lg-block">
-                                        <a href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
+                                        <a data-scroll-nav='1'
+                                            href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
                                         </a>
                                     </div>
                                 </div>
@@ -143,4 +199,5 @@
             </div>
         </div>
     </div>
+
 </header>

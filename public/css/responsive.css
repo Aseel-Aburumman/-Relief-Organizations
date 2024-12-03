@@ -1,0 +1,55 @@
+@media (max-width: 741px) {
+    #donation_amount {
+        width: 75%;
+    }
+    .footer_widget {
+        text-align: center !important;
+    }
+}
+
+@media (max-width: 529px) {
+    .causes_content {
+        text-align: center;
+    }
+    .responWidthDonation {
+        width: 100% !important;
+    }
+    .make_donation_area {
+        margin-top: 40px;
+    }
+    .single_donate {
+        width: 100% !important;
+    }
+    #donation_amount {
+        width: 100%;
+    }
+}
+
+@media (max-width: 427px) {
+    .responFontSizeDonation {
+        font-size: 25px !important;
+    }
+    .image-section {
+        display: none;
+    }
+}
+@media (max-width: 768px) {
+    .blog_item_img img {
+        height: 250px; /* Adjust for smaller screens */
+    }
+    .blog_details h2 {
+        font-size: 1.2rem; /* Adjust heading size */
+    }
+    .blog_details p {
+        font-size: 0.9rem; /* Adjust paragraph size */
+    }
+}
+
+@media (max-width: 1055px) {
+    .responHiddenNav {
+        display: none;
+    }
+    .loginBtn > i {
+        display: none;
+    }
+}

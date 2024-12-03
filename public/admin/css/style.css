@@ -58,7 +58,7 @@ h6 {
     }
 }
 
-@media (max-width: 557px) {
+@media (max-width: 653px) {
     .tableHide {
         display: none;
     }
@@ -423,8 +423,8 @@ h6 {
     font-size: 32px;
     padding-left: 10px;
     cursor: pointer;
-    /* color: #012970; */
-    color: #3cc78f;
+    color: white;
+    /* color: #3cc78f; */
 }
 
 .header .search-bar {

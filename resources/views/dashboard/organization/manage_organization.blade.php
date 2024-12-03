@@ -34,7 +34,7 @@
                             <tr>
                                 <th class="tableHide" scope="col">#</th>
                                 <th scope="col">{{ __('messages.OrganizationNameA') }}</th>
-                                <th scope="col">{{ __('messages.ContactInformation') }}</th>
+                                <th class="tableHide" scope="col">{{ __('messages.ContactInformation') }}</th>
                                 <th scope="col">{{ __('messages.Image') }}</th>
                                 <th scope="col">{{ __('messages.Description') }}</th>
                                 <th scope="col">{{ __('messages.AddressA') }}</th>
@@ -47,7 +47,7 @@
                                 <tr>
                                     <th class="tableHide" scope="row">{{ $loop->iteration }}</th>
                                     <td>{{ $organization->userDetail->first()->name ?? 'N/A' }}</td>
-                                    <td>{{ $organization->contact_info ?? 'N/A' }}</td>
+                                    <td class="tableHide">{{ $organization->contact_info ?? 'N/A' }}</td>
                                     <td>
                                         @if ($organization->image)
                                             <img src="{{ asset('storage/organization_images/' . $organization->image->first()->image) }}"
@@ -134,4 +134,4 @@
                             };
                         }
                     </script>
-@endsection
+                @endsection

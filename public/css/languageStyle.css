@@ -27,7 +27,7 @@ body {
     color: #6c757d;
     content: "/";
 }
-
+/*
 .sidebar {
     left: unset !important;
     right: 0px !important;
@@ -71,7 +71,60 @@ body {
 .sidebar-nav .nav-link i {
     font-size: 16px;
     margin-left: 10px;
-    /* color: #4154f1; */
+
+    color: #3cc78f;
+} */
+
+/* Sidebar adjustments for RTL (Arabic) */
+.sidebar {
+    left: unset !important; /* Ensure 'left' is cleared */
+    right: -30px !important; /* Default hidden position */
+    transition: right 0.3s ease-in-out; /* Smooth transition */
+}
+
+.sidebar-nav .nav-content a {
+    flex-direction: row-reverse; /* Adjust content for RTL */
+}
+/* When toggle is active, show the sidebar */
+.toggle-sidebar .sidebar {
+    right: 0 !important;
+}
+
+@media (max-width: 1199px) {
+    /* Sidebar hidden on small screens */
+    .sidebar {
+        /* left:  0px !important; */
+        right: -300px !important; /* Hide sidebar by default */
+    }
+
+    /* Show sidebar when toggle is active */
+    .toggle-sidebar .sidebar {
+        right: 0 !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    /* Adjust main content and footer for large screens */
+    #main,
+    #footer {
+        margin-left: unset !important;
+        margin-right: 300px; /* Account for sidebar width */
+    }
+
+    /* Hide sidebar when toggle is active */
+    .toggle-sidebar .sidebar {
+        right: -300px !important;
+    }
+
+    .toggle-sidebar #main,
+    .toggle-sidebar #footer {
+        margin-right: 0; /* Reset main and footer margin */
+    }
+}
+
+.sidebar-nav .nav-link i {
+    font-size: 16px;
+    margin-left: 10px; /* Adjust icon margin for consistency */
     color: #3cc78f;
 }
 
@@ -127,4 +180,20 @@ body {
 
 .contArabic {
     justify-content: flex-start !important;
+}
+
+.causes_content {
+    flex-direction: row-reverse;
+}
+
+.slicknav_btn {
+    float: left !important;
+    right: unset !important;
+    /* left: 0 !important; */
+}
+.slicknav_menu {
+    left: 0 !important;
+}
+.mo0bile_menu {
+    left: 0 !important;
 }

@@ -40,7 +40,7 @@
                                 <th scope="col">{{ __('messages.NeedName') }}</th>
                                 <th class="tableHide2" scope="col">{{ __('messages.Category') }}</th>
                                 <th scope="col">{{ __('messages.QuantityNeeded') }}</th>
-                                <th scope="col">{{ __('messages.DonatedNeeded') }}</th>
+                                <th class="tableHide" scope="col">{{ __('messages.DonatedNeeded') }}</th>
 
                                 {{--  <th scope="col">{{ __('messages.Description') }}</th>  --}}
                                 <th scope="col">{{ __('messages.Status') }}</th>
@@ -56,7 +56,7 @@
                                     </td>
                                     <td class="tableHide2">{{ $need->category->name ?? 'N/A' }}</td>
                                     <td>{{ $need->quantity_needed }}</td>
-                                    <td>{{ $need->donated_quantity }}</td>
+                                    <td class="tableHide">{{ $need->donated_quantity }}</td>
 
                                     {{--  <td> {{ \Illuminate\Support\Str::limit($need->needDetail->first()?->description ?? 'N/A', 100) }}  --}}
 

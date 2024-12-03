@@ -35,7 +35,7 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>#</th>
+                                <th class="tableHide2">#</th>
                                 <th>{{ __('messages.Title') }}</th>
                                 <th>{{ __('messages.Content') }}</th>
                                 <th>{{ __('messages.Language') }}</th>
@@ -45,7 +45,7 @@
                         <tbody>
                             @forelse($posts as $post)
                                 <tr>
-                                    <td>{{ $post->id }}</td>
+                                    <td class="tableHide2">{{ $post->id }}</td>
                                     <td>{{ $post->title }}</td>
                                     <td>{{ Str::limit($post->content, 50) }}</td>
                                     <td>{{ $post->language->name ?? 'N/A' }}</td>

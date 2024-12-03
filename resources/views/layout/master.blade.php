@@ -30,6 +30,8 @@
     <link rel="stylesheet" href="{{ asset('css/animate.css') }}">
     <link rel="stylesheet" href="{{ asset('css/slicknav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+
 
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
     {{--  @livewireStyles  --}}
