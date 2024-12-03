@@ -37,7 +37,7 @@
                                     <option value="">{{ __('messages.Selectorganization') }}
                                     </option>
                                     @foreach ($organization as $organization1)
-                                        <option value="{{ $organization1->id }}">{{ $organization1->userDetail->name }}
+                                        <option value="{{ $organization1->id }}">{{ $organization1->userDetail->first()->name }}
                                         </option>
                                     @endforeach
                                 </select>

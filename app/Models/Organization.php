@@ -129,7 +129,7 @@ class Organization extends Model
     public static function fetchOrganizationWithUserDetailsApproved($languageId)
     {
         return self::with(['userDetail' => function ($query) use ($languageId) {
-            $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId, 1, 2]);
+            $query->orderByRaw("FIELD(language_id, ?, ?, ?)", [$languageId, 1, 2]);
         }])->where('status', 'Approved')->get();
     }
 }
