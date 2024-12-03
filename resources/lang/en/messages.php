@@ -234,6 +234,7 @@ return [
     'Approve' => 'Approve',
     'item' => 'Item',
 
+'Reject' => 'Reject' ,
     'CreateNewPost' => 'Create New Post',
     'PostControlCenter' => 'Post Control Center',
     'NewPostInformation' => 'New Post Information',
