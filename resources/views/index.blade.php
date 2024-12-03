@@ -64,11 +64,11 @@
                             <div class="thumb" style="height: 250px; overflow: hidden; position: relative;">
                                 @if ($organization->image->isNotEmpty())
                                     <img src="{{ asset('storage/organization_images/' . $organization->image->first()->image) }}"
-                                        alt="{{ __('messages.organizationImage') }}" class="organization-img"
+                                        alt="{{ __('messages.organizationImage') }}" class="organization-img" loading="lazy"
                                         style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
                                 @else
                                     <img src="{{ asset('img/default.jpg') }}" alt="{{ __('messages.defaultImage') }}"
-                                        class="organization-img"
+                                        class="organization-img" loading="lazy"
                                         style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
                                 @endif
                             </div>
@@ -163,7 +163,7 @@
                                             ? 'need_images/' . $need->image->first()->image
                                             : 'img/default-image.png';
                                     @endphp
-                                    <img src="{{ asset('storage/' . $imagePath) }}"
+                                    <img src="{{ asset('storage/' . $imagePath) }}" loading="lazy"
                                         alt="{{ $need->needDetail->first()->item_name ?? __('messages.noName') }}"
                                         style="width: 100%; height: 100%; object-fit: cover;">
                                 </div>
@@ -288,10 +288,10 @@
                                     <!-- عرض الصورة الأولى من الصور المرتبطة -->
                                     @if ($post->images->isNotEmpty())
                                         <img src="{{ asset('storage/post_images/' . $post->images->first()->image) }}"
-                                            alt="{{ $post->title }}"
+                                            alt="{{ $post->title }}" loading="lazy"
                                             style="width: 100%; height: 100%; object-fit: cover;">
                                     @else
-                                        <img src="{{ asset('img/default.jpg') }}"
+                                        <img src="{{ asset('img/default.jpg') }}" loading="lazy"
                                             alt="{{ __('messages.defaultImageAlt') }}"
                                             style="width: 100%; height: 100%; object-fit: cover;">
                                     @endif
