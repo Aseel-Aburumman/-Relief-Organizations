@@ -91,7 +91,7 @@
             </div>
 
 
-            {{-- <div class="col-lg-12">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{ __('messages.UnfulfilledNeeds') }}</h5>
@@ -107,8 +107,8 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($needs as $need)
-                                    @if ($need->status == 'Available')
+                                @foreach($needs as $need)
+                                    @if($need->status == 'Available')
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $need->id }}</td>
@@ -123,7 +123,7 @@
                         </table>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
 
             <script>
@@ -132,15 +132,16 @@
                     type: 'bar',
                     data: {
                         labels: @json($needNames),
-                        datasets: [{
-                                label: "{{ __('messages.QuantityNeeded') }}",
+                        datasets: [
+                            {
+                                label: "{{ __('messages.QuantityNeeded') }}", // ترجمة "Quantity Needed"
                                 data: @json($needsData),
                                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
                                 borderColor: 'rgba(255, 99, 132, 1)',
                                 borderWidth: 1
                             },
                             {
-                                label: "{{ __('messages.DonatedQuantity') }}",
+                                label: "{{ __('messages.DonatedQuantity') }}", // ترجمة "Donated Quantity"
                                 data: @json($donatedData),
                                 backgroundColor: 'rgba(60, 199, 143, 0.2)',
                                 borderColor: 'rgba(75, 192, 192, 1)',
@@ -157,50 +158,65 @@
                         }
                     }
                 });
-                // //Trends in Donations
-                // const lineCtx = document.getElementById('lineChart').getContext('2d');
-                // new Chart(lineCtx, {
-                //     type: 'line',
-                //     data: {
-                //         labels: ['January', 'February', 'March', 'April'],
-                //         datasets: [{
-                //             label: 'Total Donations',
-                //             data: [100, 200, 150, 300],
-                //             borderColor: 'rgba(75, 192, 192, 1)',
-                //             backgroundColor: 'rgba(60, 199, 143, 0.2)',
-                //             fill: true,
-                //             tension: 0.4
-                //         }]
-                //     },
-                //     options: {
-                //         responsive: true,
-                //         scales: {
-                //             x: {
-                //                 beginAtZero: true
-                //             },
-                //             y: {
-                //                 beginAtZero: true
-                //             }
-                //         }
-                //     }
-                // });
-                const dates = @json($dates);
-                const donationsByDate = @json($donationsByDate);
+        // //Trends in Donations
+        // const lineCtx = document.getElementById('lineChart').getContext('2d');
+        // new Chart(lineCtx, {
+        //     type: 'line',
+        //     data: {
+        //         labels: ['January', 'February', 'March', 'April'],
+        //         datasets: [{
+        //             label: 'Total Donations',
+        //             data: [100, 200, 150, 300],
+        //             borderColor: 'rgba(75, 192, 192, 1)',
+        //             backgroundColor: 'rgba(60, 199, 143, 0.2)',
+        //             fill: true,
+        //             tension: 0.4
+        //         }]
+        //     },
+        //     options: {
+        //         responsive: true,
+        //         scales: {
+        //             x: {
+        //                 beginAtZero: true
+        //             },
+        //             y: {
+        //                 beginAtZero: true
+        //             }
+        //         }
+        //     }
+        // });
+        const dates = @json($dates);
+    const donationsByDate = @json($donationsByDate);
 
-                // Trends in Donations (Line Chart)
-                const lineCtx = document.getElementById('lineChart').getContext('2d');
-                new Chart(lineCtx, {
-                    type: 'line',
-                    data: {
-                        labels: dates,
-                        datasets: [{
-                            label: "{{ __('messages.TotalDonations') }}",
-                            data: donationsByDate,
-                            borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(60, 199, 143, 0.2)',
-                            fill: true,
-                            tension: 0.4
-                        }]
+    // Trends in Donations (Line Chart)
+    const lineCtx = document.getElementById('lineChart').getContext('2d');
+    new Chart(lineCtx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: "{{ __('messages.TotalDonations') }}", // ترجمة "Total Donations"
+                data: donationsByDate,
+                borderColor: 'rgba(75, 192, 192, 1)',
+                backgroundColor: 'rgba(60, 199, 143, 0.2)',
+                fill: true,
+                tension: 0.4
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: "{{ __('messages.TrendsInDonations') }}" // ترجمة "Trends in Donations Over Time"
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: false,
+                    title: {
+                        display: true,
+                        text: "{{ __('messages.Dates') }}" // ترجمة "Dates"
                     },
                     options: {
                         responsive: true,
@@ -232,6 +248,16 @@
                             }
                         }
                     }
-                });
-            </script>
-        @endsection
+                },
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: "{{ __('messages.Donations') }}" // ترجمة "Donations"
+                    }
+                }
+            }
+        }
+    });
+    </script>
+@endsection

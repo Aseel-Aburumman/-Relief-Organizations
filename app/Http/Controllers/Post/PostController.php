@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Post;
 
 use App\Models\Language;
 use Illuminate\Http\Request;
-
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
@@ -12,7 +11,6 @@ use App\Models\Post;
 use App\Models\Organization;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-
 
 class PostController extends Controller
 {
@@ -23,11 +21,9 @@ class PostController extends Controller
         $search = $request->input('search');
 
         if ($user->hasRole('admin')) {
-
             $posts = Post::getAllPostsSearch($search);
         } elseif ($user->hasRole('organization')) {
             $organization = Organization::fetchOrganizationWithNeedsAndDonations(auth()->id());
-
             $posts = Post::fetchPostsWithImagesWityhoutLangSearch($organization->id, $search);
         }
         return view('dashboard.post.index', compact('posts'));
@@ -41,20 +37,38 @@ class PostController extends Controller
 
     public function create()
     {
-        $languages = \App\Models\Language::all();
-        return view('dashboard.post.create', compact('languages'));
+        $languages = Language::all();
+
+        if (Auth::user()->hasRole('organization')) {
+
+            $organization = Organization::where('user_id', Auth::id())->first();
+            return view('dashboard.post.create', compact('languages', 'organization'));
+        } elseif (Auth::user()->hasRole('admin')) {
+
+            $organizations = Organization::all();
+            return view('dashboard.post.create', compact('languages', 'organizations'));
+        }
+
+        return redirect()->route('posts.index')->withErrors(__('You are not authorized to create posts.'));
     }
 
     public function store(PostStoreRequest $request)
     {
-        Post::createPost($request->validated());
+        $data = $request->validated();
+
+        if (Auth::user()->hasRole('organization')) {
+            $organization = Organization::where('user_id', Auth::id())->first();
+            $data['organization_id'] = $organization->id;
+        }
+
+        Post::createPost($data);
         return redirect()->route('posts.manage')->with('success', 'Post created successfully');
     }
 
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $languages = \App\Models\Language::all();
+        $languages = Language::all();
         return view('dashboard.post.edit', compact('post', 'languages'));
     }
 
@@ -70,19 +84,14 @@ class PostController extends Controller
         return redirect()->route('posts.manage')->with('success', 'Post deleted successfully');
     }
 
-
     public function getOne($id)
     {
         $languageId = Language::getLanguageIdByLocale();
 
-
-        $post = Post::with('images')
-            ->where('id', $id)
-            ->first();
+        $post = Post::with('images')->where('id', $id)->first();
         $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
             $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-        }])
-            ->find($post->organization_id);
+        }])->find($post->organization_id);
 
         $posts = Post::fetchPostsWithImages($organization->id, $languageId);
         return view('organization.single-blog', compact('post', 'posts', 'organization'));
@@ -94,17 +103,15 @@ class PostController extends Controller
 
         $organization = Organization::with(['userDetail' => function ($query) use ($languageId) {
             $query->orderByRaw("FIELD(language_id, ?, 1, 2)", [$languageId]);
-        }])
-            ->find($organization_id);
+        }])->find($organization_id);
 
         $posts = Post::with('images')
             ->where('lang_id', $languageId)
             ->where('organization_id', $organization_id)
-
             ->orderBy('created_at', 'desc')
             ->paginate(6);
-
 
         return view('organization.blog', compact('posts', 'organization'));
     }
 }
+

@@ -351,4 +351,20 @@ return [
 
 
 
+    'NeedsVsDonated' => 'الاحتياجات مقابل التبرعات',
+    'DonationTrends' => 'اتجاهات التبرعات',
+    'UnfulfilledNeeds' => 'الاحتياجات غير المكتملة',
+    'NeedID' => 'معرّف الحاجة',
+    'Category' => 'الفئة',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'DonatedQuantity' => 'الكمية المتبرع بها',
+    'Status' => 'الحالة',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'DonatedQuantity' => 'الكمية المتبرع بها',
+
+'TotalDonations' => 'إجمالي التبرعات',
+    'TrendsInDonations' => 'اتجاهات التبرعات بمرور الوقت',
+    'Dates' => 'التواريخ',
+    'Donations' => 'التبرعات',
+
 ];
