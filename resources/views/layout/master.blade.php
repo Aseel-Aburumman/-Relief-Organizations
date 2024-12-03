@@ -35,6 +35,9 @@
 
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->
     {{--  @livewireStyles  --}}
+
+    <link rel="preload" href="../img/banner/banner_opt.webp" as="image">
+
 </head>
 
 <body>

@@ -1,8 +1,30 @@
 @extends('layout.master')
 @section('content')
+    <style>
+        .slider_bg_1 {
+            height: 742px;
+            background-image: url('../img/banner/banner_opt.webp');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center center;
+        }
+
+        @media (max-width: 768px) {
+            .slider_bg_1 {
+                height: 500px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .slider_bg_1 {
+                height: 700px;
+            }
+        }
+    </style>
     <!-- slider_area_start -->
     <div class="slider_area">
         <div class="single_slider d-flex align-items-center slider_bg_1 overlay2">
+
             <div class="container">
                 <div class="row">
                     <div class="col-lg-9">
@@ -292,65 +314,4 @@
     </div>
     <br><br><br>
     <!-- news__area_end -->
-
-    {{-- <div data-scroll-index='1' class="make_donation_area section_padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="section_title text-center mb-55">
-                        <h3><span>Make a Donation</span></h3>
-                    </div>
-                </div>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <form action="#" class="donation_form">
-                        <div class="row align-items-center">
-                            <div class="col-md-4">
-                                <div class="single_amount">
-                                    <div class="input_field">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                              <span class="input-group-text" id="basic-addon1">$</span>
-                                            </div>
-                                            <input type="text" class="form-control" placeholder="40,200" aria-label="Username" aria-describedby="basic-addon1">
-                                          </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-8">
-                                <div class="single_amount">
-                                   <div class="fixed_donat d-flex align-items-center justify-content-between">
-                                       <div class="select_prise">
-                                           <h4>Select Amount:</h4>
-                                       </div>
-                                        <div class="single_doonate">
-                                            <input type="radio" id="blns_1" name="radio-group" checked>
-                                            <label for="blns_1">10</label>
-                                        </div>
-                                        <div class="single_doonate">
-                                            <input type="radio" id="blns_2" name="radio-group" checked>
-                                            <label for="blns_2">30</label>
-                                        </div>
-                                        <div class="single_doonate">
-                                            <input type="radio" id="Other" name="radio-group" checked>
-                                            <label for="Other">Other</label>
-                                        </div>
-                                   </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="donate_now_btn text-center">
-                        <a href="#" class="boxed-btn4">Donate Now</a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div> --}}
 @endsection
