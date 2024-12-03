@@ -347,8 +347,43 @@ return [
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'أرسل استفسارك في أي وقت!',
     'Print' => 'طباعة',
-    'Reject' => 'رفض'
+    'Reject' => 'رفض',
 
 
+
+    'NeedsVsDonated' => 'الاحتياجات مقابل التبرعات',
+    'DonationTrends' => 'اتجاهات التبرعات',
+    'UnfulfilledNeeds' => 'الاحتياجات غير المكتملة',
+    'NeedID' => 'معرّف الحاجة',
+    'Category' => 'الفئة',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'DonatedQuantity' => 'الكمية المتبرع بها',
+    'Status' => 'الحالة',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'DonatedQuantity' => 'الكمية المتبرع بها',
+
+'TotalDonations' => 'إجمالي التبرعات',
+    'TrendsInDonations' => 'اتجاهات التبرعات بمرور الوقت',
+    'Dates' => 'التواريخ',
+    'Donations' => 'التبرعات',
+    'Select Organization' => 'اختر المنظمة',
+
+
+
+    'NeedsVsDonated' => 'الاحتياجات مقابل التبرعات',
+    'DonationTrends' => 'اتجاهات التبرعات',
+    'UnfulfilledNeeds' => 'الاحتياجات غير المكتملة',
+    'NeedID' => 'معرّف الحاجة',
+    'Category' => 'الفئة',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'DonatedQuantity' => 'الكمية المتبرع بها',
+    'Status' => 'الحالة',
+    'QuantityNeeded' => 'الكمية المطلوبة',
+    'DonatedQuantity' => 'الكمية المتبرع بها',
+
+'TotalDonations' => 'إجمالي التبرعات',
+    'TrendsInDonations' => 'اتجاهات التبرعات بمرور الوقت',
+    'Dates' => 'التواريخ',
+    'Donations' => 'التبرعات',
 
 ];

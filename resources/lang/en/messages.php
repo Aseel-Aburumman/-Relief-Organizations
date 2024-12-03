@@ -328,6 +328,16 @@ return [
     'Donations' => 'Donations',
     'AboutWebsite' => ' About Website',
 
+    'NeedsVsDonated' => 'Needs vs Donated Quantities',
+    'DonationTrends' => 'Trends in Donations',
+    'UnfulfilledNeeds' => 'Unfulfilled Needs',
+    'NeedID' => 'Need ID',
+    'Category' => 'Category',
+    'QuantityNeeded' => 'Quantity Needed',
+    'DonatedQuantity' => 'Donated Quantity',
+    'Status' => 'Status',
+    'QuantityNeeded' => 'Quantity Needed',
+    'DonatedQuantity' => 'Donated Quantity',
 
     //contact
     'Contact' => 'Contact',
@@ -344,7 +354,17 @@ return [
     'SupportEmail' => 'support@charifit.com',
     'QueryInfo' => 'Send us your query anytime!',
     'Print' => 'Print',
-    'Reject' => 'Reject'
+    'Reject' => 'Reject',
+    'TotalDonations' => 'Total Donations',
+    'TrendsInDonations' => 'Trends in Donations Over Time',
+    'Dates' => 'Dates',
+    'Donations' => 'Donations',
+    'SelectOrganization' => 'Select Organization',
+
+    'TotalDonations' => 'Total Donations',
+    'TrendsInDonations' => 'Trends in Donations Over Time',
+    'Dates' => 'Dates',
+    'Donations' => 'Donations',
 
 
 ];
