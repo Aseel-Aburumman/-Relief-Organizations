@@ -1,5 +1,5 @@
 <header>
-    <style>
+    {{-- <style>
         .loginBtn {
             background-color: #3CC78F;
             color: white;
@@ -29,6 +29,72 @@
             #logout-form-container {
                 display: block;
             }
+        }
+    </style> --}}
+
+    <style>
+        /* Make buttons accessible */
+        .loginBtn {
+            background-color: #3CC78F;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px; /* Large enough for readability */
+            border: none;
+            border-radius: 5px; /* For better UX */
+            cursor: pointer;
+            display: inline-block;
+            text-align: center; /* Center align text */
+        }
+
+        .loginBtn:focus {
+            outline: 3px dashed #007BFF; /* Focus indicator for keyboard navigation */
+            outline-offset: 4px;
+        }
+
+        .loginBtn>a {
+            color: white !important;
+            text-decoration: none; /* Remove underline for links inside buttons */
+            font-weight: bold; /* Make text more readable */
+        }
+
+        .loginBtn:hover {
+            background-color: white;
+            color: black;
+            border: 2px solid #3CC78F;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .loginBtn>a:hover {
+            color: black !important;
+        }
+
+        /* Hide the logout form by default */
+        #logout-form-container {
+            display: none;
+        }
+
+        /* Show the logout form only if screen width is 990px or less */
+        @media (max-width: 990px) {
+            #logout-form-container {
+                display: block;
+            }
+        }
+
+        /* Add skip link styling */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 10px;
+            background: #007BFF;
+            color: white;
+            padding: 10px;
+            z-index: 1000;
+            transition: top 0.3s ease;
+        }
+
+        .skip-link:focus {
+            top: 10px; /* Show link when focused */
+            outline: none;
         }
     </style>
     <div class="header-area ">
