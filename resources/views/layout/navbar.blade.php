@@ -181,17 +181,17 @@
 
                                         <a class="responHiddenNav" href="{{ url('lang/ar') }}"> العربية</a>
                                         @role('organization')
-                                            <a data-scroll-nav='1'
+                                            <a
                                                 href="{{ route('organization.dashboard') }}">{{ __('messages.DashboardA') }}
                                             </a>
                                         @endrole
                                         @role('admin')
-                                            <a data-scroll-nav='1'
+                                            <a
                                                 href="{{ route('admin.dashboard') }}">{{ __('messages.DashboardA') }}
                                             </a>
                                         @endrole
                                         @role('doner')
-                                            <a data-scroll-nav='1'
+                                            <a
                                                 href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
                                             </a>
                                         @endrole
@@ -222,7 +222,7 @@
                             @guest
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a data-scroll-nav='1'
+                                        <a
                                             href="{{ route('need') }}">{{ __('messages.MakeDonatitionA') }}
                                         </a>
                                     </div>
@@ -231,7 +231,7 @@
                             @role('organization')
                                 <div class="Appointment">
                                     <div class="book_btn d-none d-lg-block">
-                                        <a data-scroll-nav='1'
+                                        <a
                                             href="{{ route('organization.dashboard') }}">{{ __('messages.DashboardA') }}
                                         </a>
                                     </div>
@@ -249,7 +249,7 @@
                             @role('doner')
                                 <div class="Appointment">
                                     <div class="book_btn  d-lg-block">
-                                        <a data-scroll-nav='1'
+                                        <a  
                                             href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
                                         </a>
                                     </div>
