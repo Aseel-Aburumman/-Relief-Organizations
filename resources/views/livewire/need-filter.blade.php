@@ -66,13 +66,27 @@
             <div class="col-lg-4 col-md-6">
                 <div class="single_cause">
                     <a href="{{ route('donation.show', $need->id) }}">
-                        <div class="thumb">
+                        {{-- <div class="thumb">
                             @if ($need->image->isNotEmpty())
                                 <img src="{{ asset('storage/need_images/' . $need->image->first()->image) }}" alt="">
                             @else
                                 <img src="{{ asset('img/default-image.png') }}" alt="">
                             @endif
+                        </div> --}}
+
+                        <div class="thumb">
+                            @if ($need->image->isNotEmpty())
+                                <img src="{{ asset('storage/need_images/' . $need->image->first()->image) }}"
+                                     alt="{{ $need->needDetail->first()->item_name ?? 'No Name' }}"
+                                     loading="lazy">
+                            @else
+                                <img src="{{ asset('img/default-image.png') }}"
+                                     alt="{{ __('Default image for need') }}"
+                                     loading="lazy">
+                            @endif
                         </div>
+
+
                     </a>
                     <div class="causes_content">
                         <h4>{{ $need->needDetail->first()->item_name ?? __('messages.noName') }}</h4>

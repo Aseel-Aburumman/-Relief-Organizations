@@ -1,4 +1,10 @@
 @extends('layout.master')
+
+@section('title', 'Help the Children of Gaza - Charifit')
+@section('description', 'Support children in Gaza through donations and help them achieve a brighter future.')
+@section('keywords', 'charity, gaza, children, donations, humanitarian aid')
+
+
 @section('content')
     <style>
         .slider_bg_1 {
@@ -35,7 +41,7 @@
                                 <br>{{ __('messages.bannerTitleA3') }}
                             </h3>
                             <p>{{ __('messages.bannerDescription') }}</p>
-                            <a href="{{ route('need') }}" class="boxed-btn3">{{ __('messages.learnMore') }}</a>
+                            <a href="{{ route('need') }}" class="boxed-btn3">{{ __('messages.View More') }}</a>
                         </div>
                     </div>
                 </div>
@@ -80,7 +86,7 @@
                                     {{ $organization->userDetail->first()->description ?? __('messages.noDescriptionAvailable') }}
                                 </p>
                                 <a href="{{ route('organization.profile.one', ['id' => $organization->id]) }}"
-                                    class="read_more">{{ __('messages.learnMore') }}</a>
+                                    class="read_more">{{ __('messages.View More') }}</a>
                             </div>
                         </div>
                     </div>
@@ -157,7 +163,7 @@
                         @foreach ($needs as $need)
                             <div class="single_cause"
                                 style="width: 300px; height: 420px; border: 1px solid #e0e0e0; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between;">
-                                <div class="thumb" style="height: 180px; overflow: hidden;">
+                                {{-- <div class="thumb" style="height: 180px; overflow: hidden;">
                                     @php
                                         $imagePath = $need->image->isNotEmpty()
                                             ? 'need_images/' . $need->image->first()->image
@@ -166,11 +172,27 @@
                                     <img src="{{ asset('storage/' . $imagePath) }}" loading="lazy"
                                         alt="{{ $need->needDetail->first()->item_name ?? __('messages.noName') }}"
                                         style="width: 100%; height: 100%; object-fit: cover;">
+                                </div> --}}
+
+                                <div class="thumb" style="height: 180px; overflow: hidden;">
+                                    @php
+                                        $imagePath = $need->image->isNotEmpty()
+                                            ? 'need_images/' . $need->image->first()->image
+                                            : 'img/default-image.png';
+                                    @endphp
+                                    <img
+                                        src="{{ asset('storage/' . $imagePath) }}"
+                                        loading="lazy"
+                                        alt="{{ $need->needDetail->first()->item_name ?? __('messages.noName') }}"
+                                        width="300"
+                                        height="180"
+                                        style="width: 100%; height: 100%; object-fit: cover;"
+                                    >
                                 </div>
 
                                 <div class="causes_content"
                                     style="padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                                    <div class="custom_progress_bar" style="margin-bottom: 10px;">
+                                    {{-- <div class="custom_progress_bar" style="margin-bottom: 10px;">
                                         <div class="progress">
                                             @php
                                                 $progress =
@@ -181,6 +203,26 @@
                                             <div class="progress-bar" role="progressbar"
                                                 style="width: {{ $progress }}%;" aria-valuenow="{{ $progress }}"
                                                 aria-valuemin="0" aria-valuemax="100">
+                                                <span class="progres_count">
+                                                    {{ round($progress) }}%
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div> --}}
+
+                                    <div class="custom_progress_bar" style="margin-bottom: 10px;">
+                                        <div class="progress">
+                                            @php
+                                                $progress = $need->quantity_needed > 0
+                                                    ? ($need->donated_quantity / $need->quantity_needed) * 100
+                                                    : 0;
+                                            @endphp
+                                            <div class="progress-bar" role="progressbar"
+                                                style="width: {{ $progress }}%;"
+                                                aria-valuenow="{{ round($progress) }}"
+                                                aria-valuemin="0"
+                                                aria-valuemax="100"
+                                                aria-label="{{ __('Progress') }}: {{ round($progress) }}%">
                                                 <span class="progres_count">
                                                     {{ round($progress) }}%
                                                 </span>
@@ -202,7 +244,7 @@
                                         {{ Str::limit($need->needDetail->first()->description ?? __('messages.noDescription'), 100) }}
                                     </p>
                                     <a href="{{ route('donation.show', ['id' => $need->id]) }}" class="boxed-btn3">
-                                        {{ __('messages.learnMore') }}
+                                        {{ __('messages.View More') }}
                                     </a>
                                 </div>
                             </div>

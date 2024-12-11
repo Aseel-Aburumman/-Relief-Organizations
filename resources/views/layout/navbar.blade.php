@@ -1,5 +1,5 @@
 <header>
-    {{-- <style>
+    <style>
         .loginBtn {
             background-color: #3CC78F;
             color: white;
@@ -29,10 +29,11 @@
             #logout-form-container {
                 display: block;
             }
-        }
-    </style> --}}
 
-    <style>
+        }
+    </style>
+
+    {{-- <style>
         /* Make buttons accessible */
         .loginBtn {
             background-color: #3CC78F;
@@ -96,7 +97,7 @@
             top: 10px; /* Show link when focused */
             outline: none;
         }
-    </style>
+    </style> --}}
     <div class="header-area ">
         <div class="header-top_area">
             <div class="container-fluid">
@@ -145,6 +146,11 @@
                             <a href="{{ route('index') }}">
                                 <img src="{{ asset('img/logo.png') }}" alt="">
                             </a>
+
+                            {{-- <a href="{{ route('index') }}" aria-label="{{ __('Go to Home Page') }}">
+                                <img src="{{ asset('img/logo.png') }}" alt="{{ __('Charifit Logo - Go to Home Page') }}" loading="lazy">
+                            </a> --}}
+
                         </div>
                     </div>
                     <div class="col-xl-9 col-lg-9">
@@ -249,7 +255,7 @@
                             @role('doner')
                                 <div class="Appointment">
                                     <div class="book_btn  d-lg-block">
-                                        <a  
+                                        <a
                                             href="{{ route('doner.dashboard') }}">{{ __('messages.DashboardA') }}
                                         </a>
                                     </div>

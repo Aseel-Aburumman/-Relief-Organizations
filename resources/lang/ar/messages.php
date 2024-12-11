@@ -37,7 +37,7 @@ return [
     'bannerTitleA3' => '  غزة',
     'getStartedToday' => 'ابدأ اليوم',
     'bannerDescription' => 'بدعمكم، يمكننا تقديم الأمل والإغاثة لأطفال غزة، ومنحهم مستقبلاً أكثر إشراقاً',
-    'learnMore' => 'اعرف المزيد',
+    'View More' => 'اعرض المزيد',
 
     'ourOrganizations' => 'منظماتنا',
     'organizationImage' => 'صورة المنظمة',

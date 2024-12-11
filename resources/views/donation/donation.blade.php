@@ -38,12 +38,12 @@
                                     : 'img/default-image.png';
                             @endphp
                             <img src="{{ asset('storage/' . $imagePath) }}"
-                                alt="{{ $need->needDetail->first()->item_name ?? 'No Name' }}">
+                                alt="{{ $need->needDetail->first()->item_name ?? 'No Name' }}" loading="lazy">
                         </div>
 
                         <div class="causes_content">
                             <div class="custom_progress_bar mb-4">
-                                <div class="progress">
+                                {{-- <div class="progress">
                                     <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%;"
                                         aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100">
                                         <span class="progres_count">
@@ -52,7 +52,22 @@
 
                                     </div>
                                 </div>
+                            </div> --}}
+
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: {{ $progress }}%;"
+                                    aria-valuenow="{{ $progress }}" aria-valuemin="0" aria-valuemax="100"
+                                    aria-label="{{ __('Progress') }}: {{ number_format($progress, 0) }}%">
+                                    <span class="progres_count">
+                                        {{ number_format($progress, 0) }}%
+                                    </span>
+                                </div>
                             </div>
+
+                        </div>
+
+
+
 
                             <div class="d-flex justify-content-between align-items-center mb-4">
                                 <span class="responFontSizeDonation"  style="font-size: 35px;">
@@ -192,3 +207,4 @@
         });
     </script>
 @endsection
+

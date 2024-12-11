@@ -4,8 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Charifit</title>
-    <meta name="description" content="">
+    <title>@yield('title', 'Charifit - Default Title')</title>
+    <meta name="description" content="@yield('description', 'Default description for Charifit website')">
+    <meta name="keywords" content="@yield('keywords', 'charity, donations, help, laravel')">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- <link rel="manifest" href="site.webmanifest"> -->
@@ -31,6 +33,7 @@
     <link rel="stylesheet" href="{{ asset('css/slicknav.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('css/responsive.css') }}">
+
 
 
     <!-- <link rel="stylesheet" href="css/responsive.css"> -->

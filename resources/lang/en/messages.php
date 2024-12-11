@@ -38,7 +38,7 @@ return [
     'bannerTitleA3' => 'of Gaza',
     'getStartedToday' => 'Get Started Today.',
     'bannerDescription' => 'With your support, we can bring hope and relief to the children in Gaza, offering them a brighter future.',
-    'learnMore' => 'Learn More',
+    'View More' => 'View More',
 
     'ourOrganizations' => 'Our Organizations',
     'organizationImage' => 'Organization Image',
