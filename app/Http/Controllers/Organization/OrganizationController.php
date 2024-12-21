@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Organization;
 
 use Rinvex\Country\CountryLoader;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Http\Controllers\Controller;
 use App\Models\Organization;
@@ -219,21 +220,19 @@ class OrganizationController extends Controller
             if ($request->hasFile('organization_image')) {
                 // الحصول على الملف
                 $file = $request->file('organization_image');
-                
+
                 // إنشاء اسم جديد للملف (على سبيل المثال، ID المنظمة مع التوقيت)
                 $organizationImageName = $organization->id . '_' . time() . '.' . $file->getClientOriginalExtension();
-            
+
                 // تخزين الصورة في المجلد مع الاسم الجديد
                 $file->storeAs('organization_images', $organizationImageName, 'public');
-            
+
                 // حفظ اسم الصورة في قاعدة البيانات
                 OrganizationImage::create([
                     'organization_id' => $organization->id,
                     'image' => $organizationImageName, // الاسم الجديد الذي تم تخزينه
                 ]);
             }
-            
-            
         }
 
 
@@ -348,5 +347,20 @@ class OrganizationController extends Controller
 
         // إعادة توجيه إلى صفحة المنظمات "Pending"
         return redirect()->route('organization.pending');
+    }
+
+    public function exportPdf()
+    {
+        try {
+            $orgnizations = Organization::with(['user.userDetail', 'need.needDetail', 'post'])->get();
+            $pdf = Pdf::loadView('exports.orgnization-pdf', compact('orgnizations'));
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'donations.pdf');
+        } catch (\Exception $e) {
+            Log::error('Error exporting PDF: ' . $e->getMessage());
+            return response()->json(['error' => 'An error occurred while generating the PDF.'], 500);
+        }
     }
 }

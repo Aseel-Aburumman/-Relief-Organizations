@@ -101,12 +101,16 @@ class DonationController extends Controller
         try {
             $donations = Donation::with(['need.needDetail', 'user.userDetail'])->get();
             $pdf = Pdf::loadView('exports.donations-pdf', compact('donations'));
-            return $pdf->download('donations.pdf');
+
+            return response()->streamDownload(function () use ($pdf) {
+                echo $pdf->output();
+            }, 'donations.pdf');
         } catch (\Exception $e) {
             Log::error('Error exporting PDF: ' . $e->getMessage());
-            return redirect()->back()->with('error', 'An error occurred while generating the PDF. Please try again.');
+            return response()->json(['error' => 'An error occurred while generating the PDF.'], 500);
         }
     }
+
 
     public function listDonations(Request $request)
     {

@@ -82,9 +82,13 @@
                         {{ session('success') }}
                     </div>
                 @endif
-                @if (session('error'))
+                @if ($errors->any())
                     <div class="alert alert-danger">
-                        {{ session('error') }}
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
                 @endif
                 <h2 class="signin-title">{{ __('messages.SignInA') }}
@@ -97,11 +101,17 @@
                         <label for="email" class="form-label">{{ __('messages.EmailA') }}
                         </label>
                         <input type="email" class="form-control" id="email" name="email" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">{{ __('messages.PasswordA') }}
                         </label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        @error('password')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary w-100">{{ __('messages.SignInA') }}
                     </button>

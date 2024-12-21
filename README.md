@@ -43,7 +43,13 @@ To set up the project on your local environment, please ensure you have PHP, Com
     php artisan migrate --seed
     ```
 
-6. **Start the Application**  
+6. **Generate Storage link**
+
+    ```bash
+    php artisan storage:link
+    ```
+
+7. **Start the Application**  
    Launch the Laravel development server:
 
     ```bash

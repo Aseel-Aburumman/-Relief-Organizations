@@ -23,8 +23,8 @@
                             <a href="{{ route('organization.create_organization') }}" class="btn btn-success mb-3">
                                 <i class="fa-solid fa-user-plus"></i> {{ __('messages.AddNewOrganization') }}
                             </a>
-                            <button class="btn btn-primary mb-3" onclick="printOrganizations()">
-                                <i class="fa-solid fa-print"></i> {{ __('messages.Print') }}
+                            <button id="export-pdf" class="btn btn-secondary mb-3">
+                                <i class="fa-solid fa-file-pdf"></i> {{ __('messages.Print') }}
                             </button>
                         </div>
                     </div>
@@ -81,57 +81,33 @@
                             @endforeach
                         </tbody>
                     </table>
-
                     <script>
-                        function printOrganizations() {
-                            const tableContent = document.getElementById('organizations-table').outerHTML;
-                            const printWindow = window.open('', '_blank', 'height=600,width=800');
-
-                            printWindow.document.write(`
-                                <!DOCTYPE html>
-                                <html lang="en">
-                                <head>
-                                    <meta charset="UTF-8">
-                                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                    <title>Print</title>
-                                    <style>
-                                        body {
-                                            font-family: Arial, sans-serif;
-                                            margin: 20px;
-                                            background-color: white;
-                                        }
-                                        table {
-                                            width: 100%;
-                                            border-collapse: collapse;
-                                        }
-                                        table, th, td {
-                                            border: 1px solid black;
-                                        }
-                                        th, td {
-                                            padding: 10px;
-                                            text-align: left;
-                                        }
-                                        img {
-                                            display: block !important;
-                                            max-width: 50px;
-                                            height: auto;
-                                        }
-                                    </style>
-                                </head>
-                                <body>
-                                    <h1>{{ __('messages.ListOrganizations') }}</h1>
-                                    ${tableContent}
-                                </body>
-                                </html>
-                            `);
-
-                            printWindow.document.close();
-
-                            printWindow.onload = () => {
-                                printWindow.focus();
-                                printWindow.print();
-                                printWindow.close();
-                            };
-                        }
+                        document.getElementById('export-pdf').addEventListener('click', function() {
+                            fetch("{{ route('organization.exportPdf') }}", {
+                                    method: 'POST',
+                                    headers: {
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                        'Content-Type': 'application/json'
+                                    },
+                                    body: JSON.stringify({})
+                                })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Error generating PDF');
+                                    }
+                                    return response.blob();
+                                })
+                                .then(blob => {
+                                    const url = window.URL.createObjectURL(blob);
+                                    const link = document.createElement('a');
+                                    link.href = url;
+                                    link.download = 'organization.pdf';
+                                    link.click();
+                                })
+                                .catch(error => {
+                                    alert('Failed to generate PDF. Please try again.');
+                                    console.error(error);
+                                });
+                        });
                     </script>
                 @endsection

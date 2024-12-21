@@ -99,8 +99,6 @@ Route::get('/generate-sitemap', function () {
                 ->setPriority(0.6)
                 ->setChangeFrequency('weekly')
         );
-
-
     }
 
     $sitemap->writeToFile(public_path('sitemap.xml'));
@@ -155,6 +153,41 @@ Route::group([
         Route::put('/update/{id}', [PostController::class, 'update'])->name('posts.update');
         Route::post('/delete/{id}', [PostController::class, 'destroy'])->name('posts.delete');
     });
+
+    Route::prefix('organization')->group(function () {
+        // صفحة تعديل منظمة
+        Route::get('/edit/{id}', [OrganizationController::class, 'edit'])
+            ->name('organization.edit_organization'); // ملف edit_organization.blade.php
+        Route::get('/manage', [OrganizationController::class, 'index'])->name('organization.manage_organizations');
+        Route::delete('/delete1/{id}', [OrganizationController::class, 'destroy'])
+            ->name('organization.delete_organization');
+        // تحديث بيانات منظمة
+        Route::put('/update/{id}', [OrganizationController::class, 'update'])
+            ->name('organization.update_organization');
+
+        // إدارة المنظمات
+        Route::get('/manage', [OrganizationController::class, 'index'])
+            ->name('organization.manage_organization'); // ملف manage_organization.blade.php
+        Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create_organization');
+        Route::post('/store-organization', [OrganizationController::class, 'store'])->name('organization.store_organization');
+
+        // ملف web.php
+
+        Route::get('/organization/pending', [OrganizationController::class, 'showPendingOrganizations'])->name('organization.pending');
+
+        // تحديث حالة المنظمة
+        Route::put('/organization/{id}/update-status', [OrganizationController::class, 'updateOrganizationStatus'])->name('organization.updateStatus');
+
+        // تخزين منظمة جديدة
+        Route::post('/store', [OrganizationController::class, 'store'])
+            ->name('organization.store_organization');
+
+        // عرض تفاصيل منظمة
+        Route::get('/view/{id}', [OrganizationController::class, 'show'])
+            ->name('organization.view_organization'); // ملف view_organization.blade.php
+        Route::delete('/delete/{id}', [OrganizationController::class, 'destroy'])
+            ->name('organaization.delete_organization');
+    });
 });
 Route::get('/', [MainController::class, 'index'])->name('index');
 Route::get('/contact', [MainController::class, 'contact'])->name('contact');
@@ -167,49 +200,14 @@ Route::get('/organization_posts/{organization_id}', [PostController::class, 'get
 
 
 
-// Route::prefix('organization')->group(function () {
-//     Route::get('/edit/{id}', [OrganizationController::class, 'edit'])->name('organization.edit_organization');
-//     Route::put('/update/{id}', [OrganizationController::class, 'update'])->name('organization.update_organization');
-//     Route::get('/manage', [OrganizationController::class, 'index'])->name('organization.manage_organization');
-//     Route::get('/create', [OrganizationController::class, 'create'])->name('organization.create_organization');
-//     Route::post('/store', [OrganizationController::class, 'store'])->name('organization.store_organization');
-// });
 Route::get('/organization_profile/{id}', [OrganizationController::class, 'getOne'])->name('organization.profile.one');
 
-Route::prefix('organization')->group(function () {
-    // صفحة تعديل منظمة
-    Route::get('/edit/{id}', [OrganizationController::class, 'edit'])
-        ->name('organization.edit_organization'); // ملف edit_organization.blade.php
-    Route::get('/manage', [OrganizationController::class, 'index'])->name('organization.manage_organizations');
-    Route::delete('/delete1/{id}', [OrganizationController::class, 'destroy'])
-        ->name('organization.delete_organization');
-    // تحديث بيانات منظمة
-    Route::put('/update/{id}', [OrganizationController::class, 'update'])
-        ->name('organization.update_organization');
 
-    // إدارة المنظمات
-    Route::get('/manage', [OrganizationController::class, 'index'])
-        ->name('organization.manage_organization'); // ملف manage_organization.blade.php
-    Route::get('/organization/create', [OrganizationController::class, 'create'])->name('organization.create_organization');
-    Route::post('/store-organization', [OrganizationController::class, 'store'])->name('organization.store_organization');
-
-    // ملف web.php
-
-    Route::get('/organization/pending', [OrganizationController::class, 'showPendingOrganizations'])->name('organization.pending');
-
-    // تحديث حالة المنظمة
-    Route::put('/organization/{id}/update-status', [OrganizationController::class, 'updateOrganizationStatus'])->name('organization.updateStatus');
-
-    // تخزين منظمة جديدة
-    Route::post('/store', [OrganizationController::class, 'store'])
-        ->name('organization.store_organization');
-
-    // عرض تفاصيل منظمة
-    Route::get('/view/{id}', [OrganizationController::class, 'show'])
-        ->name('organization.view_organization'); // ملف view_organization.blade.php
-    Route::delete('/delete/{id}', [OrganizationController::class, 'destroy'])
-        ->name('organaization.delete_organization');
-});
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/dashboard', [UserController::class, 'admin_dashbored'])->name('admin.dashboard');
 });
+Route::fallback(function () {
+    return 'Route not found';
+});
+Route::post('/donations/export-pdf', [DonationController::class, 'exportPdf'])->name('donations.exportPdf');
+Route::post('/organization/export-pdf', [OrganizationController::class, 'exportPdf'])->name('organization.exportPdf');

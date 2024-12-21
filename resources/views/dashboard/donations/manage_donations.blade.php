@@ -26,9 +26,11 @@
                             <a href="{{ route('donations.create') }}" class="btn btn-success mb-3">
                                 <i class="fa-solid fa-user-plus"></i> {{ __('messages.AddDonation') }}
                             </a>
-                            <button class="btn btn-primary mb-3" onclick="printPage()">
-                                <i class="fa-solid fa-print"></i> {{ __('messages.Print') }}
+
+                            <button id="export-pdf" class="btn btn-secondary mb-3">
+                                <i class="fa-solid fa-file-pdf"></i> {{ __('messages.Print') }}
                             </button>
+
                         </div>
                     </div>
 
@@ -84,7 +86,35 @@
         </div>
 
     </section>
-
+    <script>
+        document.getElementById('export-pdf').addEventListener('click', function() {
+            fetch("{{ route('donations.exportPdf') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({})
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error generating PDF');
+                    }
+                    return response.blob();
+                })
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = url;
+                    link.download = 'donations.pdf';
+                    link.click();
+                })
+                .catch(error => {
+                    alert('Failed to generate PDF. Please try again.');
+                    console.error(error);
+                });
+        });
+    </script>
     <script>
         function printPage() {
             const tableContent = document.getElementById('donations-table').outerHTML;
